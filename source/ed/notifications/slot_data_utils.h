@@ -27,12 +27,12 @@ namespace ed
       {}
       void Commit( event &e )
       {
-        std::list<int> to_delete;
+        std::list<int> to_remove;
         int i = 0, s = e.childs.size();
         for (; i < s; ++i)
           if (e.childs[i].instance == id)
-            to_delete.push_back(i);
-        todo("Perform delete wrong listeners");
+            to_remove.push_back(i);
+        todo("Perform remove wrong listeners");
       }
     };
   };
