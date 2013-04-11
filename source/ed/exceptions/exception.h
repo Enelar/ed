@@ -33,8 +33,10 @@ namespace ed
   #define EXCEPTION(x) throw NEW x
 #endif
 
+#define throw_force_message(string) EXCEPTION(ed::exception(__FILE__, __LINE__, string))
+
 #if _DEBUG_
-  #define throw_message(string) EXCEPTION(ed::exception(__FILE__, __LINE__, string))
+  #define throw_message(string) throw_force_message(string)
 #else
   #define throw_message(string) EXCEPTION(ed::exception(__FILE__, __LINE__))
 #endif
@@ -42,5 +44,14 @@ namespace ed
 #define throw_sassert(cond, string) if (!(cond)) throw_message("ASSERTION FAULT {" string "}"); else
 
 #define throw_assert(cond) throw_sassert(cond, TOSTRING(cond))
+
+#if _DEBUG_
+#define todo(ToDoMessage) throw_force_message("TODO: " TOSTRING(ToDoMessage))
+#else
+#define todo(ToDoMessage) throw_force_message("This function coming soon. (TODO)")
+#endif
+
+#define dead_space() throw_message("Unexpected routeline")
+#define do_overload(func_with_full_namespace_address) throw_message("Overload not completed: " func_with_full_namespace_address);
 
 #endif
