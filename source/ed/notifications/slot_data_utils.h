@@ -7,6 +7,7 @@
 #define _ED_NOTIFICATIONS_SLOT_DATA_UTILS_H_
 
 #include "slot_data.h"
+#include "listener_container.h"
 #include "../exceptions/exception.h"
 #include <list>
 
@@ -14,16 +15,6 @@ namespace ed
 {
   namespace slot_data
   {
-    class RemoveInstance;
-    template<typename child_type>
-    struct listeners_container : public common_container<child_type>
-    {
-      void RemoveDisconnectedInstance( int id )
-      {
-        Each(RemoveInstance(id));
-      }
-    };
-
     struct event : public listeners_container<listener>
     {
       template<typename obj_type>
