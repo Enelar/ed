@@ -157,6 +157,14 @@
 	<References>
 	</References>
 	<Files>
+		<File
+			RelativePath=".\dictionary.cpp"
+			>
+		</File>
+		<File
+			RelativePath=".\dictionary.h"
+			>
+		</File>
 	</Files>
 	<Globals>
 	</Globals>
