@@ -11,3 +11,11 @@
 *.lai
 *.la
 *.a
+
+#MSVS
+*.user
+*.ncb
+*.suo
+*.vcproj.*
+build/*
+intermediate/*
