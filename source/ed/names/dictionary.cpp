@@ -12,7 +12,7 @@ dictionary::id_type dictionary::SearchWord( word_type word ) const
   id_type i = 0, s = data_base.size();
   for (;i < s; ++i)
     if (data_base[i] == word)
-      return i;
+      return i + 1; // cause zero is reserved_as_failure
   return reserved_as_failure;
 }
 
@@ -22,7 +22,7 @@ dictionary::id_type dictionary::RegisterWord( word_type word )
   if (ret == reserved_as_failure)
   {
     data_base.push_back(word);
-    ret = data_base.size();
+    ret = data_base.size(); // cause zero is reserved_as_failure
   }
   return ret;
 }
