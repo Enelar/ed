@@ -8,6 +8,7 @@
 
 #include "slot_data.h"
 #include "listener_container.h"
+#include "event.h"
 #include "../exceptions/exception.h"
 #include <list>
 
@@ -15,18 +16,9 @@ namespace ed
 {
   namespace slot_data
   {
-    struct event : public listeners_container<listener>
-    {
-      template<typename obj_type>
-      void Each( obj_type &a )
-      {
-        a.Commit(*this);
-      }
-    };
-
     typedef listeners_container <event> module;
     typedef listeners_container <module> instance;
-    
+
     class RemoveInstance
     {
       int id;
