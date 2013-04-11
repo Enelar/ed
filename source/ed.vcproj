@@ -165,28 +165,32 @@
 				>
 			</File>
 		</Filter>
+		<Filter
+			Name="names"
+			>
+			<File
+				RelativePath=".\names\dictionary.cpp"
+				>
+			</File>
+			<File
+				RelativePath=".\names\dictionary.h"
+				>
+			</File>
+			<File
+				RelativePath=".\names\name_server.cpp"
+				>
+			</File>
+			<File
+				RelativePath=".\names\name_server.h"
+				>
+			</File>
+			<File
+				RelativePath=".\names\name_type.h"
+				>
+			</File>
+		</Filter>
 		<File
 			RelativePath=".\def.h"
-			>
-		</File>
-		<File
-			RelativePath=".\dictionary.cpp"
-			>
-		</File>
-		<File
-			RelativePath=".\dictionary.h"
-			>
-		</File>
-		<File
-			RelativePath=".\name_server.cpp"
-			>
-		</File>
-		<File
-			RelativePath=".\name_server.h"
-			>
-		</File>
-		<File
-			RelativePath=".\name_type.h"
 			>
 		</File>
 	</Files>
