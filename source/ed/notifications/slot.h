@@ -6,32 +6,11 @@
 #ifndef _ED_NOTIFICATIONS_SLOT_H_
 #define _ED_NOTIFICATIONS_SLOT_H_
 
+#include "slot_data.h"
 #include <vector>
 
 namespace ed
 {
-  namespace slot_data
-  {
-    struct listener
-    {
-      int instance, module;
-    };
-    
-    struct event
-    {
-      std::vector<listener> listeners;
-    };
-    
-    struct module
-    {
-      std::vector<event> events;
-    };
-    
-    struct instance
-    {
-      std::vector<module> modules;
-    };
-  };
   template<class connection>
   class slot : public slot_data::instance
   {

@@ -220,6 +220,10 @@
 				RelativePath=".\ed\notifications\slot.h"
 				>
 			</File>
+			<File
+				RelativePath=".\ed\notifications\slot_data.h"
+				>
+			</File>
 		</Filter>
 		<File
 			RelativePath=".\ed\def.h"
