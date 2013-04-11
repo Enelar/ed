@@ -30,6 +30,41 @@ namespace ed
         todo("Perform remove wrong listeners");
       }
     };
+
+    class AddListener
+    {
+      static const int target_count = 3;
+      int targets[target_count];
+      int level;
+      listener dest;
+    public:
+      AddListener( int instance, int module, int event, listener destination ) :
+        level(0), dest(destination)
+      {
+        targets[0] = instance;
+        targets[1] = module;
+        targets[2] = event;
+      }
+
+      int Target() const
+      {
+        return targets[level];
+      }
+
+      template<typename obj>
+      void Direct( obj &a )
+      {
+        ++level;
+        throw_assert(level < target_count);
+        a.Direct(*this);
+      }
+
+      void Direct( event &a )
+      {
+        throw_assert(level == target_count);
+        a.childs.push_back(dest);
+      }
+    };
   };
 };
 

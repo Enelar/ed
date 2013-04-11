@@ -19,11 +19,20 @@ namespace ed
       std::vector<child_type> childs;
 
       template<typename obj_type>
-      void Each( obj_type & )
+      void Each( obj_type &common_operator )
       {
         int i = 0, s = childs.size();
         for (;i < s; ++i)
           childs[i].Each(common_operator);
+      }
+      
+      template<typename obj_type>
+      void Direct( obj_type &a )
+      {
+        int target = obj_type.Target();
+        throw_assert(target >= 0);
+        throw_assert(target < childs.size());
+        a.Direct(childs[target]);
       }
     };
 
