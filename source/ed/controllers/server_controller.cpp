@@ -26,6 +26,13 @@ void _TEMPLATE_::AddListener( event_source source, listener destination )
   childs[target].AddListener(source, destination);
 }
 
+template<class connection>
+void _TEMPLATE_::MakeNotification( event_notification e )
+{
+  slot_data::event &e = GetEvent(e.source);
+  todo(Send notifications);
+}
+
 #undef _TEMPLATE_
 
 #endif
