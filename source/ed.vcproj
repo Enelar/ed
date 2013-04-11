@@ -209,6 +209,18 @@
 				>
 			</File>
 		</Filter>
+		<Filter
+			Name="notifications"
+			>
+			<File
+				RelativePath=".\ed\notifications\slot.cpp"
+				>
+			</File>
+			<File
+				RelativePath=".\ed\notifications\slot.h"
+				>
+			</File>
+		</Filter>
 		<File
 			RelativePath=".\ed\def.h"
 			>
