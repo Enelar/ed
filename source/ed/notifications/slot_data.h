@@ -12,21 +12,28 @@ namespace ed
 {
   namespace slot_data
   {
+    
     template<typename child_type>
     struct common_container
     {
       std::vector<child_type> childs;
+
+      template<typename obj_type>
+      void Each( obj_type & )
+      {
+        int i = 0, s = childs.size();
+        for (;i < s; ++i)
+          childs[i].Each(common_operator);
+      }
     };
 
     struct listener
     {
       int instance, module;
     };
-    
-    typedef common_container<listener> event;
-    typedef common_container<event> module;
-    typedef common_container<module> instance;
   };
 };
+
+#include "slot_data_utils.h"
 
 #endif

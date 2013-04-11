@@ -224,6 +224,10 @@
 				RelativePath=".\ed\notifications\slot_data.h"
 				>
 			</File>
+			<File
+				RelativePath=".\ed\notifications\slot_data_utils.h"
+				>
+			</File>
 		</Filter>
 		<File
 			RelativePath=".\ed\def.h"
