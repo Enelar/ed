@@ -18,6 +18,7 @@ namespace ed
   {
     typedef name_server::id_type id_type;
     typedef name_server::word_type word_type;
+    typedef slot_data::listener listener;
   private:
     typedef slot<connection> client_type;
 
@@ -25,6 +26,7 @@ namespace ed
     std::vector<client_type> clients;
   public:
     id_type RegisterName( NAME_TYPE nt, word_type name );
+    void AddListener( event_source source, listener destination );
   };
 };
 

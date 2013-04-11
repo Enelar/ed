@@ -7,6 +7,7 @@
 #define _ED_NOTIFICATIONS_LISTENER_CONTAINER_H_
 
 #include "slot_data.h"
+#include "event_notification.h"
 
 namespace ed
 {
@@ -19,6 +20,12 @@ namespace ed
       void RemoveDisconnectedInstance( int id )
       {
         Each(RemoveInstance(id));
+      }
+      void AddListener( event_source source, listener dest )
+      {
+        AddListener *al = NEW slot_data::AddListener(source, dest)
+        al->Direct(*this);
+        delete al;
       }
     };
   };

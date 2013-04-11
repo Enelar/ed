@@ -16,6 +16,16 @@ typename _TEMPLATE_::id_type _TEMPLATE_::RegisterName( NAME_TYPE nt, word_type n
   return names[nt].RegisterWord(name);
 }
 
+template<class connection>
+void _TEMPLATE_::AddListener( event_source source, listener destination )
+{
+  //! @NOTE Not really good, maybe all childs should be in common container??
+  int target = source.instance;
+  throw_assert(target >= 0);
+  throw_assert(target < childs.size());
+  childs[target].AddListener(source, destination);
+}
+
 #undef _TEMPLATE_
 
 #endif
