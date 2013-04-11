@@ -188,6 +188,14 @@
 				RelativePath=".\ed\names\name_type.h"
 				>
 			</File>
+			<File
+				RelativePath=".\ed\names\translate.cpp"
+				>
+			</File>
+			<File
+				RelativePath=".\ed\names\translate.h"
+				>
+			</File>
 		</Filter>
 		<File
 			RelativePath=".\ed\def.h"
