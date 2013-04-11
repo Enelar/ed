@@ -241,6 +241,10 @@
 				>
 			</File>
 			<File
+				RelativePath=".\ed\notifications\slot_data_utils.cpp"
+				>
+			</File>
+			<File
 				RelativePath=".\ed\notifications\slot_data_utils.h"
 				>
 			</File>

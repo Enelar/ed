@@ -14,6 +14,7 @@ namespace ed
   namespace slot_data
   {
     class RemoveInstance;
+    struct event;
     template<typename child_type>
     struct listeners_container : public common_container<child_type>
     {
@@ -26,6 +27,14 @@ namespace ed
         AddListener *al = NEW slot_data::AddListener(source, dest)
         al->Direct(*this);
         delete al;
+      }
+      event &GetEvent( event_source source )
+      {
+        SearchEvent *se = NEW SearchEvent(source);
+        se->Direct(*this);
+        event &ret = *se->e;
+        delete se;
+        return ret;
       }
     };
   };

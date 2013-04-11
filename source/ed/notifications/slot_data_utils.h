@@ -60,11 +60,45 @@ namespace ed
         a.Direct(*this);
       }
 
-      void Direct( event &a )
+      virtual void Direct( event &a )
       {
         throw_assert(level == target_count);
         a.childs.push_back(dest);
       }
+    };
+
+    //! @NOTE Not really good..
+    struct module;
+    class SearchEvent
+    {
+      static const int target_count = 3;
+      int targets[target_count];
+      int level;
+    public:
+      SearchEvent( event_source es ) :
+        level(0)
+      {
+        targets[0] = es.instance;
+        targets[1] = es.module;
+        targets[2] = es.event;
+      }
+
+      int Target() const
+      {
+        return targets[level];
+      }
+
+      template<typename obj>
+      void Direct( obj &a )
+      {
+        ++level;
+        throw_assert(level < target_count);
+        a.Direct(*this);
+      }
+
+      event *e;
+
+      void Direct( module &m );
     };
   };
 };
