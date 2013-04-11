@@ -4,7 +4,7 @@
  */
 
 #include "name_server.h"
-#include "exceptions/exception.h"
+#include "../exceptions/exception.h"
 
 using namespace ed;
 

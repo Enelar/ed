@@ -161,7 +161,7 @@
 			Name="exceptions"
 			>
 			<File
-				RelativePath=".\exceptions\exception.h"
+				RelativePath=".\ed\exceptions\exception.h"
 				>
 			</File>
 		</Filter>
@@ -169,28 +169,28 @@
 			Name="names"
 			>
 			<File
-				RelativePath=".\names\dictionary.cpp"
+				RelativePath=".\ed\names\dictionary.cpp"
 				>
 			</File>
 			<File
-				RelativePath=".\names\dictionary.h"
+				RelativePath=".\ed\names\dictionary.h"
 				>
 			</File>
 			<File
-				RelativePath=".\names\name_server.cpp"
+				RelativePath=".\ed\names\name_server.cpp"
 				>
 			</File>
 			<File
-				RelativePath=".\names\name_server.h"
+				RelativePath=".\ed\names\name_server.h"
 				>
 			</File>
 			<File
-				RelativePath=".\names\name_type.h"
+				RelativePath=".\ed\names\name_type.h"
 				>
 			</File>
 		</Filter>
 		<File
-			RelativePath=".\def.h"
+			RelativePath=".\ed\def.h"
 			>
 		</File>
 	</Files>
