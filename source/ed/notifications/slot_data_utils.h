@@ -7,6 +7,7 @@
 #define _ED_NOTIFICATIONS_SLOT_DATA_UTILS_H_
 
 #include "event.h"
+#include "event_notification.h"
 #include "../exceptions/exception.h"
 #include <list>
 
@@ -38,12 +39,12 @@ namespace ed
       int level;
       listener dest;
     public:
-      AddListener( int instance, int module, int event, listener destination ) :
+      AddListener( event_source es, listener destination ) :
         level(0), dest(destination)
       {
-        targets[0] = instance;
-        targets[1] = module;
-        targets[2] = event;
+        targets[0] = es.instance;
+        targets[1] = es.module;
+        targets[2] = es.event;
       }
 
       int Target() const

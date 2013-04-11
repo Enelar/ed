@@ -8,6 +8,7 @@
 
 #include "../names/name_server.h"
 #include "../notifications/slot.h"
+#include "../notifications/event_notification.h"
 #include <vector>
 
 namespace ed

@@ -217,6 +217,10 @@
 				>
 			</File>
 			<File
+				RelativePath=".\ed\notifications\event_notification.h"
+				>
+			</File>
+			<File
 				RelativePath=".\ed\notifications\instance.h"
 				>
 			</File>
