@@ -6,6 +6,8 @@
 #ifndef _ED_NOTIFICATIONS_LISTENER_CONTAINER_H_
 #define _ED_NOTIFICATIONS_LISTENER_CONTAINER_H_
 
+#include "slot_data.h"
+
 namespace ed
 {
   namespace slot_data

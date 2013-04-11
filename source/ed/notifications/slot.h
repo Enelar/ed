@@ -7,6 +7,7 @@
 #define _ED_NOTIFICATIONS_SLOT_H_
 
 #include "slot_data.h"
+#include "instance.h"
 #include <vector>
 
 namespace ed
