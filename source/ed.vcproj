@@ -197,6 +197,18 @@
 				>
 			</File>
 		</Filter>
+		<Filter
+			Name="controllers"
+			>
+			<File
+				RelativePath=".\ed\controllers\server_controller.cpp"
+				>
+			</File>
+			<File
+				RelativePath=".\ed\controllers\server_controller.h"
+				>
+			</File>
+		</Filter>
 		<File
 			RelativePath=".\ed\def.h"
 			>

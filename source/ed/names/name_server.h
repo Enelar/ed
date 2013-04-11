@@ -13,6 +13,9 @@ namespace ed
 {
   struct name_server
   {
+    typedef dictionary::id_type id_type;
+    typedef dictionary::word_type word_type;
+  private:
     dictionary books[COUNT];
     void ValidateBookId( const NAME_TYPE nt ) const;
   public:
