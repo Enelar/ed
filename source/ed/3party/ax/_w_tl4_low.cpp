@@ -163,7 +163,7 @@ LOW_STATUSES low::Close( unsafe_dword &s )
     throw_message("Low level protect");
   shutdown(s, SD_BOTH);
   closesocket(s);
-  s = INVALID_SOCKET;
+  s = _TL4_NOT_SOCKET_;
   return SUCCESS;
 }
 

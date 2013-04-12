@@ -22,6 +22,8 @@ namespace ed
     public:
       virtual void Notify( const event_notification & ) = 0;
       virtual int Incoming( ) = 0;
+
+      virtual ~abstract_connection() = 0;
     };
   };
 };

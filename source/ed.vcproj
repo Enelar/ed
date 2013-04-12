@@ -256,6 +256,14 @@
 				RelativePath=".\ed\communications\abstract_connection.h"
 				>
 			</File>
+			<File
+				RelativePath=".\ed\communications\socket_connection.cpp"
+				>
+			</File>
+			<File
+				RelativePath=".\ed\communications\socket_connection.h"
+				>
+			</File>
 		</Filter>
 		<Filter
 			Name="3party"
