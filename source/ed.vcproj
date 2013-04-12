@@ -249,6 +249,34 @@
 				>
 			</File>
 		</Filter>
+		<Filter
+			Name="communications"
+			>
+			<File
+				RelativePath=".\ed\communications\abstract_connection.h"
+				>
+			</File>
+		</Filter>
+		<Filter
+			Name="3party"
+			>
+			<Filter
+				Name="ax"
+				>
+				<File
+					RelativePath=".\ed\3party\ax\_w_tl4_low.cpp"
+					>
+				</File>
+				<File
+					RelativePath=".\ed\3party\ax\tl4_def.h"
+					>
+				</File>
+				<File
+					RelativePath=".\ed\3party\ax\tl4_low.h"
+					>
+				</File>
+			</Filter>
+		</Filter>
 		<File
 			RelativePath=".\ed\def.h"
 			>
