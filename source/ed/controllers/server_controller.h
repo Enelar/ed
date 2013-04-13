@@ -36,6 +36,8 @@ namespace ed
 {
   #include "server_controller.cpp"
 };
+#else
+using namespace ed;
 #endif
 
 #endif

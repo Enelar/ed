@@ -24,6 +24,8 @@ namespace ed
 {
   #include "slot.cpp"
 };
+#else
+using namespace ed;
 #endif
 
 #endif

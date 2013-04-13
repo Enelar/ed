@@ -3,11 +3,11 @@
  * No part of this file could be used or viewed without Kirill Berezin agreement
  */
 
+#define _ED_SERVER_CONTROLLER_IMPL_
 #ifndef _ED_SERVER_CONTROLLER_H_
 #include "server_controller.h"
-#else
+#endif
 
-#define _ED_SERVER_CONTROLLER_IMPL_
 #define _TEMPLATE_ server_controller<connection>
 
 template<class connection>
@@ -34,5 +34,3 @@ void _TEMPLATE_::MakeNotification( event_notification e )
 }
 
 #undef _TEMPLATE_
-
-#endif

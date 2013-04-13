@@ -3,13 +3,11 @@
  * No part of this file could be used or viewed without Kirill Berezin agreement
  */
 
+#define _ED_SERVER_CONTROLLER_IMPL_
 #ifndef _ED_SERVER_CONTROLLER_H_
 #include "slot.h"
-#else
+#endif
 
-#define _ED_SERVER_CONTROLLER_IMPL_
 #define _TEMPLATE_ slot<connection>
 
 #undef _TEMPLATE_
-
-#endif
