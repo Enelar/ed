@@ -74,5 +74,40 @@ void socket_connection::SendMessage( const message &m )
   low_status s;
   while ((s = ax::tl4::low::Send(desc, m.buffer, m.len)) == PLEASE_WAIT)
     Sleep(1);
-  EXCEPTION(diconnected);
+  EXCEPTION(disconnected);
+}
+
+message *socket_connection::Get()
+{
+  // looks like crap code
+  MESSAGE_TYPE mt;
+  word readed;
+  low_status s = ax::tl4::low::Recieve(desc, &mt, readed, 1);
+  if (s == NO_MESSAGES)
+    return NULL;
+  if (s == DISCONNECT)
+    EXCEPTION(disconnected);
+  message *ret = NEW message;
+  int expected_size = 0;
+  switch (mt)
+  {
+  case REGISTER:
+    ax::tl4::low::Recieve(desc, &expected_size, readed, 1);
+    expected_size += sizeof(char);
+    break;
+  case LISTEN:
+    expected_size = sizeof(char) + sizeof(word) + sizeof(char);
+    break;
+  case NOTIFY:
+    expected_size = sizeof(char) + sizeof(word) + sizeof(char) + + sizeof(word);
+    break;
+  default:
+    dead_space();
+  }
+  ret->len = 1 + expected_size;
+  ret->buffer = NEW char[ret->len];
+  ret->buffer = (char)mt;
+  ax::tl4::low::Recieve(desc, ret->buffer + 1, readed, ret->len);
+  throw_sassert(readed == ret->len, "TODO: Message not readed at first try/not completed")
+  return message;
 }

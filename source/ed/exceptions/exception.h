@@ -33,13 +33,15 @@ namespace ed
   #define EXCEPTION(x) throw NEW x
 #endif
 
+#if _DEBUG_
+  #define THROW(exception, message) EXCEPTION(exception(__FILE__, __LINE__, message))
+#else
+  #define THROW(exception, message) EXCEPTION(exception(__FILE__, __LINE__))
+#endif
+
 #define throw_force_message(string) EXCEPTION(ed::exception(__FILE__, __LINE__, string))
 
-#if _DEBUG_
-  #define throw_message(string) throw_force_message(string)
-#else
-  #define throw_message(string) EXCEPTION(ed::exception(__FILE__, __LINE__))
-#endif
+#define throw_message(string) THROW(ed::exception, string)
 
 #define throw_sassert(cond, string) if (!(cond)) throw_message("ASSERTION FAULT {" string "}"); else
 

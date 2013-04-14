@@ -34,7 +34,7 @@ namespace ed
       throw_assert(t >= REGISTER && t <= NOTIFY);
       return (MESSAGE_TYPE)t;
     }
-    
+
     ~message()
     {
       if (buffer)
