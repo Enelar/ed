@@ -8,10 +8,35 @@
 
 namespace ed
 {
+  enum MESSAGE_TYPE
+  {
+    REGISTER,
+    LISTEN,
+    NOTIFY
+  };
   struct message
   {
     const int len;
     const unsigned char *buffer;
+    
+    message() : len(0), buffer(NULL)
+    {
+    }
+    
+    MESSAGE_TYPE GetType() const
+    {
+      throw_assert(len > 0);
+      throw_assert(buffer);
+      int t = buffer[0];
+      throw_assert(t >= REGISTER && t <= NOTIFY);
+      return (MESSAGE_TYPE)t;
+    }
+    
+    ~message()
+    {
+      if (buffer)
+        delete buffer;
+    }
   };
 };
 
