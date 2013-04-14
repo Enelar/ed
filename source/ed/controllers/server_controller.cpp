@@ -33,4 +33,10 @@ void _TEMPLATE_::MakeNotification( event_notification e )
   todo(Send notifications);
 }
 
+template<class connection>
+void _TEMPLATE_::Workflow()
+{
+  todo(Workflow);
+}
+
 #undef _TEMPLATE_
