@@ -28,4 +28,6 @@ namespace ed
   };
 };
 
+#include "connection_ready.h"
+
 #endif

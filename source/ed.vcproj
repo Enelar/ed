@@ -257,6 +257,10 @@
 				>
 			</File>
 			<File
+				RelativePath=".\ed\communications\connection_ready.h"
+				>
+			</File>
+			<File
 				RelativePath=".\ed\communications\socket_connection.cpp"
 				>
 			</File>

@@ -28,9 +28,11 @@ bool socket_ready::Ready()
   return client != _TL4_NOT_SOCKET_;
 }
 
-unsigned int socket_ready::Read()
+#include "socket_connection.h"
+
+abstract_connection *socket_ready::Read()
 {
   unsigned int ret = client;
   client = _TL4_NOT_SOCKET_;
-  return ret;
+  return NEW socket_connection(ret);
 }

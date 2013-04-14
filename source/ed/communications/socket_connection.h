@@ -21,14 +21,15 @@ namespace ed
 
       void ConnectAttempt();
       void ConnectAttempt( unsigned int ip, int port );
+      socket_connection( int icoming_descriptor );
     public:
       socket_connection( std::string addr, int port );
-      socket_connection( int icoming_descriptor );
 
       virtual void Notify( const ed::event_notification & );
       virtual int Incoming( );
       
       ~socket_connection();
+      friend class socket_ready;
     };
   };
 };
