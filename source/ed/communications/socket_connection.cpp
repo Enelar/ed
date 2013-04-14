@@ -8,6 +8,7 @@
 #include "../3party/ax/tl4_low.h"
 
 using namespace ed::com;
+using namespace ed;
 using namespace ax::tl4;
 typedef ax::tl4::LOW_STATUSES low_status;
 
@@ -69,6 +70,6 @@ void socket_connection::SendMessage( const message &m )
   ConnectAttempt();
   low_status s;
   while ((s = ax::tl4::low::Send(desc, m.buffer, m.len)) == PLEASE_WAIT)
-    Sleep(1);
+    todo("Sleep");
   todo("throw disconnected");
 }

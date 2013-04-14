@@ -7,7 +7,7 @@
 #define _ED_COMMUNITCATIONS_ABSTRACT_CONNECTION_H_
 
 #include "../notifications/event_notification.h"
-#include "../messages/message.h"
+#include "../messages/register.h"
 
 namespace ed
 {

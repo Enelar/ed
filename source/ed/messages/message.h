@@ -6,6 +6,9 @@
 #ifndef _ED_MESSAGES_MESSAGE_H_
 #define _ED_MESSAGES_MESSAGE_H_
 
+#include "../def.h"
+#include "../exceptions/exception.h"
+
 namespace ed
 {
   enum MESSAGE_TYPE

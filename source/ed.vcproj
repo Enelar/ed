@@ -161,6 +161,10 @@
 			Name="exceptions"
 			>
 			<File
+				RelativePath=".\ed\exceptions\disconnected.h"
+				>
+			</File>
+			<File
 				RelativePath=".\ed\exceptions\exception.h"
 				>
 			</File>

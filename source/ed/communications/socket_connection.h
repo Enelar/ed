@@ -22,6 +22,8 @@ namespace ed
       void ConnectAttempt();
       void ConnectAttempt( unsigned int ip, int port );
       socket_connection( int icoming_descriptor );
+
+      void SendMessage( const message &m );
     public:
       socket_connection( std::string addr, int port );
 
