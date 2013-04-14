@@ -65,11 +65,13 @@ void socket_connection::SendRegister( const register_message &name )
   SendMessage(m);
 }
 
+#include "../3party/win/utils.h"
+
 void socket_connection::SendMessage( const message &m )
 {
   ConnectAttempt();
   low_status s;
   while ((s = ax::tl4::low::Send(desc, m.buffer, m.len)) == PLEASE_WAIT)
-    todo("Sleep");
+    Sleep(1);
   todo("throw disconnected");
 }

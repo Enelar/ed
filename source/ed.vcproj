@@ -300,6 +300,18 @@
 					>
 				</File>
 			</Filter>
+			<Filter
+				Name="win"
+				>
+				<File
+					RelativePath=".\ed\3party\win\utils.cpp"
+					>
+				</File>
+				<File
+					RelativePath=".\ed\3party\win\utils.h"
+					>
+				</File>
+			</Filter>
 		</Filter>
 		<Filter
 			Name="messages"
