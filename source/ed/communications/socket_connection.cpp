@@ -66,6 +66,7 @@ void socket_connection::SendRegister( const register_message &name )
 }
 
 #include "../3party/win/utils.h"
+#include "../exceptions/disconnected.h"
 
 void socket_connection::SendMessage( const message &m )
 {
@@ -73,5 +74,5 @@ void socket_connection::SendMessage( const message &m )
   low_status s;
   while ((s = ax::tl4::low::Send(desc, m.buffer, m.len)) == PLEASE_WAIT)
     Sleep(1);
-  todo("throw disconnected");
+  EXCEPTION(diconnected);
 }
