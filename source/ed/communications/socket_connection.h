@@ -28,7 +28,7 @@ namespace ed
       virtual void Notify( const ed::event_notification & );
       virtual int Incoming( );
 
-      virtual void SendRegister( register_message & );
+      virtual void SendRegister( const register_message & );
 
       ~socket_connection();
       friend class socket_ready;
