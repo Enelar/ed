@@ -25,7 +25,9 @@ namespace ed
 
     name_server names;
     std::vector<client_type> clients;
+    connection_ready *ready;
   public:
+    server_controller( connection_ready * );
     id_type RegisterName( NAME_TYPE nt, word_type name );
     void AddListener( event_source source, listener destination );
     void MakeNotification( event_notification );

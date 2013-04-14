@@ -11,6 +11,12 @@
 #define _TEMPLATE_ server_controller<connection_ready>
 
 template<class connection_ready>
+_TEMPLATE_::server_controller( connection_ready *_ready ) : ready(_ready)
+{
+  throw_assert(_ready);
+}
+
+template<class connection_ready>
 typename _TEMPLATE_::id_type _TEMPLATE_::RegisterName( NAME_TYPE nt, word_type name )
 {
   return names[nt].RegisterWord(name);
