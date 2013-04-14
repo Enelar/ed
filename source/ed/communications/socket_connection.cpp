@@ -42,7 +42,6 @@ void socket_connection::ConnectAttempt( unsigned int ip, int port )
 
 void socket_connection::Notify( const ed::event_notification & )
 {
-  ConnectAttempt();
   todo(Notify);
 }
 
@@ -61,7 +60,15 @@ socket_connection::~socket_connection()
 
 void socket_connection::SendRegister( const register_message &name )
 {
-  ConnectAttempt();
   message m = name;
-  todo(SendMessage);
+  SendMessage(m);
+}
+
+void socket_connection::SendMessage( const message &m )
+{
+  ConnectAttempt();
+  low_status s;
+  while ((s = ax::tl4::low::Send(desc, m.buffer, m.len)) == PLEASE_WAIT)
+    Sleep(1);
+  todo("throw disconnected");
 }
