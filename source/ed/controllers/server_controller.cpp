@@ -8,15 +8,15 @@
 #include "server_controller.h"
 #endif
 
-#define _TEMPLATE_ server_controller<connection>
+#define _TEMPLATE_ server_controller<connection_ready>
 
-template<class connection>
+template<class connection_ready>
 typename _TEMPLATE_::id_type _TEMPLATE_::RegisterName( NAME_TYPE nt, word_type name )
 {
   return names[nt].RegisterWord(name);
 }
 
-template<class connection>
+template<class connection_ready>
 void _TEMPLATE_::AddListener( event_source source, listener destination )
 {
   //! @NOTE Not really good, maybe all childs should be in common container??
@@ -26,14 +26,14 @@ void _TEMPLATE_::AddListener( event_source source, listener destination )
   childs[target].AddListener(source, destination);
 }
 
-template<class connection>
+template<class connection_ready>
 void _TEMPLATE_::MakeNotification( event_notification e )
 {
   slot_data::event &e = GetEvent(e.source);
   todo(Send notifications);
 }
 
-template<class connection>
+template<class connection_ready>
 void _TEMPLATE_::Workflow()
 {
   todo(Workflow);

@@ -13,13 +13,14 @@
 
 namespace ed
 {
-  template<class connection>
+  template<class connection_ready>
   struct server_controller
   {
     typedef name_server::id_type id_type;
     typedef name_server::word_type word_type;
     typedef slot_data::listener listener;
   private:
+    typedef typename connection_ready::pair_type connection;
     typedef slot<connection> client_type;
 
     name_server names;
