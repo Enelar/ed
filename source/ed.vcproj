@@ -297,6 +297,18 @@
 				</File>
 			</Filter>
 		</Filter>
+		<Filter
+			Name="messages"
+			>
+			<File
+				RelativePath=".\ed\messages\message.h"
+				>
+			</File>
+			<File
+				RelativePath=".\ed\messages\register.h"
+				>
+			</File>
+		</Filter>
 		<File
 			RelativePath=".\ed\def.h"
 			>

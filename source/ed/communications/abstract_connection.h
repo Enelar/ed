@@ -7,16 +7,12 @@
 #define _ED_COMMUNITCATIONS_ABSTRACT_CONNECTION_H_
 
 #include "../notifications/event_notification.h"
+#include "../messages/message.h"
 
 namespace ed
 {
   namespace com
   {
-    struct message
-    {
-      const int len;
-      const unsigned char *buffer;
-    };
     class abstract_connection
     {
     public:
