@@ -42,7 +42,26 @@ void _TEMPLATE_::MakeNotification( event_notification e )
 template<class connection_ready>
 void _TEMPLATE_::Workflow()
 {
-  todo(Workflow);
+  if (ready->Ready())
+  {
+    connection *c = ready->Read();
+    throw_assert(c);
+    todo("Slot by connection");
+  }
+  int i = 0, s = clients.size();
+
+  for (; i < s; i++)
+  {
+    const int min_message_length = 1;
+    if (Incoming() >= min_message_length)
+    {
+      todo("Read message");
+      todo("If message notification. Could be register and add listener");
+      event_notification e;
+      todo("Fill event_notification");
+      MakeNotification(e);
+    }
+  }
 }
 
 #undef _TEMPLATE_
