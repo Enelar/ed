@@ -19,6 +19,8 @@ namespace ed
       virtual void Notify( const event_notification & ) = 0;
       virtual int Incoming( ) = 0;
 
+      virtual void SendRegister( std::string name ) = 0;
+
       virtual ~abstract_connection() = 0;
     };
   };

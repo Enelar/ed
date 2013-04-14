@@ -15,11 +15,21 @@ namespace ed
   {
     NAME_TYPE nt;
     std::string name;
-    
+
     register_message( message &e )
     {
       throw_assert(e.GetType() == REGISTER);
       todo("Parse register message");
+    }
+    
+    register_message( NAME_TYPE _nt, std::string _name )
+      : nt(_nt), name(_name)
+    {
+    }
+    
+    operator message() const
+    {
+      todo("Convert to message");
     }
   };
 };

@@ -57,3 +57,11 @@ socket_connection::~socket_connection()
   if (desc != _TL4_NOT_SOCKET_)
     low::Close(desc);
 }
+
+
+void socket_connection::SendRegister( const register_message &name )
+{
+  ConnectAttempt();
+  message m = name;
+  todo(SendMessage);
+}
