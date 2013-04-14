@@ -20,9 +20,13 @@ namespace ed
   struct message
   {
     const int len;
-    const unsigned char *buffer;
+    unsigned char *buffer;
     
     message() : len(0), buffer(NULL)
+    {
+    }
+    
+    message( int _len ) : len(_len), buffer(NEW unsigned char[_len])
     {
     }
     

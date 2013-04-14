@@ -20,7 +20,7 @@ namespace ed
       virtual int Incoming( ) = 0;
 
       virtual void SendRegister( const register_message & ) = 0;
-      virtual message Get() = 0;
+      virtual message *Get() = 0;
 
       virtual ~abstract_connection() = 0;
     };

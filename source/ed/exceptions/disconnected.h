@@ -10,7 +10,7 @@
 
 namespace ed
 {
-  struct disconnected : public exception
+  struct disconnected
   {
   };
 }

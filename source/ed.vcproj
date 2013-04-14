@@ -317,10 +317,6 @@
 			Name="messages"
 			>
 			<File
-				RelativePath=".\ed\messages\header.h"
-				>
-			</File>
-			<File
 				RelativePath=".\ed\messages\message.h"
 				>
 			</File>

@@ -79,20 +79,21 @@ void socket_connection::SendMessage( const message &m )
 
 message *socket_connection::Get()
 {
+  typedef unsigned char byte;
   // looks like crap code
   MESSAGE_TYPE mt;
   word readed;
-  low_status s = ax::tl4::low::Recieve(desc, &mt, readed, 1);
+  low_status s = ax::tl4::low::Recieve(desc, (byte *)&mt, readed, 1);
   if (s == NO_MESSAGES)
     return NULL;
   if (s == DISCONNECT)
     EXCEPTION(disconnected);
-  message *ret = NEW message;
   int expected_size = 0;
   switch (mt)
   {
   case REGISTER:
-    ax::tl4::low::Recieve(desc, &expected_size, readed, 1);
+    throw_assert(
+      ax::tl4::low::Recieve(desc, (byte *)&expected_size, readed, 1) == SUCCESS);
     expected_size += sizeof(char);
     break;
   case LISTEN:
@@ -104,10 +105,9 @@ message *socket_connection::Get()
   default:
     dead_space();
   }
-  ret->len = 1 + expected_size;
-  ret->buffer = NEW char[ret->len];
-  ret->buffer = (char)mt;
-  ax::tl4::low::Recieve(desc, ret->buffer + 1, readed, ret->len);
+  message *ret = NEW message(1 + expected_size);
+  ret->buffer[0] = (char)mt;
+  throw_assert(ax::tl4::low::Recieve(desc, (byte *)ret->buffer + 1, readed, ret->len) == SUCCESS);
   throw_sassert(readed == ret->len, "TODO: Message not readed at first try/not completed")
-  return message;
+  return ret;
 }
