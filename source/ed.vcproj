@@ -209,15 +209,16 @@
 			Name="controllers"
 			>
 			<File
+				RelativePath=".\ed\controllers\client_controller.cpp"
+				>
+			</File>
+			<File
+				RelativePath=".\ed\controllers\client_controller.h"
+				>
+			</File>
+			<File
 				RelativePath=".\ed\controllers\server_controller.cpp"
 				>
-				<FileConfiguration
-					Name="Debug|Win32"
-					>
-					<Tool
-						Name="VCCLCompilerTool"
-					/>
-				</FileConfiguration>
 			</File>
 			<File
 				RelativePath=".\ed\controllers\server_controller.h"

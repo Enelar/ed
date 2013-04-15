@@ -17,6 +17,12 @@ _TEMPLATE_::server_controller( ready_type *_ready ) : ready(_ready)
 }
 
 template<class ready_type>
+_TEMPLATE_::~server_controller( )
+{
+  delete ready;
+}
+
+template<class ready_type>
 typename _TEMPLATE_::id_type _TEMPLATE_::RegisterName( NAME_TYPE nt, word_type name )
 {
   return names[nt].RegisterWord(name);
