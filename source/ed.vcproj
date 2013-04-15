@@ -165,6 +165,10 @@
 				>
 			</File>
 			<File
+				RelativePath=".\ed\exceptions\exception.cpp"
+				>
+			</File>
+			<File
 				RelativePath=".\ed\exceptions\exception.h"
 				>
 			</File>

@@ -1,13 +1,14 @@
 #include "../ed/controllers/server_controller.h"
 #include "../ed/controllers/client_controller.h"
 #include "../ed/communications/socket_ready.h"
+#include "../ed/exceptions/exception.h"
 
 using namespace ed;
 using namespace ed::com;
 
 #include <windows.h>
 
-void main()
+void f()
 {
   socket_ready *port = NEW socket_ready(3030);
   server_controller<socket_ready> s(port);
@@ -18,5 +19,18 @@ void main()
   {
     Sleep(1);
     s.Workflow();
+  }
+}
+
+#include <iostream>
+
+void main()
+{
+  try
+  {
+    f();
+  } catch (ed::exception *e)
+  {
+    std::cout << *e << std::endl;
   }
 }

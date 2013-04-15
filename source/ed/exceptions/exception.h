@@ -8,7 +8,13 @@
 
 #include "../def.h"
 #include <string>
+#include <ostream>
 
+namespace ed
+{
+  struct exception;
+};
+std::ostream &operator<<( std::ostream &os, const ed::exception &e );
 namespace ed
 {
   struct exception
@@ -24,6 +30,7 @@ namespace ed
       file(_file), line(_line), comment("")
     {
     }
+    friend std::ostream & ::operator<<( std::ostream &, const exception & );
   };
 }
 
