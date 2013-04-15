@@ -17,7 +17,7 @@ namespace ed
     typedef unsigned int id_type;
   private:
     std::vector<word_type> data_base;
-    static const id_type reserved_as_failure = 0;
+    static const id_type reserved_as_failure = -1;
     id_type SearchWord( word_type ) const;
   public:
     id_type RegisterWord( word_type );
