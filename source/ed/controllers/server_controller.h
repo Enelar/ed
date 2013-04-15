@@ -13,21 +13,21 @@
 
 namespace ed
 {
-  template<class connection_ready>
+  template<class ready_type>
   struct server_controller
   {
     typedef name_server::id_type id_type;
     typedef name_server::word_type word_type;
     typedef slot_data::listener listener;
   private:
-    typedef typename connection_ready::pair_type connection;
+    typedef typename ready_type::pair_type connection;
     typedef slot<connection> client_type;
 
     name_server names;
     std::vector<client_type> clients;
-    connection_ready *ready;
+    ready_type *ready;
   public:
-    server_controller( connection_ready * );
+    server_controller( ready_type * );
     id_type RegisterName( NAME_TYPE nt, word_type name );
     void AddListener( event_source source, listener destination );
     void MakeNotification( event_notification );

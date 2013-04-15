@@ -8,21 +8,21 @@
 #include "server_controller.h"
 #endif
 
-#define _TEMPLATE_ server_controller<connection_ready>
+#define _TEMPLATE_ server_controller<ready_type>
 
-template<class connection_ready>
-_TEMPLATE_::server_controller( connection_ready *_ready ) : ready(_ready)
+template<class ready_type>
+_TEMPLATE_::server_controller( ready_type *_ready ) : ready(_ready)
 {
   throw_assert(_ready);
 }
 
-template<class connection_ready>
+template<class ready_type>
 typename _TEMPLATE_::id_type _TEMPLATE_::RegisterName( NAME_TYPE nt, word_type name )
 {
   return names[nt].RegisterWord(name);
 }
 
-template<class connection_ready>
+template<class ready_type>
 void _TEMPLATE_::AddListener( event_source source, listener destination )
 {
   //! @NOTE Not really good, maybe all childs should be in common container??
@@ -32,14 +32,14 @@ void _TEMPLATE_::AddListener( event_source source, listener destination )
   childs[target].AddListener(source, destination);
 }
 
-template<class connection_ready>
+template<class ready_type>
 void _TEMPLATE_::MakeNotification( event_notification e )
 {
   slot_data::event &e = GetEvent(e.source);
   todo(Send notifications);
 }
 
-template<class connection_ready>
+template<class ready_type>
 void _TEMPLATE_::Workflow()
 {
   if (ready->Ready())
