@@ -3,8 +3,8 @@
  * No part of this file could be used or viewed without Kirill Berezin agreement
  */
 
-#define _ED_SERVER_CONTROLLER_IMPL_
-#ifndef _ED_SERVER_CONTROLLER_H_
+#define _ED_NOTIFICATIONS_SLOT_IMPL_
+#ifndef _ED_NOTIFICATIONS_SLOT_H_
 #include "slot.h"
 #endif
 

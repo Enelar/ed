@@ -22,7 +22,9 @@ namespace ed
       virtual void SendRegister( const register_message & ) = 0;
       virtual message *Get() = 0;
 
-      virtual ~abstract_connection() = 0;
+      virtual ~abstract_connection()
+      {
+      };
     };
   };
 };
