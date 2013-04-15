@@ -19,6 +19,7 @@ namespace ed
     dictionary books[COUNT];
     void ValidateBookId( const NAME_TYPE nt ) const;
   public:
+    name_server();
     dictionary &operator[]( const NAME_TYPE nt );
     const dictionary &operator[]( const NAME_TYPE nt ) const;
   };

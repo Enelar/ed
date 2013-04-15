@@ -193,6 +193,10 @@
 				>
 			</File>
 			<File
+				RelativePath=".\ed\names\reserved.h"
+				>
+			</File>
+			<File
 				RelativePath=".\ed\names\translate.cpp"
 				>
 			</File>
