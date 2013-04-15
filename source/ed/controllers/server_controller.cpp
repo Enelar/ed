@@ -33,9 +33,9 @@ void _TEMPLATE_::AddListener( event_source source, listener destination )
 }
 
 template<class ready_type>
-void _TEMPLATE_::MakeNotification( event_notification e )
-{
-  slot_data::event &e = GetEvent(e.source);
+void _TEMPLATE_::MakeNotification( event_notification a )
+{ //! @NOTE Crap code again
+  slot_data::event &e = clients[a.source.instance].GetEvent(a.source);
   todo(Send notifications);
 }
 
@@ -44,7 +44,7 @@ void _TEMPLATE_::Workflow()
 {
   if (ready->Ready())
   {
-    connection *c = ready->Read();
+    connection *c = static_cast<connection *>(ready->Read());
     throw_assert(c);
     todo("Slot by connection");
   }
@@ -53,7 +53,7 @@ void _TEMPLATE_::Workflow()
   for (; i < s; i++)
   {
     const int min_message_length = 1;
-    if (Incoming() >= min_message_length)
+    if (clients[i].socket.Incoming() >= min_message_length)
     {
       todo("Read message");
       todo("If message notification. Could be register and add listener");

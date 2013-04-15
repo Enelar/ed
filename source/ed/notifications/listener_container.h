@@ -8,6 +8,7 @@
 
 #include "slot_data.h"
 #include "event_notification.h"
+#include "../def.h"
 
 namespace ed
 {

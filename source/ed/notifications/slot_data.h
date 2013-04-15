@@ -7,6 +7,7 @@
 #define _ED_NOTIFICATIONS_SLOT_DATA_H_
 
 #include <vector>
+#include "../exceptions/exception.h"
 
 namespace ed
 {
@@ -29,7 +30,7 @@ namespace ed
       template<typename obj_type>
       void Direct( obj_type &a )
       {
-        int target = obj_type.Target();
+        unsigned int target = a.Target();
         throw_assert(target >= 0);
         throw_assert(target < childs.size());
         a.Direct(childs[target]);
