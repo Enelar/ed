@@ -24,4 +24,10 @@ _TEMPLATE_::~client_controller()
   delete c;
 }
 
+template<class connection>
+_TEMPLATE_::operator connection &() const
+{
+  return *c;
+}
+
 #undef _TEMPLATE_

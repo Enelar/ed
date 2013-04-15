@@ -15,6 +15,9 @@ namespace ed
     connection *c;
   public:
     client_controller( connection * );
+
+    operator connection &() const;
+
     ~client_controller();
   };
 };
