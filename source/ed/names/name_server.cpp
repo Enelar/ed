@@ -51,25 +51,25 @@ namespace
 
 name_server::name_server()
 {
-  dictionary &a = (*this)[INSTANCES];
   {
+    dictionary &a = (*this)[INSTANCES];
     using namespace ed::reserved::instance;
     REGISTER_WORD(a, BROADCAST);
     REGISTER_WORD(a, MASTER);
     REGISTER_WORD(a, CONTROLLER);
     Reserve(a, CONTROLLER + 1, FIRST_ALLOWED - 1);
   }
-  
-  a = (*this)[MODULES];
+
   {
+    dictionary &a = (*this)[MODULES];
     using namespace ed::reserved::module;
     REGISTER_WORD(a, BROADCAST);
     REGISTER_WORD(a, HEART_BEAT);
     Reserve(a, HEART_BEAT + 1, FIRST_ALLOWED - 1);
   }
 
-  a = (*this)[EVENTS];
   {
+    dictionary &a = (*this)[EVENTS];
     using namespace ed::reserved::event;
     REGISTER_WORD(a, BROADCAST);
     REGISTER_WORD(a, INSTANCE_UP);
