@@ -15,8 +15,12 @@ namespace ed
   template<class connection>
   class slot : public slot_data::instance
   {
+    connection *socket;
   public:
-    connection socket;
+
+    slot( connection * );
+    connection &Socket() const;
+    ~slot();
   };
 };
 

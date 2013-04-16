@@ -10,4 +10,24 @@
 
 #define _TEMPLATE_ slot<connection>
 
+template<typename connection>
+_TEMPLATE_::slot( connection *_socket )
+  : socket(_socket)
+{
+  throw_assert(socket);
+}
+
+template<typename connection>
+connection &_TEMPLATE_::Socket() const
+{
+  return *socket;
+}
+
+template<typename connection>
+_TEMPLATE_::~slot()
+{
+  delete socket;
+}
+
+
 #undef _TEMPLATE_

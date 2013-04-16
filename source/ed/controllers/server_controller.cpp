@@ -52,14 +52,14 @@ void _TEMPLATE_::Workflow()
   {
     connection *c = static_cast<connection *>(ready->Read());
     throw_assert(c);
-    todo("Slot by connection");
+    clients.push_back(client_type(c));
   }
   int i = 0, s = clients.size();
 
   for (; i < s; i++)
   {
     const int min_message_length = 1;
-    if (clients[i].socket.Incoming() >= min_message_length)
+    if (clients[i].Socket().Incoming() >= min_message_length)
     {
       todo("Read message");
       todo("If message notification. Could be register and add listener");
