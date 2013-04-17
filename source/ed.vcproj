@@ -315,6 +315,14 @@
 					RelativePath=".\ed\3party\ax\tl4_low.h"
 					>
 				</File>
+				<File
+					RelativePath=".\ed\3party\ax\types.cpp"
+					>
+				</File>
+				<File
+					RelativePath=".\ed\3party\ax\types.h"
+					>
+				</File>
 			</Filter>
 			<Filter
 				Name="win"

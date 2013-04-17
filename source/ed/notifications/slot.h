@@ -10,15 +10,33 @@
 #include "instance.h"
 #include <vector>
 
+#include "../3party/ax/types.h"
+
 namespace ed
 {
   template<class connection>
   class slot : public slot_data::instance
   {
-    connection *socket;
+    struct container : ax::shared_self_controlled
+    {
+      connection *socket;
+
+      container( connection *_socket )
+        : socket(_socket)
+      {
+        AddShare();
+      }
+      ~container()
+      {
+        delete socket;
+      }
+    };
+    container *c;
   public:
 
     slot( connection * );
+    slot( const slot & );
+    slot &operator=( const slot & );
     connection &Socket() const;
     ~slot();
   };

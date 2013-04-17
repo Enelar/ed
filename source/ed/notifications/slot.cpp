@@ -12,21 +12,42 @@
 
 template<typename connection>
 _TEMPLATE_::slot( connection *_socket )
-  : socket(_socket)
+  : c(NEW container(_socket))
 {
-  throw_assert(socket);
+  throw_assert(_socket);
+}
+
+template<typename connection>
+_TEMPLATE_::slot( const slot &a )
+  : c(NULL)
+{
+  (*this) = a;
+}
+
+template<typename connection>
+_TEMPLATE_ &_TEMPLATE_::operator=( const slot &a )
+{
+  if (this == &a)
+    return *this;
+  throw_assert(a.c);
+  if (c != NULL)
+    c->RemoveShare();
+  c = a.c;
+  c->AddShare();
+  throw_assert(c->socket);
+  return *this;
 }
 
 template<typename connection>
 connection &_TEMPLATE_::Socket() const
 {
-  return *socket;
+  return *c->socket;
 }
 
 template<typename connection>
 _TEMPLATE_::~slot()
 {
-  delete socket;
+  c->RemoveShare();
 }
 
 

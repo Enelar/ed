@@ -26,11 +26,13 @@ void f()
 
 void main()
 {
+  //BREAK_ON_MEMORY_LEAK(274);
   try
   {
     f();
   } catch (ed::exception *e)
   {
     std::cout << *e << std::endl;
+    delete e;
   }
 }
