@@ -6,12 +6,15 @@
 #ifndef _ED_KIT_MODULE_H_
 #define _ED_KIT_MODULE_H_
 
+#include "gateway.h"
+
 namespace ed
 {
   class module
   {
     friend class gateway;
-    module();
+    module( gateway & );
+    gateway &gw;
   protected:
     void RegisterEvent( std::string name, int local_id );
   };

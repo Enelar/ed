@@ -8,20 +8,26 @@ Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "server", "source\server.vcp
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "ed", "source\ed.vcproj", "{FDE0911E-9089-4B5E-A8C4-C55F77D7DC5A}"
 EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "client", "source\client.vcproj", "{B483B1A7-49E1-49E1-49E1-38D2D1C9A385}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Win32 = Debug|Win32
 		Release|Win32 = Release|Win32
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{FDE0911E-9089-4B5E-A8C4-C55F77D7DC5A}.Debug|Win32.ActiveCfg = Debug|Win32
-		{FDE0911E-9089-4B5E-A8C4-C55F77D7DC5A}.Debug|Win32.Build.0 = Debug|Win32
-		{FDE0911E-9089-4B5E-A8C4-C55F77D7DC5A}.Release|Win32.ActiveCfg = Release|Win32
-		{FDE0911E-9089-4B5E-A8C4-C55F77D7DC5A}.Release|Win32.Build.0 = Release|Win32
 		{B483B1A7-49E1-49E1-9210-38D2D1C9A385}.Debug|Win32.ActiveCfg = Debug|Win32
 		{B483B1A7-49E1-49E1-9210-38D2D1C9A385}.Debug|Win32.Build.0 = Debug|Win32
 		{B483B1A7-49E1-49E1-9210-38D2D1C9A385}.Release|Win32.ActiveCfg = Release|Win32
 		{B483B1A7-49E1-49E1-9210-38D2D1C9A385}.Release|Win32.Build.0 = Release|Win32
+		{FDE0911E-9089-4B5E-A8C4-C55F77D7DC5A}.Debug|Win32.ActiveCfg = Debug|Win32
+		{FDE0911E-9089-4B5E-A8C4-C55F77D7DC5A}.Debug|Win32.Build.0 = Debug|Win32
+		{FDE0911E-9089-4B5E-A8C4-C55F77D7DC5A}.Release|Win32.ActiveCfg = Release|Win32
+		{FDE0911E-9089-4B5E-A8C4-C55F77D7DC5A}.Release|Win32.Build.0 = Release|Win32
+		{B483B1A7-49E1-49E1-49E1-38D2D1C9A385}.Debug|Win32.ActiveCfg = Debug|Win32
+		{B483B1A7-49E1-49E1-49E1-38D2D1C9A385}.Debug|Win32.Build.0 = Debug|Win32
+		{B483B1A7-49E1-49E1-49E1-38D2D1C9A385}.Release|Win32.ActiveCfg = Release|Win32
+		{B483B1A7-49E1-49E1-49E1-38D2D1C9A385}.Release|Win32.Build.0 = Release|Win32
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

@@ -349,6 +349,26 @@
 				>
 			</File>
 		</Filter>
+		<Filter
+			Name="kit"
+			>
+			<File
+				RelativePath=".\ed\kit\gateway.cpp"
+				>
+			</File>
+			<File
+				RelativePath=".\ed\kit\gateway.h"
+				>
+			</File>
+			<File
+				RelativePath=".\ed\kit\module.cpp"
+				>
+			</File>
+			<File
+				RelativePath=".\ed\kit\module.h"
+				>
+			</File>
+		</Filter>
 		<File
 			RelativePath=".\ed\def.h"
 			>
