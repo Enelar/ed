@@ -50,7 +50,9 @@ void socket_connection::Notify( const ed::event_notification & )
 int socket_connection::Incoming( )
 {
   ConnectAttempt();
-  todo(Incoming);
+  if (!connected)
+    return 0;
+  return low::Incoming(desc);
 }
 
 socket_connection::~socket_connection()
