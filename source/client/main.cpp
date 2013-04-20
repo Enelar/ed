@@ -1,4 +1,5 @@
 #include "../ed/exceptions/exception.h"
+#include "../ed/exceptions/disconnected.h"
 #include "../ed/kit/gateway.h"
 #include "../ed/kit/module.h"
 #include "../ed/communications/socket_connection.h"
@@ -23,6 +24,10 @@ void main()
   } catch (ed::exception *e)
   {
     std::cout << *e << std::endl;
+    delete e;
+  } catch (ed::disconnected *e)
+  {
+    std::cout << "Disconnected";
     delete e;
   }
 }

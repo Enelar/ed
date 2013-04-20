@@ -25,11 +25,16 @@ namespace ed
     message() : len(0), buffer(NULL)
     {
     }
-    
+
     message( int _len ) : len(_len), buffer(NEW unsigned char[_len])
     {
     }
-    
+
+    message( const message &m ) : len(m.len), buffer(NEW unsigned char[len])
+    {
+      memcpy(buffer, m.buffer, len);
+    }
+
     MESSAGE_TYPE GetType() const
     {
       throw_assert(len > 0);
@@ -44,6 +49,8 @@ namespace ed
       if (buffer)
         delete buffer;
     }
+  private:
+    void operator=( const message & );
   };
 };
 

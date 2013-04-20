@@ -29,7 +29,11 @@ namespace ed
     
     operator message() const
     {
-      todo("Convert to message");
+      message ret(name.length() + 2);
+      ret.buffer[0] = nt;
+      ret.buffer[1] = name.length();
+      memcpy(ret.buffer + 2, name.c_str(), name.length());
+      return ret;
     }
   };
 };

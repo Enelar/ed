@@ -9,6 +9,9 @@ EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "ed", "source\ed.vcproj", "{FDE0911E-9089-4B5E-A8C4-C55F77D7DC5A}"
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "client", "source\client.vcproj", "{B483B1A7-49E1-49E1-49E1-38D2D1C9A385}"
+	ProjectSection(ProjectDependencies) = postProject
+		{FDE0911E-9089-4B5E-A8C4-C55F77D7DC5A} = {FDE0911E-9089-4B5E-A8C4-C55F77D7DC5A}
+	EndProjectSection
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

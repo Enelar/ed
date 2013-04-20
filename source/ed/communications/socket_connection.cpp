@@ -77,6 +77,8 @@ void socket_connection::SendMessage( const message &m )
   low_status s;
   while ((s = ax::tl4::low::Send(desc, m.buffer, m.len)) == PLEASE_WAIT)
     Sleep(1);
+  if (s == SUCCESS)
+    return;
   EXCEPTION(disconnected);
 }
 
