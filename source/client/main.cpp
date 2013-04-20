@@ -1,5 +1,6 @@
 #include "../ed/exceptions/exception.h"
 #include "../ed/kit/gateway.h"
+#include "../ed/kit/module.h"
 #include "../ed/communications/socket_connection.h"
 
 using namespace ed;
@@ -8,6 +9,7 @@ void f()
 {
   com::socket_connection port("localhost", 3030);
   gateway gw(port);
+  module &m = gw.CreateModule("test");
 }
 
 #include <iostream>

@@ -4,9 +4,25 @@
  */
 
 #include "gateway.h"
+#include "../messages/register.h"
+#include "../3party/win/utils.h"
 
 using namespace ed;
 using namespace ed::com;
+
+namespace
+{
+  int RegisterName( abstract_connection &c, NAME_TYPE nt, std::string name )
+  {
+    register_message rm(MODULES, name);
+    c.SendRegister(rm);
+
+    todo(Register name at client);
+    while (c.Incoming() < 10)
+      ed::Sleep(1);
+    //c.Read
+  }
+};
 
 gateway::gateway( com::abstract_connection &_c )
   : c(_c)
@@ -15,8 +31,15 @@ gateway::gateway( com::abstract_connection &_c )
 
 module &gateway::CreateModule( std::string name )
 {
-  module *ret = NEW module(*this);
+  int id = RegisterName(c, MODULES, name);
+  module *ret = NEW module(id, *this);
   return *ret;
+}
+
+int gateway::RegisterEvent( std::string name )
+{
+  int id = RegisterName(c, EVENTS, name);
+  return id;
 }
 
 

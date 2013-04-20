@@ -13,8 +13,9 @@ namespace ed
   class module
   {
     friend class gateway;
-    module( gateway & );
+    module( int id, gateway & );
     gateway &gw;
+    int id;
   protected:
     void RegisterEvent( std::string name, int local_id );
   };

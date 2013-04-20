@@ -15,6 +15,9 @@ namespace ed
   class gateway
   {
     com::abstract_connection &c;
+
+    friend class module;
+    int RegisterEvent( std::string name );
   public:
     gateway( com::abstract_connection & );
     module &CreateModule( std::string name );

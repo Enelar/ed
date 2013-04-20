@@ -7,7 +7,13 @@
 
 using namespace ed;
 
-module::module( gateway &_gw )
-  : gw(_gw)
+module::module( int _id, gateway &_gw )
+  : id(_id), gw(_gw)
 {
+}
+
+void module::RegisterEvent( std::string name, int local_id )
+{
+  int global_id = gw.RegisterEvent(name);
+  todo("Global <-> local id translate");
 }
