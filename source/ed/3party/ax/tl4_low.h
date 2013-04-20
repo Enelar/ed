@@ -40,6 +40,8 @@ namespace ax
       static LOW_STATUSES Recieve( const unsafe_dword socket, 
         unsafe_byte *const buff, word &readed, word read = _TL4_DATA_SEGMENT_SIZE );
 
+      static int Incoming( const unsafe_dword s, word size = _TL4_DATA_SEGMENT_SIZE );
+
       static LOW_STATUSES Close( unsafe_dword &socket );
 
       static LOW_STATUSES Open( unsafe_dword &socket, 

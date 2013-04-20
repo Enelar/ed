@@ -121,7 +121,7 @@ LOW_STATUSES low::Send( const unsafe_dword s, const unsafe_byte *buff, const wor
   return SUCCESS;
 }
 
-LOW_STATUSES low::Recieve( const unsafe_dword  s, byte *const buff, word &readed, word size )
+LOW_STATUSES low::Recieve( const unsafe_dword s, byte *const buff, word &readed, word size )
 {
   if (s == _TL4_NOT_SOCKET_ || buff == NULL)
     throw_message("Low level protect");
@@ -162,6 +162,30 @@ LOW_STATUSES low::Recieve( const unsafe_dword  s, byte *const buff, word &readed
   readed = res;
   return SUCCESS;
 }
+
+int low::Incoming( const unsafe_dword s, word size )
+{
+  if (s == _TL4_NOT_SOCKET_)
+    throw_message("Low level protect");
+  throw_assert(size <= _TL4_DATA_SEGMENT_SIZE);
+  char buffer[_TL4_DATA_SEGMENT_SIZE];
+  short res = recv(s, buffer, size, MSG_PEEK);
+  if (res == -1)
+  {
+    word r = WSAGetLastError();
+    if (r == WSAECONNRESET)
+      return -1;
+    if (r == WSAENOTSOCK)
+      throw_message("Low level protect. Random socket descriptor");
+    if (r == WSAEWOULDBLOCK)
+      return 0;
+    dead_space();
+  }
+  if (res == 0)
+    return -1;
+  return res;
+}
+
 
 LOW_STATUSES low::Close( unsafe_dword &s )
 {
