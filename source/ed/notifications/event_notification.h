@@ -37,11 +37,11 @@ namespace ed
       sizeof_payload_size = 1;
     static const int
       head_size = 
+        sizeof_payload_size +
         sizeof_target_module +
         sizeof_source_event +
         sizeof_source_module +
-        sizeof_source_instance +
-        sizeof_payload_size;
+        sizeof_source_instance;
 
     operator message() const
     {
@@ -54,32 +54,37 @@ namespace ed
       char *buffer = (char *)m.buffer;
       buffer[0] = NOTIFY;
       buffer += sizeof_magic;
-      buffer[0] = (char)target_module;
-      buffer += sizeof_target_module;
-      ((short *)buffer)[0] = source.event;
-      buffer += sizeof_source_event;
-      buffer[0] = source.module;
-      buffer += sizeof_source_module;
-      ((short *)buffer)[0] = source.instance;
-      buffer += sizeof_source_instance;
+
       buffer[0] = payload_size;
       buffer += sizeof_payload_size;
+
+      buffer[0] = (char)target_module;
+      buffer += sizeof_target_module;
+
+      ((short *)buffer)[0] = source.event;
+      buffer += sizeof_source_event;
+
+      buffer[0] = source.module;
+      buffer += sizeof_source_module;
+
+      ((short *)buffer)[0] = source.instance;
+      buffer += sizeof_source_instance;
+
       memcpy(buffer, payload, payload_size);
       return m;
     }
 
     event_notification( const message &m )
       : payload_size(
-        m.buffer[
-          sizeof_magic +
-          sizeof_target_module + 
-          sizeof_source_event + 
-          sizeof_source_module + 
-          sizeof_source_instance]), payload(NULL)
+        m.buffer[sizeof_magic]
+                    ),
+        payload(NULL)
     {
       char *buffer = (char *)m.buffer;
       throw_assert(buffer[0] == NOTIFY);
       buffer += sizeof_magic;
+      //payload_size = buffer[0];
+      buffer += sizeof_payload_size;
       target_module = buffer[0];
       buffer += sizeof_target_module;
       source.event = ((short *)buffer)[0];
@@ -88,8 +93,6 @@ namespace ed
       buffer += sizeof_source_module;
       source.instance = ((short *)buffer)[0];
       buffer += sizeof_source_instance;
-      //payload_size = buffer[0];
-      buffer += sizeof_payload_size;
       payload = NEW char[payload_size];
       memcpy(payload, buffer, payload_size);
     }
