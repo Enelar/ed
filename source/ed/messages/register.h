@@ -19,7 +19,14 @@ namespace ed
     register_message( message &e )
     {
       throw_assert(e.GetType() == REGISTER);
-      todo("Parse register message");
+      throw_assert(e.len > 2);
+      nt = (NAME_TYPE)e.buffer[1];
+      int len = e.buffer[2];
+      char *buf = NEW char[len + 1];
+      memcpy(buf, e.buffer + 3, len);
+      buf[len] = 0;
+      name = buf;
+      delete buf;
     }
     
     register_message( NAME_TYPE _nt, std::string _name )

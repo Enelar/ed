@@ -67,7 +67,11 @@ void _TEMPLATE_::Workflow()
         continue;
       if (m->GetType() != REGISTER)
         todo("Read message");
-      todo("If message notification. Could be register and add listener");
+      register_message r = *m;
+      delete m;
+      id_type id = RegisterName(r.nt, r.name);
+      todo("Return result");
+      continue;
       event_notification e;
       todo("Fill event_notification");
       MakeNotification(e);
