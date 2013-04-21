@@ -59,9 +59,14 @@ void _TEMPLATE_::Workflow()
   for (; i < s; i++)
   {
     const int min_message_length = 1;
-    if (clients[i].Socket().Incoming() >= min_message_length)
+    connection &socket = clients[i].Socket();
+    if (socket.Incoming() >= min_message_length)
     {
-      todo("Read message");
+      message *m = socket.Get();
+      if (!m)
+        continue;
+      if (m->GetType() != REGISTER)
+        todo("Read message");
       todo("If message notification. Could be register and add listener");
       event_notification e;
       todo("Fill event_notification");

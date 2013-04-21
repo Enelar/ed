@@ -29,10 +29,11 @@ namespace ed
     
     operator message() const
     {
-      message ret(name.length() + 2);
-      ret.buffer[0] = nt;
-      ret.buffer[1] = name.length();
-      memcpy(ret.buffer + 2, name.c_str(), name.length());
+      message ret(name.length() + 3);
+      ret.buffer[0] = REGISTER;
+      ret.buffer[1] = nt;
+      ret.buffer[2] = name.length();
+      memcpy(ret.buffer + 3, name.c_str(), name.length());
       return ret;
     }
   };

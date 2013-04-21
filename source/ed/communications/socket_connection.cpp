@@ -86,20 +86,30 @@ message *socket_connection::Get()
 {
   typedef unsigned char byte;
   // looks like crap code
-  MESSAGE_TYPE mt;
+  MESSAGE_TYPE mt = (MESSAGE_TYPE)0;
   word readed;
   low_status s = ax::tl4::low::Recieve(desc, (byte *)&mt, readed, 1);
   if (s == NO_MESSAGES)
     return NULL;
   if (s == DISCONNECT)
     EXCEPTION(disconnected);
-  int expected_size = 0;
+  byte expected_size = 0, t = 0;
+  message *ret = NULL;
   switch (mt)
   {
   case REGISTER:
     throw_assert(
+      ax::tl4::low::Recieve(desc, (byte *)&t, readed, 1) == SUCCESS);
+    throw_assert(
       ax::tl4::low::Recieve(desc, (byte *)&expected_size, readed, 1) == SUCCESS);
-    expected_size += sizeof(char);
+
+    ret = NEW message(sizeof(char) * 3 + expected_size);
+    ret->buffer[0] = (char)mt;
+    ret->buffer[1] = t;
+    ret->buffer[2] = expected_size;
+    throw_assert(ax::tl4::low::Recieve(desc, (byte *)ret->buffer + 3, readed, expected_size) == SUCCESS);
+    throw_sassert(readed == expected_size, "TODO: Message not readed at first try/not completed");
+    return ret;
     break;
   case LISTEN:
     expected_size = sizeof(char) + sizeof(word) + sizeof(char);
@@ -110,7 +120,8 @@ message *socket_connection::Get()
   default:
     dead_space();
   }
-  message *ret = NEW message(1 + expected_size);
+  dead_space();
+  ret = NEW message(1 + expected_size);
   ret->buffer[0] = (char)mt;
   throw_assert(ax::tl4::low::Recieve(desc, (byte *)ret->buffer + 1, readed, ret->len) == SUCCESS);
   throw_sassert(readed == ret->len, "TODO: Message not readed at first try/not completed")

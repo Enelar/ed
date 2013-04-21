@@ -17,9 +17,9 @@ namespace
     register_message rm(MODULES, name);
     c.SendRegister(rm);
 
-    todo(Register name at client);
-    while (c.Incoming() < 10)
+    while (c.Incoming() < 1)
       ed::Sleep(1);
+    todo(Register name at client);
     //c.Read
   }
 };
