@@ -15,7 +15,7 @@ namespace
 {
   int RegisterName( abstract_connection &c, NAME_TYPE nt, std::string name )
   {
-    register_message rm(MODULES, name);
+    register_message rm(nt, name);
     c.SendRegister(rm);
 
     while (c.Incoming() < 1)

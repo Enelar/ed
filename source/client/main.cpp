@@ -6,11 +6,17 @@
 
 using namespace ed;
 
+enum DUMMY_EVENTS
+{
+  TEST_EVENT
+};
+
 void f()
 {
   com::socket_connection port("localhost", 3030);
   gateway gw(port);
   module &m = gw.CreateModule("test");
+  m.RegisterEvent(TOSTRING(TEST_EVENT), TEST_EVENT);
   delete &m;
 }
 

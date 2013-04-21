@@ -7,6 +7,7 @@
 #define _ED_KIT_MODULE_H_
 
 #include "gateway.h"
+#include "../names/translate.h"
 
 namespace ed
 {
@@ -16,7 +17,8 @@ namespace ed
     module( int id, gateway & );
     gateway &gw;
     int id;
-  protected:
+    translate adapter;
+  public:
     void RegisterEvent( std::string name, int local_id );
   };
 };

@@ -15,5 +15,5 @@ module::module( int _id, gateway &_gw )
 void module::RegisterEvent( std::string name, int local_id )
 {
   int global_id = gw.RegisterEvent(name);
-  todo("Global <-> local id translate");
+  adapter.AddPair(local_id, global_id);
 }
