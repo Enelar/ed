@@ -36,6 +36,8 @@ namespace ed
   };
 };
 
+#include "../names/reserved.h"
+
 #ifndef _ED_SERVER_CONTROLLER_IMPL_
 namespace ed
 {

@@ -42,9 +42,10 @@ void socket_connection::ConnectAttempt( unsigned int ip, int port )
     connected = true;
 }
 
-void socket_connection::Notify( const ed::event_notification & )
+void socket_connection::Notify( const ed::event_notification &e )
 {
-  todo(Notify);
+  message m = e;
+  SendMessage(m);
 }
 
 int socket_connection::Incoming( )

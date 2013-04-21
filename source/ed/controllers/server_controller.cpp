@@ -70,11 +70,12 @@ void _TEMPLATE_::Workflow()
       register_message r = *m;
       delete m;
       id_type id = RegisterName(r.nt, r.name);
-      todo("Return result");
-      continue;
-      event_notification e;
-      todo("Fill event_notification");
-      MakeNotification(e);
+      event_notification e(4); // 32 bit
+      e.source.instance = i;
+      e.source.module = 0;
+      e.source.event = ed::reserved::event::EVENT_REGISTER;
+      memcpy(e.payload, &id, 4);
+      socket.Notify(e);
     }
   }
 }
