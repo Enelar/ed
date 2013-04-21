@@ -11,6 +11,7 @@ void f()
   com::socket_connection port("localhost", 3030);
   gateway gw(port);
   module &m = gw.CreateModule("test");
+  delete &m;
 }
 
 #include <iostream>

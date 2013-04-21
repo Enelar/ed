@@ -117,8 +117,16 @@ message *socket_connection::Get()
     todo(socket_connection::LISTEN);
     break;
   case NOTIFY:
-    expected_size = event_notification::head_size;
-    todo(socket_connection::NOTIFY);
+    throw_assert(
+      ax::tl4::low::Recieve(desc, (byte *)&expected_size, readed, 1) == SUCCESS);
+    t = expected_size;
+    expected_size += event_notification::head_size - event_notification::sizeof_payload_size;
+    ret = NEW message(sizeof(char) + event_notification::sizeof_payload_size + expected_size);
+    ret->buffer[0] = (char)mt;
+    ret->buffer[1] = t;
+    throw_assert(ax::tl4::low::Recieve(desc, (byte *)ret->buffer + 2, readed, expected_size) == SUCCESS);
+    throw_sassert(readed == expected_size, "TODO: Message not readed at first try/not completed");
+    return ret;
     break;
   default:
     dead_space();
