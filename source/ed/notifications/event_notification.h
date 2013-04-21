@@ -35,17 +35,20 @@ namespace ed
       sizeof_source_module = 1,
       sizeof_source_instance = 2,
       sizeof_payload_size = 1;
+    static const int
+      head_size = 
+        sizeof_target_module +
+        sizeof_source_event +
+        sizeof_source_module +
+        sizeof_source_instance +
+        sizeof_payload_size;
 
     operator message() const
     {
       throw_assert(payload_size < 256 && payload_size >= 0);
       int len = 
         sizeof_magic +
-        sizeof_target_module + 
-        sizeof_source_event + 
-        sizeof_source_module + 
-        sizeof_source_instance + 
-        sizeof_payload_size +
+        head_size +
         payload_size;
       message m(len);
       char *buffer = (char *)m.buffer;

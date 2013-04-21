@@ -114,9 +114,11 @@ message *socket_connection::Get()
     break;
   case LISTEN:
     expected_size = sizeof(char) + sizeof(word) + sizeof(char);
+    todo(socket_connection::LISTEN);
     break;
   case NOTIFY:
-    expected_size = sizeof(char) + sizeof(word) + sizeof(char) + + sizeof(word);
+    expected_size = event_notification::head_size;
+    todo(socket_connection::NOTIFY);
     break;
   default:
     dead_space();

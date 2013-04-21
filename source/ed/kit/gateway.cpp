@@ -5,6 +5,7 @@
 
 #include "gateway.h"
 #include "../messages/register.h"
+#include "../names/reserved.h"
 #include "../3party/win/utils.h"
 
 using namespace ed;
@@ -19,8 +20,15 @@ namespace
 
     while (c.Incoming() < 1)
       ed::Sleep(1);
-    todo(Register name at client);
-    //c.Read
+    message *m = c.Get();
+    throw_assert(m);
+    throw_assert(m->GetType() == NOTIFY);
+    event_notification e = *m;
+    delete m;
+    throw_assert(e.source.event == reserved::event::EVENT_REGISTER);
+    throw_assert(e.payload_size == 4);
+    int id = *(int *)e.payload;
+    return id;
   }
 };
 
