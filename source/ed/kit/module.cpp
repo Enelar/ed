@@ -20,9 +20,19 @@ void module::RegisterEvent( std::string name, int local_id )
 
 event_result module::SendEvent( int local_id )
 {
+  bool result = SendPreEvent(local_id);
+  return event_result(*this, local_id, result);
+}
+
+bool module::SendPreEvent( int local_id )
+{
   todo(Send PRE_CHANGE events);
   todo(Send PRE_LISTEN events);
   todo(Recieve PRE_CHANGE events result);
-  bool result; // = recieved status
-  return event_result(*this, local_id, result);
+  todo(SendPreEvent);
+}
+
+void module::SendPostEvent( int local_id )
+{
+  todo(SendPostEvent);
 }

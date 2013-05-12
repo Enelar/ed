@@ -31,5 +31,5 @@ event_result::operator bool() const
 event_result::~event_result()
 {
   if (!deactivated)
-    todo(Send post messages through module);
+    m.SendPostEvent(local_id);
 }
