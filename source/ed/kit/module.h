@@ -8,6 +8,7 @@
 
 #include "gateway.h"
 #include "../names/translate.h"
+#include "event_result.h"
 
 namespace ed
 {
@@ -20,6 +21,7 @@ namespace ed
     translate adapter;
   public:
     void RegisterEvent( std::string name, int local_id );
+    event_result SendEvent( int local_id );
   };
 };
 

@@ -353,6 +353,14 @@
 			Name="kit"
 			>
 			<File
+				RelativePath=".\ed\kit\event_result.cpp"
+				>
+			</File>
+			<File
+				RelativePath=".\ed\kit\event_result.h"
+				>
+			</File>
+			<File
 				RelativePath=".\ed\kit\gateway.cpp"
 				>
 			</File>

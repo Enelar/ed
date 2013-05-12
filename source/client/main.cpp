@@ -3,6 +3,7 @@
 #include "../ed/kit/gateway.h"
 #include "../ed/kit/module.h"
 #include "../ed/communications/socket_connection.h"
+#include "../ed/3party/win/utils.h"
 
 using namespace ed;
 
@@ -17,6 +18,9 @@ void f()
   gateway gw(port);
   module &m = gw.CreateModule("test");
   m.RegisterEvent(TOSTRING(TEST_EVENT), TEST_EVENT);
+  {
+    event_result a = m.SendEvent(TEST_EVENT);
+  }
   delete &m;
 }
 
@@ -24,6 +28,7 @@ void f()
 
 void main()
 {
+  ed::Sleep(500);
   //BREAK_ON_MEMORY_LEAK(274);
   try
   {

@@ -10,6 +10,14 @@
 
 namespace ed
 {
+  enum EVENT_STATE
+  {
+    PRE_CHANGE,
+    PRE_LISTEN,
+    POST_COMMIT,
+    POST_CANCEL
+  };
+
   namespace slot_data
   {
     struct event : public listeners_container<listener>
