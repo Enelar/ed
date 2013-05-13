@@ -18,6 +18,8 @@ namespace ed
 
     friend class module;
     int RegisterEvent( std::string name );
+    bool PreNotify( int local_id );
+    void PostNotify( int local_id );
   public:
     gateway( com::abstract_connection & );
     module &CreateModule( std::string name );
