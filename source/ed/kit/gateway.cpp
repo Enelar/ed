@@ -17,7 +17,8 @@ namespace
       ed::Sleep(1);
     message *m = c.Get();
     throw_assert(m);
-    throw_assert(m->GetType() == NOTIFY);
+    todo(Gateway register name determine message type);
+    //throw_assert(m->GetType() == NOTIFY);
     event_notification e = *m;
     delete m;
     throw_assert(e.source.event == reserved::event::EVENT_REGISTER);
@@ -47,11 +48,12 @@ int gateway::RegisterEvent( std::string name )
 
 bool gateway::PreNotify( int local_id )
 {
-
+  todo(gateway pre notify);
 }
 
 void gateway::PostNotify( int local_id )
 {
+  todo(gateway post notify);
 }
 
 
