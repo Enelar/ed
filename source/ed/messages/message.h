@@ -12,40 +12,48 @@ namespace ed
     LISTEN,
     NOTIFY
   };
-  struct message
+  struct buffer
   {
     const int len;
-    unsigned char *buffer;
-    
-    message() : len(0), buffer(NULL)
+    unsigned char *buf;
+
+    buffer() : len(0), buf(NULL)
     {
     }
 
-    message( int _len ) : len(_len), buffer(NEW unsigned char[_len])
+    buffer( int _len ) : len(_len), buf(NEW unsigned char[_len])
     {
     }
 
-    message( const message &m ) : len(m.len), buffer(NEW unsigned char[len])
+    buffer( const buffer &m ) : len(m.len), buf(NEW unsigned char[len])
     {
-      memcpy(buffer, m.buffer, len);
+      memcpy(buf, m.buf, len);
     }
 
-    MESSAGE_TYPE GetType() const
+    ~buffer()
     {
-      throw_assert(len > 0);
-      throw_assert(buffer);
-      int t = buffer[0];
-      throw_assert(t >= REGISTER && t <= NOTIFY);
-      return (MESSAGE_TYPE)t;
-    }
-
-    ~message()
-    {
-      if (buffer)
-        delete buffer;
+      if (buf)
+        delete buf;
     }
   private:
-    void operator=( const message & );
+    void operator=( const buffer & );
+  };
+
+  struct message
+  {
+    typedef unsigned char byte;
+    typedef unsigned short word;
+
+    byte flags;
+    byte dest;
+    word size;
+    word event;
+    byte module;
+    word instance;
+    buffer *payload;
+
+    message( const buffer & );
+    operator buffer() const;
   };
 };
 

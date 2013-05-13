@@ -41,55 +41,18 @@ namespace ed
     operator message() const
     {
       throw_assert(payload_size < 256 && payload_size >= 0);
-      int len = 
-        sizeof_magic +
-        head_size +
-        payload_size;
-      message m(len);
-      char *buffer = (char *)m.buffer;
-      buffer[0] = NOTIFY;
-      buffer += sizeof_magic;
-
-      buffer[0] = payload_size;
-      buffer += sizeof_payload_size;
-
-      buffer[0] = (char)target_module;
-      buffer += sizeof_target_module;
-
-      ((short *)buffer)[0] = source.event;
-      buffer += sizeof_source_event;
-
-      buffer[0] = source.module;
-      buffer += sizeof_source_module;
-
-      ((short *)buffer)[0] = source.instance;
-      buffer += sizeof_source_instance;
-
-      memcpy(buffer, payload, payload_size);
-      return m;
+      todo(event notification to message);
     }
 
     event_notification( const message &m )
       : payload_size(
-        m.buffer[sizeof_magic]
+        0 //m.buffer[sizeof_magic]
                     ),
         payload(NULL)
     {
-      char *buffer = (char *)m.buffer;
-      throw_assert(buffer[0] == NOTIFY);
-      buffer += sizeof_magic;
-      //payload_size = buffer[0];
-      buffer += sizeof_payload_size;
-      target_module = buffer[0];
-      buffer += sizeof_target_module;
-      source.event = ((short *)buffer)[0];
-      buffer += sizeof_source_event;
-      source.module = buffer[0];
-      buffer += sizeof_source_module;
-      source.instance = ((short *)buffer)[0];
-      buffer += sizeof_source_instance;
-      payload = NEW char[payload_size];
-      memcpy(payload, buffer, payload_size);
+      todo(event_notification constructor);
+
+      todo(message to event notification);
     }
     ~event_notification()
     {
