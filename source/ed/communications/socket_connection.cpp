@@ -95,13 +95,16 @@ message *socket_connection::Get()
   flag_byte flags;
   SuccessRecieve(desc, &flags, 1);
   int header_size = message::ExpectedSize(flags);
-  throw_assert(Incoming() == header_size - 1);
+  throw_assert(Incoming() >= header_size - 1);
   buffer b(header_size);
   b.buf[0] = *reinterpret_cast<byte *>(&flags);
-  todo(Check this conversation);
+
   SuccessRecieve(desc, b.buf + 1, header_size - 1);
-  todo(socket_connection::Get);
+
   message *ret = NEW message(b);
-  todo(Get payload);
+  int expected_payload = ret->ExpectedPayloadSize();
+  if (expected_payload)
+    ret->payload = NEW buffer(expected_payload);
+  SuccessRecieve(desc, ret->payload->buf, expected_payload);
   return ret;
 }

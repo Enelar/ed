@@ -7,18 +7,44 @@ message::message( const buffer &a )
 {
   throw_assert(a.len > 0);
   flags = *reinterpret_cast<flag_byte *>(a.buf);
-  todo(CheckConversation);
+
   throw_assert(a.len >= ExpectedSize(flags));
   dest = a.buf[1];
+  if (flags.size_length == 1)
+    size = a.buf[2];
+  else
+    size = *(word *)(a.buf + 2);
   int offset = OffsetToEventSegment();
   event = *(word *)(a.buf + offset);
   module = a.buf[offset + 2];
   instance = *(word *)(a.buf + offset + 3);
-  if (a.len >= MessageSize())
+  if (a.len >= ExpectedSize(flags) + ExpectedPayloadSize())
   {
     payload = NEW buffer(size);
     memcpy(payload->buf, a.buf + offset + 5, size);
   }
+}
+
+message::operator buffer() const
+{
+  int length = SizeLength();
+  flags.size_length = length;
+  size = ExpectedSize(flags) + PayloadSize();
+  throw_assert(Completed());
+  buffer ret(MessageSize());
+  memcpy(ret.buf, &flags, 1);
+  ret.buf[1] = dest;
+  throw_assert(flags.size_length && flags.size_length != 3);
+  if (flags.size_length == 1)
+    ret.buf[2] = (byte)size;
+  else
+    *(word *)(ret.buf + 2) = size;
+  int offset = OffsetToEventSegment();
+  *(word *)(ret.buf + offset) = event;
+  ret.buf[offset + 2] = module;
+  *(word *)(ret.buf + offset + 3) = instance;
+  memcpy(ret.buf + offset + 5, payload->buf, payload->len);
+  return ret;
 }
 
 message::message( int payload_size )
@@ -57,15 +83,7 @@ message &message::operator=( const message &m )
     payload = NEW buffer(*m.payload);
   else
     payload = NULL;
-}
-
-message::operator buffer() const
-{
-  todo(Message to buffer);
-  throw_assert(Completed());
-  int length = SizeLength();
-  flags.size_length = length;
-  buffer ret(MessageSize());
+  return *this;
 }
 
 message::~message()
@@ -74,9 +92,9 @@ message::~message()
     delete payload;
 }
 
-int message::OffsetToEventSegment()
+int message::OffsetToEventSegment() const
 {
-  return sizeof(flag_byte) + sizeof(byte) + size;
+  return sizeof(byte) + sizeof(byte) + SizeLength();
 }
 
 int message::MessageSize() const
@@ -106,4 +124,9 @@ int message::SizeLength() const
   if (length < (1 << 16))
     return 2;
   throw_message("Very big message!!!");
+}
+
+int message::ExpectedPayloadSize() const
+{
+  return size - ExpectedSize(flags);
 }

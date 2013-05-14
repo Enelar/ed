@@ -55,7 +55,7 @@ namespace ed
 
     mutable flag_byte flags;
     byte dest;
-    word size; // opt
+    mutable word size; // opt
     word event;
     byte module;
     word instance;
@@ -86,13 +86,16 @@ namespace ed
 
     word PayloadSize() const
     {
-      return size;
+      if (payload)
+        return payload->len;
+      return 0;
     }
 
     int MessageSize() const;
     bool Completed() const;
+    int ExpectedPayloadSize() const;
   private:
-    int OffsetToEventSegment();
+    int OffsetToEventSegment() const;
     int SizeLength( ) const;
   };
 };
