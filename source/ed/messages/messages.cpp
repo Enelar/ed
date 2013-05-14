@@ -21,22 +21,49 @@ message::message( const buffer &a )
   }
 }
 
+message::message( int payload_size )
+{
+  throw_assert(payload_size >= 0);
+  
+  flags.ring = 0;
+  flags.size_length = 0;
+  flags.state = 0;
+  dest = 0;
+  size = 0;
+  event = 0;
+  module = 0;
+  instance = 0;
+  if (payload_size)
+    payload = NEW buffer(payload_size);
+  else
+    payload = NULL;
+}
+
+message::message( const message &m )
+{
+  *this = m;
+}
+
+message &message::operator=( const message &m )
+{
+  if (this == &m)
+    return *this;
+  flags = m.flags;
+  dest = m.dest;
+  event = m.event;
+  module = m.module;
+  instance = m.instance;
+  if (m.payload)
+    payload = NEW buffer(*m.payload);
+  else
+    payload = NULL;
+}
+
 message::operator buffer() const
 {
   todo(Message to buffer);
   throw_assert(Completed());
-  int length = 0;
-  if (payload)
-  {
-    if (payload->len > 0)
-      if (payload->len >= (1 << 8))
-      {
-        throw_assert(payload->len < (1 << 16));
-        length = 2;
-      }
-      else
-        length = 1;
-  }
+  int length = SizeLength();
   flags.size_length = length;
   buffer ret(MessageSize());
 }
@@ -62,4 +89,21 @@ bool message::Completed() const
   if (payload)
     return (size - ExpectedSize(flags)) == payload->len;
   return size == ExpectedSize(flags);
+}
+
+#include "../exceptions/exception.h"
+
+int message::SizeLength() const
+{
+  int length = 0;
+  if (payload)
+    length += payload->len;
+  length += message::MinRequiredSize();
+  length += 1; // for size
+  if (length < (1 << 8))
+    return 1;
+  length += 1; // for size
+  if (length < (1 << 16))
+    return 2;
+  throw_message("Very big message!!!");
 }

@@ -353,6 +353,10 @@
 				>
 			</File>
 			<File
+				RelativePath=".\ed\messages\register.cpp"
+				>
+			</File>
+			<File
 				RelativePath=".\ed\messages\register.h"
 				>
 			</File>

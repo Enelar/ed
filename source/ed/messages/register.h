@@ -21,10 +21,7 @@ namespace ed
     {
     }
     
-    operator message() const
-    {
-      todo(register message to message);
-    }
+    operator message() const;
   };
 };
 

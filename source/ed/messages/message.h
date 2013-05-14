@@ -61,9 +61,11 @@ namespace ed
     word instance;
     buffer *payload;
 
+    message( int payload_size );
     message( const buffer & );
     operator buffer() const;
     message( const message & );
+    message &operator=( const message & );
     ~message();
 
     static int MinRequiredSize()
@@ -91,7 +93,7 @@ namespace ed
     bool Completed() const;
   private:
     int OffsetToEventSegment();
-
+    int SizeLength( ) const;
   };
 };
 
