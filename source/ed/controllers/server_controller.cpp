@@ -60,8 +60,8 @@ void _TEMPLATE_::Workflow()
       message *m = socket.Get();
       if (!m)
         continue;
-      todo(message determine event type);
-      //if (m->GetType() != REGISTER)
+      if (m->event != reserved::event::EVENT_GLOBAL_ID_REQUEST &&
+        m->event != reserved::event::MODULE_GLOBAL_ID_REQUEST)
         todo("Read message");
       register_message r = *m;
       delete m;

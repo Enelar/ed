@@ -11,10 +11,7 @@ namespace ed
     NAME_TYPE nt;
     std::string name;
 
-    register_message( message &e )
-    {
-      todo(register message);
-    }
+    register_message( message &e );
     
     register_message( NAME_TYPE _nt, std::string _name )
       : nt(_nt), name(_name)
