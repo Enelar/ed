@@ -18,6 +18,8 @@ namespace ed
 
     bool SendPreEvent( int local_id );
     void SendPostEvent( int local_id );
+    bool SendPreEvent( int local_id, buffer payload );
+    void SendPostEvent( int local_id, buffer payload );
   public:
     void RegisterEvent( std::string name, int local_id );
     event_result SendEvent( int local_id );

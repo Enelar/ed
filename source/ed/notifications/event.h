@@ -7,8 +7,8 @@ namespace ed
 {
   enum EVENT_STATE
   {
-    PRE_CHANGE,
-    PRE_LISTEN,
+    PRE_QUERY,
+    PRE_REPLY,
     POST_COMMIT,
     POST_CANCEL
   };

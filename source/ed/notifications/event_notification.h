@@ -22,6 +22,14 @@ namespace ed
       target_module(0)
     {
     }
+    event_notification( buffer _payload )
+      : payload_size(_payload.len), payload(NULL)
+    {
+      if (!payload_size)
+        return;
+      payload = NEW char[payload_size];
+      memcpy(payload, _payload.buf, payload_size);
+    }
 
     static const int
       sizeof_magic = 1,

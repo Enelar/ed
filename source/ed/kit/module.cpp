@@ -19,15 +19,23 @@ event_result module::SendEvent( int local_id )
   return event_result(*this, local_id, result);
 }
 
+bool module::SendPreEvent( int local_id, buffer payload )
+{
+  return gw.PreNotify(adapter.ToGlobal(local_id), id, payload);
+}
+
+void module::SendPostEvent( int local_id, buffer payload )
+{
+  gw.PostNotify(adapter.ToGlobal(local_id), id, payload);
+}
+
+
 bool module::SendPreEvent( int local_id )
 {
-  todo(Send PRE_CHANGE events);
-  todo(Send PRE_LISTEN events);
-  todo(Recieve PRE_CHANGE events result);
-  todo(SendPreEvent);
+  return gw.PreNotify(adapter.ToGlobal(local_id), id, buffer(0));
 }
 
 void module::SendPostEvent( int local_id )
 {
-  todo(SendPostEvent);
+  gw.PostNotify(adapter.ToGlobal(local_id), id, buffer(0));
 }

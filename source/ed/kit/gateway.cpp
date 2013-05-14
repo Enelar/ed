@@ -8,7 +8,12 @@ using namespace ed::com;
 
 namespace
 {
-  int RegisterName( abstract_connection &c, NAME_TYPE nt, std::string name )
+  struct register_answer
+  {
+    int global_id;
+    int instance_id;
+  };
+  register_answer RegisterName( abstract_connection &c, NAME_TYPE nt, std::string name )
   {
     register_message rm(nt, name);
     c.SendRegister(rm);
@@ -17,14 +22,15 @@ namespace
       ed::Sleep(1);
     message *m = c.Get();
     throw_assert(m);
-    todo(Gateway register name determine message type);
-    //throw_assert(m->GetType() == NOTIFY);
+    throw_assert(m->event == reserved::event::EVENT_REGISTER);
     event_notification e = *m;
     delete m;
     throw_assert(e.source.event == reserved::event::EVENT_REGISTER);
     throw_assert(e.payload_size == 4);
-    int id = *(int *)e.payload;
-    return id;
+    register_answer ret;
+    ret.global_id = *(int *)e.payload;
+    ret.instance_id = e.source.instance;
+    return ret;
   }
 };
 
@@ -35,25 +41,40 @@ gateway::gateway( com::abstract_connection &_c )
 
 module &gateway::CreateModule( std::string name )
 {
-  int id = RegisterName(c, MODULES, name);
+  register_answer answer = RegisterName(c, MODULES, name);
+  instance = answer.instance_id;
+  int id = answer.global_id;
   module *ret = NEW module(id, *this);
   return *ret;
 }
 
 int gateway::RegisterEvent( std::string name )
 {
-  int id = RegisterName(c, EVENTS, name);
+  register_answer answer = RegisterName(c, EVENTS, name);
+  instance = answer.instance_id;
+  int id = answer.global_id;
   return id;
 }
 
-bool gateway::PreNotify( int local_id )
+bool gateway::PreNotify( int global_id, int module, buffer payload )
 {
-  todo(gateway pre notify);
+  event_notification m(payload);
+  m.target_module = reserved::module::BROADCAST;
+  m.source.event = global_id;
+  m.source.module = module;
+  m.source.instance = instance;
+  todo(gateway PreNotify);
+  todo(gateway PreNotify network ring);
 }
 
-void gateway::PostNotify( int local_id )
+void gateway::PostNotify( int global_id, int module, buffer payload )
 {
-  todo(gateway post notify);
+  event_notification m(payload);
+  m.target_module = reserved::module::BROADCAST;
+  m.source.event = global_id;
+  m.source.module = module;
+  m.source.instance = instance;
+  c.Notify(m);
 }
 
 
