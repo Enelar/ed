@@ -345,6 +345,10 @@
 				>
 			</File>
 			<File
+				RelativePath=".\ed\messages\messages.cpp"
+				>
+			</File>
+			<File
 				RelativePath=".\ed\messages\notification.h"
 				>
 			</File>

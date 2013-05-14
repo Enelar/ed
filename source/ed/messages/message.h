@@ -53,7 +53,7 @@ namespace ed
     typedef unsigned char byte;
     typedef unsigned short word;
 
-    flag_byte flags;
+    mutable flag_byte flags;
     byte dest;
     word size; // opt
     word event;
@@ -63,6 +63,8 @@ namespace ed
 
     message( const buffer & );
     operator buffer() const;
+    message( const message & );
+    ~message();
 
     static int MinRequiredSize()
     {
@@ -73,7 +75,7 @@ namespace ed
         sizeof(byte) +
         sizeof(word);
     }
-    
+
     static int ExpectedSize( flag_byte flag )
     {
       throw_assert(flag.size_length != 3);
@@ -84,6 +86,12 @@ namespace ed
     {
       return size;
     }
+
+    int MessageSize() const;
+    bool Completed() const;
+  private:
+    int OffsetToEventSegment();
+
   };
 };
 
