@@ -38,22 +38,10 @@ namespace ed
         sizeof_source_module +
         sizeof_source_instance;
 
-    operator message() const
-    {
-      throw_assert(payload_size < 256 && payload_size >= 0);
-      todo(event notification to message);
-    }
+    operator message() const;
 
-    event_notification( const message &m )
-      : payload_size(
-        0 //m.buffer[sizeof_magic]
-                    ),
-        payload(NULL)
-    {
-      todo(event_notification constructor);
-
-      todo(message to event notification);
-    }
+    event_notification( const message &m );
+    
     ~event_notification()
     {
       if (payload)

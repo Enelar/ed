@@ -237,6 +237,10 @@
 				>
 			</File>
 			<File
+				RelativePath=".\ed\notifications\event_notification.cpp"
+				>
+			</File>
+			<File
 				RelativePath=".\ed\notifications\event_notification.h"
 				>
 			</File>
