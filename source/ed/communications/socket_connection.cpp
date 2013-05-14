@@ -79,7 +79,29 @@ void socket_connection::SendMessage( const message &m )
   EXCEPTION(disconnected);
 }
 
+template<typename type>
+void SuccessRecieve( unsigned int socket, type *buffer, int size )
+{
+  word readed;
+  ax::tl4::LOW_STATUSES res = ax::tl4::low::Recieve(socket, (byte *)buffer, readed, size);
+  throw_assert(res == SUCCESS);
+  throw_assert(readed == size);
+}
+
 message *socket_connection::Get()
 {
+  if (Incoming() < message::MinRequiredSize())
+    return NULL;
+  flag_byte flags;
+  SuccessRecieve(desc, &flags, 1);
+  int header_size = message::ExpectedSize(flags);
+  throw_assert(Incoming() == header_size - 1);
+  buffer b(header_size);
+  b.buf[0] = *reinterpret_cast<byte *>(&flags);
+  todo(Check this conversation);
+  SuccessRecieve(desc, b.buf + 1, header_size - 1);
   todo(socket_connection::Get);
+  message *ret = NEW message(b);
+  todo(Get payload);
+  return ret;
 }

@@ -39,14 +39,23 @@ namespace ed
     void operator=( const buffer & );
   };
 
+  struct flag_byte
+  {
+    unsigned size_length : 2;
+    unsigned : 1;
+    unsigned ring : 2;
+    unsigned state : 2;
+    unsigned : 1;
+  };
+
   struct message
   {
     typedef unsigned char byte;
     typedef unsigned short word;
 
-    byte flags;
+    flag_byte flags;
     byte dest;
-    word size;
+    word size; // opt
     word event;
     byte module;
     word instance;
@@ -54,6 +63,27 @@ namespace ed
 
     message( const buffer & );
     operator buffer() const;
+
+    static int MinRequiredSize()
+    {
+      return
+        sizeof(byte) +
+        sizeof(byte) +
+        sizeof(word) +
+        sizeof(byte) +
+        sizeof(word);
+    }
+    
+    static int ExpectedSize( flag_byte flag )
+    {
+      throw_assert(flag.size_length != 3);
+      return MinRequiredSize() + flag.size_length;
+    }
+
+    word PayloadSize() const
+    {
+      return size;
+    }
   };
 };
 
