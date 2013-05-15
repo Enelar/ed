@@ -180,7 +180,26 @@
 	</References>
 	<Files>
 		<File
+			RelativePath=".\client\header.h"
+			>
+		</File>
+		<File
 			RelativePath=".\client\main.cpp"
+			>
+		</File>
+		<File
+			RelativePath=".\client\module_AAA.cpp"
+			>
+			<FileConfiguration
+				Name="Debug|Win32"
+				>
+				<Tool
+					Name="VCCLCompilerTool"
+				/>
+			</FileConfiguration>
+		</File>
+		<File
+			RelativePath=".\client\module_AAA.h"
 			>
 		</File>
 	</Files>

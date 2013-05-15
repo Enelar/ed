@@ -36,16 +36,26 @@ namespace ed
       int local_id,
       EVENT_RING query_max_ring = RING0_THREAD,
       EVENT_RING notify_max_ring = RING3_WORLD );
+      
+    struct event_context
+    {
+      int event_local_id;
+      const event_source &source;
+      buffer *const payload;
+      
+      event_context( int _event_local_id, const event_source &_source, buffer *const _payload  )
+        : event_local_id(_event_local_id), source(_source), payload(_payload)
+      {
+      }
+    };
 
-    typedef bool (*query_callback_type)( const int event_local_id, const event_source &source, const buffer *const payload );
-    typedef void (*event_callback_type)( const int event_local_id, const event_source &source, const buffer *const payload );
+    typedef bool (module::*query_callback_type)( const event_context & );
+    typedef void (module::*event_callback_type)( const event_context & );
 
   protected:
-    typedef query_callback_type module::* query_callback_entry_type;
-    typedef event_callback_type module::* event_callback_entry_type;
 
-    void RegisterQueryCallback( query_callback_entry_type, event_source );
-    void RegisterEventCallback( event_callback_entry_type, event_source );
+    void RegisterQueryCallback( query_callback_type, event_source );
+    void RegisterEventCallback( event_callback_type, event_source );
   private:
     template<typename callback_type>
     struct callback_entry
@@ -53,8 +63,8 @@ namespace ed
       event_source source;
       callback_type callback;
     };
-    std::vector<callback_entry<query_callback_entry_type>> QueryCallbacks;
-    std::vector<callback_entry<event_callback_entry_type>> EventCallbacks;
+    std::vector<callback_entry<query_callback_type>> QueryCallbacks;
+    std::vector<callback_entry<event_callback_type>> EventCallbacks;
 
     void EventReciever( const message & );
     bool Query( const message & );
