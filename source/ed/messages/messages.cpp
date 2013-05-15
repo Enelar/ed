@@ -45,7 +45,8 @@ message::operator buffer() const
   *(word *)(ret.buf + offset) = event;
   ret.buf[offset + 2] = module;
   *(word *)(ret.buf + offset + 3) = instance;
-  memcpy(ret.buf + offset + 5, payload->buf, payload->len);
+  if (payload)
+    memcpy(ret.buf + offset + 5, payload->buf, payload->len);
   return ret;
 }
 
