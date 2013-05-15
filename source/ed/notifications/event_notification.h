@@ -9,6 +9,11 @@ namespace ed
   struct event_source
   {
     int instance, module, event;
+
+    bool operator==( const event_source &a ) const
+    {
+      return instance == a.instance && module == a.module && event == a.event;
+    }
   };
 
   struct event_notification

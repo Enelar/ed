@@ -396,6 +396,10 @@
 				RelativePath=".\ed\kit\module.h"
 				>
 			</File>
+			<File
+				RelativePath=".\ed\kit\module_callback.cpp"
+				>
+			</File>
 		</Filter>
 		<File
 			RelativePath=".\ed\def.h"

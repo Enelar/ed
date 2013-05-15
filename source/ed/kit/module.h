@@ -35,14 +35,27 @@ namespace ed
       int local_id,
       EVENT_RING query_max_ring = RING0_THREAD,
       EVENT_RING notify_max_ring = RING3_WORLD );
-      
-    virtual void EventReciever( const event_notification & )
+
+    typedef bool (*query_callback_type)( const int event_local_id, const event_source &source, const buffer *const payload );
+    typedef void (*event_callback_type)( const int event_local_id, const event_source &source, const buffer *const payload );
+
+    typedef query_callback_type module::* query_callback_entry_type;
+    typedef event_callback_type module::* event_callback_entry_type;
+
+    void RegisterQueryCallback( query_callback_entry_type, event_source );
+    void RegisterEventCallback( event_callback_entry_type, event_source );
+  private:
+    template<typename callback_type>
+    struct callback_entry
     {
-    }
-    virtual bool Query( const event_notification & )
-    {
-      return true;
-    }
+      event_source source;
+      callback_type callback;
+    };
+    std::vector<callback_entry<query_callback_entry_type>> QueryCallbacks;
+    std::vector<callback_entry<event_callback_entry_type>> EventCallbacks;
+
+    void EventReciever( const message & );
+    bool Query( const message & );
   };
 };
 
