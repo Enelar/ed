@@ -21,8 +21,11 @@ message::message( const buffer &a )
   instance = *(word *)(a.buf + offset + 3);
   if (a.len >= ExpectedSize(flags) + ExpectedPayloadSize())
   {
-    payload = NEW buffer(size);
-    memcpy(payload->buf, a.buf + offset + 5, size);
+    if (ExpectedPayloadSize())
+    {
+      payload = NEW buffer(size);
+      memcpy(payload->buf, a.buf + offset + 5, size);
+    }
   }
 }
 
@@ -82,6 +85,7 @@ message &message::operator=( const message &m )
   event = m.event;
   module = m.module;
   instance = m.instance;
+  size = m.MessageSize();
   if (m.payload)
     payload = NEW buffer(*m.payload);
   else
