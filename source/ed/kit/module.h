@@ -24,6 +24,7 @@ namespace ed
     };
     std::vector<event_listeners> pre_listeners;
   public:
+    module( const std::string &, gateway & );
     void RegisterEvent( std::string name, int local_id );
     
     event_result SendEvent( 
@@ -39,6 +40,7 @@ namespace ed
     typedef bool (*query_callback_type)( const int event_local_id, const event_source &source, const buffer *const payload );
     typedef void (*event_callback_type)( const int event_local_id, const event_source &source, const buffer *const payload );
 
+  protected:
     typedef query_callback_type module::* query_callback_entry_type;
     typedef event_callback_type module::* event_callback_entry_type;
 

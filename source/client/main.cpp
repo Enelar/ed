@@ -1,9 +1,4 @@
-#include "../ed/exceptions/exception.h"
-#include "../ed/exceptions/disconnected.h"
-#include "../ed/kit/gateway.h"
-#include "../ed/kit/module.h"
-#include "../ed/communications/socket_connection.h"
-#include "../ed/3party/win/utils.h"
+#include "header.h"
 
 using namespace ed;
 
@@ -16,7 +11,7 @@ void f()
 {
   com::socket_connection port("localhost", 3030);
   gateway gw(port);
-  module &m = gw.CreateModule("test");
+  module m("test", gw);
   m.RegisterEvent(TOSTRING(TEST_EVENT), TEST_EVENT);
   {
     event_result a = m.SendEvent(TEST_EVENT);

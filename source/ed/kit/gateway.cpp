@@ -41,13 +41,18 @@ gateway::gateway( com::abstract_connection &_c )
 
 module &gateway::CreateModule( std::string name )
 {
+  return *NEW module(name, *this);
+}
+
+void gateway::CreateModule( std::string name, module *const ret )
+{
   register_answer answer = RegisterName(c, MODULES, name);
   instance = answer.instance_id;
   int id = answer.global_id;
-  module *ret = NEW module(id, *this);
+  ret->id = id;
   local_modules.AddModule(ret, id);
-  return *ret;
 }
+
 
 int gateway::RegisterEvent( std::string name )
 {

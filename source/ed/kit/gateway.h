@@ -32,6 +32,8 @@ namespace ed
     int instance;
     std::list<message> delayed_messages;
     modules_translate local_modules;
+
+    void CreateModule( std::string name, module *const );
   public:
     gateway( com::abstract_connection & );
     module &CreateModule( std::string name );

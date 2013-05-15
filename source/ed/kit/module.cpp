@@ -8,6 +8,12 @@ module::module( int _id, gateway &_gw )
 {
 }
 
+module::module( const std::string &name, gateway &_gw )
+  : gw(_gw)
+{
+  gw.CreateModule(name, this);
+}
+
 void module::RegisterEvent( std::string name, int local_id )
 {
   int global_id = gw.RegisterEvent(name);
