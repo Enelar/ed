@@ -202,6 +202,14 @@
 			RelativePath=".\client\module_AAA.h"
 			>
 		</File>
+		<File
+			RelativePath=".\client\module_BBB.cpp"
+			>
+		</File>
+		<File
+			RelativePath=".\client\module_BBB.h"
+			>
+		</File>
 	</Files>
 	<Globals>
 	</Globals>

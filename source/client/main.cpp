@@ -2,21 +2,17 @@
 
 using namespace ed;
 
-enum DUMMY_EVENTS
-{
-  TEST_EVENT
-};
+#include "module_AAA.h"
+#include "module_BBB.h"
 
 void f()
 {
   com::socket_connection port("localhost", 3030);
   gateway gw(port);
-  module m("test", gw);
-  m.RegisterEvent(TOSTRING(TEST_EVENT), TEST_EVENT);
-  {
-    event_result a = m.SendEvent(TEST_EVENT);
-  }
-  delete &m;
+  module_AAA a(gw);
+  module_BBB b(gw);
+  a.SendTestEvents();
+  b.SendTestEvents();
 }
 
 #include <iostream>

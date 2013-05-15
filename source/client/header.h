@@ -6,3 +6,4 @@
 #include "../ed/3party/win/utils.h"
 #include "../ed/notifications/event_notification.h"
 #include "../ed/messages/message.h"
+#include "../ed/names/reserved.h"

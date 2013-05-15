@@ -8,6 +8,7 @@ class module_AAA : public ed::module
   void AllEventsListener( const event_context & );
 public:
   module_AAA( ed::gateway _gw );
+  void SendTestEvents();
 };
 
 #endif
