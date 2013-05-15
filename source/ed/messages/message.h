@@ -3,6 +3,7 @@
 
 #include "../def.h"
 #include "../exceptions/exception.h"
+#include "../notifications/event_types.h"
 
 namespace ed
 {
@@ -48,12 +49,42 @@ namespace ed
     unsigned : 1;
   };
 
+  struct message_flags
+  {
+    unsigned int size_length;
+    EVENT_RING ring;
+    EVENT_STATE state;
+
+    message_flags( )
+    {
+      size_length = 0;
+      ring = RING3_WORLD;
+      state = POST_COMMIT;
+    }
+
+    message_flags( const flag_byte &b )
+    {
+      size_length = b.size_length;
+      ring = (EVENT_RING)b.ring;
+      state = (EVENT_STATE)b.state;
+    }
+
+    operator flag_byte()
+    {
+      flag_byte ret;
+      ret.size_length = size_length;
+      ret.ring = ring;
+      ret.state = state;
+      return ret;
+    }
+  };
+
   struct message
   {
     typedef unsigned char byte;
     typedef unsigned short word;
 
-    mutable flag_byte flags;
+    mutable message_flags flags;
     byte dest;
     mutable word size; // opt
     word event;

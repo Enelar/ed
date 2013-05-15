@@ -6,7 +6,8 @@ message::message( const buffer &a )
   : payload(NULL)
 {
   throw_assert(a.len > 0);
-  flags = *reinterpret_cast<flag_byte *>(a.buf);
+  flag_byte fb = *reinterpret_cast<flag_byte *>(a.buf);
+  flags = fb;
 
   throw_assert(a.len >= ExpectedSize(flags));
   dest = a.buf[1];
@@ -32,7 +33,8 @@ message::operator buffer() const
   size = ExpectedSize(flags) + PayloadSize();
   throw_assert(Completed());
   buffer ret(MessageSize());
-  memcpy(ret.buf, &flags, 1);
+  flag_byte fb = flags;
+  memcpy(ret.buf, &fb, 1);
   ret.buf[1] = dest;
   throw_assert(flags.size_length && flags.size_length != 3);
   if (flags.size_length == 1)
@@ -51,9 +53,9 @@ message::message( int payload_size )
 {
   throw_assert(payload_size >= 0);
   
-  flags.ring = 0;
+  flags.ring = RING3_WORLD;
   flags.size_length = 0;
-  flags.state = 0;
+  flags.state = POST_COMMIT;
   dest = 0;
   size = 0;
   event = 0;
