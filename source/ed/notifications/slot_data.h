@@ -21,13 +21,17 @@ namespace ed
         for (;i < s; ++i)
           childs[i].Each(common_operator);
       }
-      
+
+      bool Exists( int target )
+      {
+        return target >= 0 && (unsigned)target < childs.size();
+      }
+
       template<typename obj_type>
       void Direct( obj_type &a )
       {
         unsigned int target = a.Target();
-        throw_assert(target >= 0);
-        throw_assert(target < childs.size());
+        throw_assert(Exists(target));
         a.Direct(childs[target]);
       }
     };

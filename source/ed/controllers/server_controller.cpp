@@ -34,9 +34,10 @@ void _TEMPLATE_::AddListener( event_source source, listener destination )
 }
 
 template<class ready_type>
-void _TEMPLATE_::MakeNotification( event_notification a )
+void _TEMPLATE_::MakeNotification( message &a )
 { //! @NOTE Crap code again
-  slot_data::event &e = clients[a.source.instance].GetEvent(a.source);
+  event_notification en = a;
+  slot_data::event &e = clients[a.instance].GetEvent(en.source);
   todo(Send notifications);
 }
 
@@ -60,8 +61,8 @@ void _TEMPLATE_::Workflow()
       message *m = socket.Get();
       if (!m)
         continue;
-      if (m->event != reserved::event::EVENT_GLOBAL_ID_REQUEST &&
-        m->event != reserved::event::MODULE_GLOBAL_ID_REQUEST)
+      if (m->event == reserved::event::EVENT_GLOBAL_ID_REQUEST ||
+        m->event == reserved::event::MODULE_GLOBAL_ID_REQUEST)
       {
         register_message r = *m;
         delete m;
@@ -74,9 +75,14 @@ void _TEMPLATE_::Workflow()
         socket.Notify(e);
         continue;
       }
-      event_notification e = *m;
+      message a = *m;
       delete m;
-      todo(Notify all events);
+
+      if (a.flags.ring < RING2_NETWORK)
+        continue;
+      if (a.flags.state == PRE_REPLY)
+        todo(PRE REPLY ON SERVER CONTROLLER);
+      MakeNotification(a);
     }
   }
 }

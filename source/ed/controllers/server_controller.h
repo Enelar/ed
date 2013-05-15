@@ -26,7 +26,7 @@ namespace ed
     ~server_controller();
     id_type RegisterName( NAME_TYPE nt, word_type name );
     void AddListener( event_source source, listener destination );
-    void MakeNotification( event_notification );
+    void MakeNotification( message & );
     void Workflow();
   };
 };
