@@ -62,16 +62,21 @@ void _TEMPLATE_::Workflow()
         continue;
       if (m->event != reserved::event::EVENT_GLOBAL_ID_REQUEST &&
         m->event != reserved::event::MODULE_GLOBAL_ID_REQUEST)
-        todo("Read message");
-      register_message r = *m;
+      {
+        register_message r = *m;
+        delete m;
+        id_type id = RegisterName(r.nt, r.name);
+        event_notification e(4); // 32 bit
+        e.source.instance = i;
+        e.source.module = 0;
+        e.source.event = ed::reserved::event::EVENT_REGISTER;
+        memcpy(e.payload, &id, 4);
+        socket.Notify(e);
+        continue;
+      }
+      event_notification e = *m;
       delete m;
-      id_type id = RegisterName(r.nt, r.name);
-      event_notification e(4); // 32 bit
-      e.source.instance = i;
-      e.source.module = 0;
-      e.source.event = ed::reserved::event::EVENT_REGISTER;
-      memcpy(e.payload, &id, 4);
-      socket.Notify(e);
+      todo(Notify all events);
     }
   }
 }
