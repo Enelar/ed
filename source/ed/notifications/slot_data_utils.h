@@ -71,7 +71,7 @@ namespace ed
       int level;
     public:
       SearchEvent( event_source es ) :
-        level(0)
+        level(0), e(NULL)
       {
         targets[0] = es.instance;
         targets[1] = es.module;
@@ -91,9 +91,18 @@ namespace ed
         a.Direct(*this);
       }
 
+      template<typename obj>
+      void IfExists( obj &a )
+      {
+        ++level;
+        throw_assert(level < target_count);
+        a.IfExists(*this);
+      }
+
       event *e;
 
       void Direct( module &m );
+      void IfExists( module & m );
     };
   };
 };

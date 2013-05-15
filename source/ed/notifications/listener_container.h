@@ -14,6 +14,7 @@ namespace ed
     template<typename child_type>
     struct listeners_container : public common_container<child_type>
     {
+      typedef common_container<child_type>::container_type container_type;
       void RemoveDisconnectedInstance( int id )
       {
         Each(RemoveInstance(id));
@@ -24,11 +25,11 @@ namespace ed
         al->Direct(*this);
         delete al;
       }
-      event &GetEvent( event_source source )
+      event *GetEvent( event_source source )
       {
         SearchEvent *se = NEW SearchEvent(source);
-        se->Direct(*this);
-        event &ret = *se->e;
+        se->IfExists(*this);
+        event *ret = se->e;
         delete se;
         return ret;
       }

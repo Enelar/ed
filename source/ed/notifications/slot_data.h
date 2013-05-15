@@ -12,7 +12,8 @@ namespace ed
     template<typename child_type>
     struct common_container
     {
-      std::vector<child_type> childs;
+      typedef std::vector<child_type> container_type;
+      container_type childs;
 
       template<typename obj_type>
       void Each( obj_type &common_operator )
@@ -33,6 +34,14 @@ namespace ed
         unsigned int target = a.Target();
         throw_assert(Exists(target));
         a.Direct(childs[target]);
+      }
+
+      template<typename obj_type>
+      void IfExists( obj_type &a )
+      {
+        unsigned int target = a.Target();
+        if (Exists(target))
+          a.IfExists(childs[target]);
       }
     };
 
