@@ -4,6 +4,7 @@
 #include "gateway.h"
 #include "../names/translate.h"
 #include "event_result.h"
+#include "../notifications/event_types.h"
 
 namespace ed
 {
@@ -15,14 +16,33 @@ namespace ed
     gateway &gw;
     int id;
     translate adapter;
-
-    bool SendPreEvent( int local_id );
-    void SendPostEvent( int local_id );
-    bool SendPreEvent( int local_id, buffer payload );
-    void SendPostEvent( int local_id, buffer payload );
+    bool SendPreEvent( int local_id, message & );
+    void SendPostEvent( int local_id, message & );
+    struct event_listeners
+    {
+      std::list<int> modules;
+    };
+    std::vector<event_listeners> pre_listeners;
   public:
     void RegisterEvent( std::string name, int local_id );
-    event_result SendEvent( int local_id );
+    
+    event_result SendEvent( 
+      int local_id,
+      buffer payload,
+      EVENT_RING query_max_ring = RING0_THREAD,
+      EVENT_RING notify_max_ring = RING3_WORLD );
+    event_result SendEvent( 
+      int local_id,
+      EVENT_RING query_max_ring = RING0_THREAD,
+      EVENT_RING notify_max_ring = RING3_WORLD );
+      
+    virtual void EventReciever( const event_notification & )
+    {
+    }
+    virtual bool Query( const event_notification & )
+    {
+      return true;
+    }
   };
 };
 

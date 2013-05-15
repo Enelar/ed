@@ -1,6 +1,9 @@
 #ifndef _ED_KIT_EVENT_RESULT_H_
 #define _ED_KIT_EVENT_RESULT_H_
 
+#include "../messages/message.h"
+#include "../notifications/event_types.h"
+
 namespace ed
 {
   class module;
@@ -9,11 +12,13 @@ namespace ed
     mutable bool deactivated;
 
     module &m;
+    message e;
     const int local_id;
     bool result;
+    EVENT_RING r;
 
     friend class module;
-    event_result( module &, int local_id, bool result );
+    event_result( message &, module &, int local_id, bool result, EVENT_RING notify );
   public:
     event_result( const event_result & );
 

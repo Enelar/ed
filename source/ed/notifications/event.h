@@ -5,14 +5,6 @@
 
 namespace ed
 {
-  enum EVENT_STATE
-  {
-    PRE_QUERY,
-    PRE_REPLY,
-    POST_COMMIT,
-    POST_CANCEL
-  };
-
   namespace slot_data
   {
     struct event : public listeners_container<listener>

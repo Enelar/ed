@@ -45,6 +45,7 @@ module &gateway::CreateModule( std::string name )
   instance = answer.instance_id;
   int id = answer.global_id;
   module *ret = NEW module(id, *this);
+  local_modules.AddModule(ret, id);
   return *ret;
 }
 
@@ -56,25 +57,24 @@ int gateway::RegisterEvent( std::string name )
   return id;
 }
 
-bool gateway::PreNotify( int global_id, int module, buffer payload )
+bool gateway::PreNotify( const message &e )
 {
-  event_notification m(payload);
-  m.target_module = reserved::module::BROADCAST;
-  m.source.event = global_id;
-  m.source.module = module;
-  m.source.instance = instance;
-  todo(gateway PreNotify);
-  todo(gateway PreNotify network ring);
+  if (e.flags.ring == 0)
+    return true;
+  todo(gateway::QUERY MODULES RING 1);
+  todo(gateway::QUERY MODULES RING 2);
+  todo(gateway::QUERY MODULES RING 3);
 }
 
-void gateway::PostNotify( int global_id, int module, buffer payload )
+void gateway::PostNotify( const message &e )
 {
-  event_notification m(payload);
-  m.target_module = reserved::module::BROADCAST;
-  m.source.event = global_id;
-  m.source.module = module;
-  m.source.instance = instance;
-  c.Notify(m);
+  c.Notify(e);
+}
+
+bool gateway::QueryModule( int global_id, const message &e )
+{
+  module *m = local_modules.GetModule(global_id);
+  return m->Query(e);
 }
 
 
