@@ -5,7 +5,7 @@ enum MY_EVENTS
   TEST_EVENT
 };
 
-module_AAA::module_AAA( ed::gateway _gw ) : module("module_AAA", _gw)
+module_AAA::module_AAA( ed::gateway &_gw ) : module("module_AAA", _gw)
 {
   RegisterEvent(TOSTRING(TEST_EVENT), TEST_EVENT);
   RegisterEventCallback(static_cast<event_callback_type>(&module_AAA::AllEventsListener), ed::event_source());

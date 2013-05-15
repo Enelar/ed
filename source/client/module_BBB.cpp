@@ -6,7 +6,7 @@ enum
   AAA_TEST_EVENT,
 };
 
-module_BBB::module_BBB( ed::gateway _gw ) : module("moduleBBB", _gw)
+module_BBB::module_BBB( ed::gateway &_gw ) : module("moduleBBB", _gw)
 {
   RegisterEvent(TOSTRING(MY_EVENT), MY_EVENT);
   RegisterEvent("TEST_EVENT", AAA_TEST_EVENT);
