@@ -104,7 +104,9 @@ message *socket_connection::Get()
   message *ret = NEW message(b);
   int expected_payload = ret->ExpectedPayloadSize();
   if (expected_payload)
+  {
     ret->payload = NEW buffer(expected_payload);
-  SuccessRecieve(desc, ret->payload->buf, expected_payload);
+    SuccessRecieve(desc, ret->payload->buf, expected_payload);
+  }
   return ret;
 }
