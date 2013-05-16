@@ -44,22 +44,23 @@ module &gateway::CreateModule( std::string name )
   return *NEW module(name, *this);
 }
 
+int gateway::RegisterName( NAME_TYPE nt, std::string name )
+{
+  register_answer answer = ::RegisterName(c, MODULES, name);
+  instance = answer.instance_id;
+  return answer.global_id;
+}
+
 void gateway::CreateModule( std::string name, module *const ret )
 {
-  register_answer answer = RegisterName(c, MODULES, name);
-  instance = answer.instance_id;
-  int id = answer.global_id;
-  ret->id = id;
-  local_modules.AddModule(ret, id);
+  ret->id = RegisterName(MODULES, name);
+  local_modules.AddModule(ret, ret->id);
 }
 
 
 int gateway::RegisterEvent( std::string name )
 {
-  register_answer answer = RegisterName(c, EVENTS, name);
-  instance = answer.instance_id;
-  int id = answer.global_id;
-  return id;
+  return RegisterName(EVENTS, name);
 }
 
 bool gateway::PreNotify( const message &e )

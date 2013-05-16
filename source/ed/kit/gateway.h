@@ -32,7 +32,7 @@ namespace ed
     int instance;
     std::list<message> delayed_messages;
     modules_translate local_modules;
-
+    int RegisterName( NAME_TYPE nt, std::string name );
     void CreateModule( std::string name, module *const );
   public:
     gateway( com::abstract_connection & );
