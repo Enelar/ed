@@ -34,6 +34,7 @@ namespace ed
     modules_translate local_modules;
     int RegisterName( NAME_TYPE nt, std::string name );
     void Listen( int source_instance, int dest_module, std::string module, std::string event );
+    void Listen( int source_instance, int dest_module, int module, int event );
     void CreateModule( std::string name, module *const );
   public:
     gateway( com::abstract_connection & );

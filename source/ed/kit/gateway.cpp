@@ -89,6 +89,11 @@ void gateway::Listen( int source_instance, int dest_module, std::string module, 
 {
   int module_global_id = RegisterName(MODULES, module);
   int event_global_id = RegisterName(EVENTS, event);
+  Listen(source_instance, dest_module, module_global_id, event_global_id);
+}
+
+void gateway::Listen( int source_instance, int dest_module, int module_global_id, int event_global_id )
+{
   listen_message mes(event_global_id, module_global_id, source_instance);
 
   c.Notify((message)mes);
