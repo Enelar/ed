@@ -13,9 +13,11 @@ module_AAA::module_AAA( ed::gateway &_gw ) : module("module_AAA", _gw)
   RegisterEventCallback(static_cast<event_callback_type>(&module_AAA::AllEventsListener), es);
 }
 
-void module_AAA::AllEventsListener( const event_context & )
+#include <iostream>
+
+void module_AAA::AllEventsListener( const event_context &c )
 {
-  
+  std::cout << "MODULE_AAA RECIEVED EVENT " << c.event_local_id << " FROM " << c.source.instance << ":" << c.source.module << std::endl;
 }
 
 void module_AAA::SendTestEvents()

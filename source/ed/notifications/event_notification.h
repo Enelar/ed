@@ -60,6 +60,10 @@ namespace ed
         sizeof_source_instance;
 
     operator message() const;
+    operator event_source() const
+    {
+      return source;
+    }
 
     event_notification( const message &m );
     

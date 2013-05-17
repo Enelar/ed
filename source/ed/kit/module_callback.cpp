@@ -47,15 +47,17 @@ void module::RegisterEventCallback( event_callback_type q, event_source source )
 
 void module::EventReciever( const message &m )
 {
-  const event_notification en = m;
+  const event_source en = static_cast<event_notification>(m);
+  event_source en0 = en;
+  en0.event = reserved::event::BROADCAST;
   std::vector<callback_entry<event_callback_type>>::const_iterator
     i = EventCallbacks.begin(),
     e = EventCallbacks.end();
   while (i != e)
   {
     const callback_entry<event_callback_type> &t = *i++;
-    if (en.source == t.source)
-      (this->*t.callback)(event_context(adapter.ToLocal(m.event), en.source, m.payload));
+    if (en == t.source || en0 == t.source)
+      (this->*t.callback)(event_context(adapter.ToLocal(m.event), en, m.payload));
   }
 }
 

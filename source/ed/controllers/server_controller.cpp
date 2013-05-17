@@ -34,18 +34,17 @@ void _TEMPLATE_::AddListener( event_source source, listener destination )
 }
 
 template<class ready_type>
-void _TEMPLATE_::MakeNotification( message &a )
-{ //! @NOTE Crap code again
-  event_notification en = a;
-  client_type &client = clients[a.instance];
-  slot_data::event *e = client.GetEvent(en.source);
+void _TEMPLATE_::MakeNotification( message &a, const event_source &search_source )
+{
+  slot_data::event *e = clients[search_source.instance].GetEvent(search_source);
   if (!e)
     return; // no one listeners exists
   const slot_data::event::container_type &childs = e->childs;
+  client_type &client = clients[a.instance];
   for (int i = 0, s = childs.size(); i < s; i++)
   {
     const listener &t = childs[i];
-    client.Socket().Notify(en);
+    client.Socket().Notify(a);
   }
 }
 
@@ -67,6 +66,7 @@ void _TEMPLATE_::Workflow()
     if (socket.Incoming() >= min_message_length)
     {
       message *m = socket.Get();
+      m->instance = i;
       if (!m)
         continue;
       if (m->event == reserved::event::EVENT_GLOBAL_ID_REQUEST ||
@@ -104,13 +104,14 @@ void _TEMPLATE_::Workflow()
       if (a.flags.state == PRE_REPLY)
         todo(PRE REPLY ON SERVER CONTROLLER);
       std::cout << "EVENT " << a.event << " APPEARS FROM " << a.instance << ":" << (int)a.module << std::endl;
-      MakeNotification(a);
+      event_source es = static_cast<event_notification>(a);
+      MakeNotification(a, es);
 
       // broadcast listeners
-      a.instance = reserved::instance::BROADCAST;
-      MakeNotification(a);
-      a.module = reserved::module::BROADCAST;
-      MakeNotification(a);
+      es.instance = reserved::instance::BROADCAST;
+      MakeNotification(a, es);
+      es.module = reserved::module::BROADCAST;
+      MakeNotification(a, es);
     }
   }
 }
