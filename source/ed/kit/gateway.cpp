@@ -99,22 +99,3 @@ void gateway::Listen( int source_instance, int dest_module, int module_global_id
   c.Notify(static_cast<message>(lm));
   listeners.AddListener(lm, lm);
 }
-
-#if 0
-#define _ED_KIT_GATEWAY_IMPL_
-#ifndef _ED_KIT_GATEWAY_H_
-#include "gateway.h"
-#endif
-
-#define _TEMPLATE_ gateway<connection>
-
-template<typename connection>
-module &_TEMPLATE_::CreateModule( std::string name )
-{
-  module *ret = new module();
-  return *ret;
-}
-
-#undef _TEMPLATE_
-
-#endif
