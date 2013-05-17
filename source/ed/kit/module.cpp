@@ -63,3 +63,8 @@ void module::SendPostEvent( int local_id, message &e )
 {
   gw.PostNotify(e);
 }
+
+void module::Listen( int instance, std::string module, std::string event )
+{
+  //gw.CreateModule
+}

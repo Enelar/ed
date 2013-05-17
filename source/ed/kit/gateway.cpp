@@ -83,6 +83,17 @@ bool gateway::QueryModule( int global_id, const message &e )
   return m->Query(e);
 }
 
+#include "../messages/listen.h"
+
+void gateway::Listen( int source_instance, int dest_module, std::string module, std::string event )
+{
+  int module_global_id = RegisterName(MODULES, module);
+  int event_global_id = RegisterName(EVENTS, event);
+  listen_message mes(event_global_id, module_global_id, source_instance);
+
+  c.Notify((message)mes);
+  todo(When event appear, deliver to destination module);
+}
 
 #if 0
 #define _ED_KIT_GATEWAY_IMPL_

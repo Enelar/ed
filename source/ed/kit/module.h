@@ -26,6 +26,7 @@ namespace ed
   public:
     module( const std::string &, gateway & );
     void RegisterEvent( std::string name, int local_id );
+    void Listen( int instance, std::string module, std::string event );
     
     event_result SendEvent( 
       int local_id,
@@ -54,7 +55,9 @@ namespace ed
 
   protected:
 
+    void RegisterQueryCallback( query_callback_type, int source_instance, std::string event, std::string module );
     void RegisterQueryCallback( query_callback_type, event_source );
+    void RegisterEventCallback( event_callback_type, int source_instance, std::string event, std::string module );
     void RegisterEventCallback( event_callback_type, event_source );
   private:
     template<typename callback_type>
