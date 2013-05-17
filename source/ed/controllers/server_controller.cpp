@@ -80,6 +80,8 @@ void _TEMPLATE_::Workflow()
         e.source.event = ed::reserved::event::EVENT_REGISTER;
         memcpy(e.payload, &id, 4);
         socket.Notify(e);
+
+        std::cout << "Registered name: " << r.nt << " " << r.name << " AS " << id << std::endl;
         continue;
       }
       if (m->event == reserved::event::LISTEN)
@@ -87,7 +89,10 @@ void _TEMPLATE_::Workflow()
         listen_message lm = *m;
         delete m;
 
+        lm.listener_instance = i;
         AddListener(lm, lm);
+        std::cout << lm.listener_instance << ":" << (int)lm.listener_module << " LISTEN " << lm.event << " FROM " <<
+          lm.event_source_instance << ":" << (int)lm.event_source_module << std::endl;
         continue;
       }
       message a = *m;
@@ -97,6 +102,7 @@ void _TEMPLATE_::Workflow()
         continue;
       if (a.flags.state == PRE_REPLY)
         todo(PRE REPLY ON SERVER CONTROLLER);
+      std::cout << "EVENT " << a.event << " APPEARS FROM " << a.instance << ":" << (int)a.module;
       MakeNotification(a);
 
       // broadcast listeners
