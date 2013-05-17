@@ -6,6 +6,7 @@
 #include <string>
 #include "../communications/abstract_connection.h"
 #include "../names/translate.h"
+#include "../notifications/instance.h"
 
 namespace ed
 {
@@ -35,6 +36,11 @@ namespace ed
     int RegisterName( NAME_TYPE nt, std::string name );
     void Listen( int source_instance, int dest_module, std::string module, std::string event );
     void Listen( int source_instance, int dest_module, int module, int event );
+
+    typedef slot_data::instance instance_listener;
+
+    instance_listener listeners;
+
     void CreateModule( std::string name, module *const );
   public:
     gateway( com::abstract_connection & );

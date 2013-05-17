@@ -253,6 +253,10 @@
 				>
 			</File>
 			<File
+				RelativePath=".\ed\notifications\listener.h"
+				>
+			</File>
+			<File
 				RelativePath=".\ed\notifications\listener_container.h"
 				>
 			</File>
