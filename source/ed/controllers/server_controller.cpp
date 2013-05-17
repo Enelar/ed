@@ -102,7 +102,7 @@ void _TEMPLATE_::Workflow()
         continue;
       if (a.flags.state == PRE_REPLY)
         todo(PRE REPLY ON SERVER CONTROLLER);
-      std::cout << "EVENT " << a.event << " APPEARS FROM " << a.instance << ":" << (int)a.module;
+      std::cout << "EVENT " << a.event << " APPEARS FROM " << a.instance << ":" << (int)a.module << std::endl;
       MakeNotification(a);
 
       // broadcast listeners

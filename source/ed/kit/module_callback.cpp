@@ -41,7 +41,7 @@ void module::RegisterEventCallback( event_callback_type q, event_source source )
   t.callback = q;
   t.source = source;
   EventCallbacks.push_back(t);
-  gw.Listen(source.instance, id, source.module, source.event);
+  gw.Listen(source.instance, id, source.module, adapter.ToGlobal(source.event));
 }
 
 

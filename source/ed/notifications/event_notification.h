@@ -3,12 +3,20 @@
 
 #include "../def.h"
 #include "../messages/message.h"
+#include "../names/reserved.h"
 
 namespace ed
 {
   struct event_source
   {
     int instance, module, event;
+    
+    event_source() :
+      event(reserved::event::BROADCAST), 
+      module(reserved::module::BROADCAST),
+      instance(reserved::instance::BROADCAST)
+    {
+    }
 
     bool operator==( const event_source &a ) const
     {

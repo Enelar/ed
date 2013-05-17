@@ -27,7 +27,7 @@ namespace ed
           CreateEvent(source.module, source.event);
           throw_assert(e = GetEvent(source));
         }
-        e->childs.push_back(listener());
+        e->childs.push_back(destination);
       }
     private:
       void CreateEvent( unsigned int module, unsigned event )
