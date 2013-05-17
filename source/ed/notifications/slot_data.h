@@ -50,14 +50,10 @@ namespace ed
           childs.push_back(child_type());
       }
     };
-
-    struct listener
-    {
-      int instance, module;
-    };
   };
 };
 
+#include "listener.h"
 #include "slot_data_utils.h"
 
 #endif

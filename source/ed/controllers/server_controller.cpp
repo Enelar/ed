@@ -86,15 +86,8 @@ void _TEMPLATE_::Workflow()
       {
         listen_message lm = *m;
         delete m;
-        event_source e;
-        e.event = lm.event;
-        e.instance = lm.event_source_instance;
-        e.module = lm.event_source_module;
 
-        listener li;
-        li.module = lm.listener_module;
-        li.instance = lm.listener_instance;
-        AddListener(e, li);
+        AddListener(lm, lm);
         continue;
       }
       message a = *m;

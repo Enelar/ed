@@ -2,6 +2,7 @@
 #define _ED_MESSAGES_LISTEN_H_
 
 #include "message.h"
+#include "../notifications/listener.h"
 
 namespace ed
 {
@@ -47,6 +48,23 @@ namespace ed
       ret.event = reserved::event::LISTEN;
       ret.module = listener_module;
       ret.instance = listener_instance;
+      return ret;
+    }
+
+    operator event_source() const
+    {
+      event_source es;
+      es.event = event;
+      es.module = event_source_module;
+      es.instance = event_source_instance;
+      return es;
+    }
+
+    operator slot_data::listener() const
+    {
+      slot_data::listener ret;
+      ret.instance = listener_instance;
+      ret.module = listener_module;
       return ret;
     }
   };

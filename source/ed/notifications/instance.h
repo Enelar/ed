@@ -1,6 +1,7 @@
 #ifndef _ED_NOTIFICATIONS_INSTANCE_H_
 #define _ED_NOTIFICATIONS_INSTANCE_H_
 
+#include "slot.h"
 #include "event.h"
 
 namespace ed
