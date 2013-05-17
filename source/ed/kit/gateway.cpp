@@ -6,33 +6,6 @@
 using namespace ed;
 using namespace ed::com;
 
-namespace
-{
-  struct register_answer
-  {
-    int global_id;
-    int instance_id;
-  };
-  register_answer RegisterName( abstract_connection &c, NAME_TYPE nt, std::string name )
-  {
-    register_message rm(nt, name);
-    c.SendRegister(rm);
-
-    while (c.Incoming() < 1)
-      ed::Sleep(1);
-    message *m = c.Get();
-    throw_assert(m);
-    throw_assert(m->event == reserved::event::EVENT_REGISTER);
-    event_notification e = *m;
-    delete m;
-    throw_assert(e.source.event == reserved::event::EVENT_REGISTER);
-    throw_assert(e.payload_size == 4);
-    register_answer ret;
-    ret.global_id = *(int *)e.payload;
-    ret.instance_id = e.source.instance;
-    return ret;
-  }
-};
 
 gateway::gateway( com::abstract_connection &_c )
   : c(_c)
@@ -46,9 +19,28 @@ module &gateway::CreateModule( std::string name )
 
 int gateway::RegisterName( NAME_TYPE nt, std::string name )
 {
-  register_answer answer = ::RegisterName(c, MODULES, name);
-  instance = answer.instance_id;
-  return answer.global_id;
+  register_message rm(nt, name);
+  c.SendRegister(rm);
+
+  message *m;
+  while (true)
+  {
+    while (c.Incoming() < 1)
+      ed::Sleep(1);
+    m = c.Get();
+    throw_assert(m);
+    if (m->event == reserved::event::EVENT_REGISTER)
+      break;
+    delayed_messages.push_back(*m);
+    delete m;
+  }
+  event_notification e = *m;
+  delete m;
+  throw_assert(e.source.event == reserved::event::EVENT_REGISTER);
+  throw_assert(e.payload_size == 4);
+
+  instance = e.source.instance;
+  return *(int *)e.payload;
 }
 
 void gateway::CreateModule( std::string name, module *const ret )

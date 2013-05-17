@@ -23,6 +23,7 @@ namespace ed
     }
   };
 
+  struct register_answer;
   class gateway
   {
     com::abstract_connection &c;
