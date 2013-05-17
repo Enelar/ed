@@ -43,10 +43,14 @@ namespace ed
     instance_listener listeners;
 
     void CreateModule( std::string name, module *const );
+
+    void IncomingNotification( message m );
+    void DelegateNotification( const message &m );
   public:
     gateway( com::abstract_connection & );
     module &CreateModule( std::string name );
     bool QueryModule( int global_id, const message & );
+    void Workflow();
   };
 };
 

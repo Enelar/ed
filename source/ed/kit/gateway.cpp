@@ -91,3 +91,43 @@ void gateway::Listen( int source_instance, int dest_module, int module_global_id
   c.Notify(static_cast<message>(lm));
   listeners.AddListener(lm, lm);
 }
+
+void gateway::DelegateNotification( const message &mes )
+{
+  const event_notification en = mes;
+  slot_data::event *e = listeners.GetEvent(en.source);
+  if (!e)
+    return; // no listeners registered;
+  unsigned int i = 0, s = e->childs.size();
+  for (i = 0; i < s; ++i)
+  {
+    module *m = local_modules.GetModule(e->childs[i].module);
+    m->EventReciever(mes);
+  }
+}
+
+void gateway::IncomingNotification( message m )
+{
+  DelegateNotification(m);
+  m.instance = reserved::instance::BROADCAST;
+  DelegateNotification(m);
+  m.module = reserved::module::BROADCAST;
+  DelegateNotification(m);
+}
+
+void gateway::Workflow()
+{
+  while (delayed_messages.size())
+  {
+    message m = delayed_messages.front();
+    delayed_messages.pop_front();
+    IncomingNotification(m);
+  }
+  if (c.Incoming() < 1)
+    return;
+  message *m = c.Get();
+  if (!m)
+    return;
+  IncomingNotification(*m);
+  delete m;
+}

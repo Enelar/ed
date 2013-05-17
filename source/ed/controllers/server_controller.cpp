@@ -100,9 +100,9 @@ void _TEMPLATE_::Workflow()
       MakeNotification(a);
 
       // broadcast listeners
-      a.instance = 0;
+      a.instance = reserved::instance::BROADCAST;
       MakeNotification(a);
-      a.module = 0;
+      a.module = reserved::module::BROADCAST;
       MakeNotification(a);
     }
   }
