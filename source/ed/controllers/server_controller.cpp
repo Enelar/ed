@@ -37,14 +37,15 @@ template<class ready_type>
 void _TEMPLATE_::MakeNotification( message &a )
 { //! @NOTE Crap code again
   event_notification en = a;
-  slot_data::event *e = clients[a.instance].GetEvent(en.source);
+  client_type &client = clients[a.instance];
+  slot_data::event *e = client.GetEvent(en.source);
   if (!e)
     return; // no one listeners exists
   const slot_data::event::container_type &childs = e->childs;
   for (int i = 0, s = childs.size(); i < s; i++)
   {
     const listener &t = childs[i];
-    todo(Send to listener);
+    client.Socket().Notify(en);
   }
 }
 
