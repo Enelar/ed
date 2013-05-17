@@ -32,6 +32,7 @@ namespace ed
 };
 
 #include "../names/reserved.h"
+#include "../messages/listen.h"
 
 #ifndef _ED_SERVER_CONTROLLER_IMPL_
 namespace ed

@@ -14,7 +14,7 @@ namespace ed
     word event_source_instance;
     byte event_source_module;
 
-    word listener_module;
+    byte listener_module;
     word listener_instance;
 
     listen_message( word _event, byte _event_source_module, word _event_source_instance )
@@ -31,6 +31,9 @@ namespace ed
       event = *(word *)(buffer);
       event_source_instance = *(word *)(buffer + 1);
       event_source_module = buffer[3];
+
+      listener_module = e.module;
+      listener_instance = e.instance;
     }
 
     operator message() const
@@ -42,6 +45,8 @@ namespace ed
       buffer[3] = event_source_module;
 
       ret.event = reserved::event::LISTEN;
+      ret.module = listener_module;
+      ret.instance = listener_instance;
       return ret;
     }
   };

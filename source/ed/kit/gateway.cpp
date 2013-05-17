@@ -97,7 +97,7 @@ void gateway::Listen( int source_instance, int dest_module, int module_global_id
   listen_message mes(event_global_id, module_global_id, source_instance);
 
   c.Notify((message)mes);
-  todo(When event appear, deliver to destination module);
+  todo(When event appear deliver to destination module);
 }
 
 #if 0

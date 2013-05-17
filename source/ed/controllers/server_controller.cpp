@@ -27,10 +27,10 @@ template<class ready_type>
 void _TEMPLATE_::AddListener( event_source source, listener destination )
 {
   //! @NOTE Not really good, maybe all childs should be in common container??
-  int target = source.instance;
+  unsigned int target = source.instance;
   throw_assert(target >= 0);
-  throw_assert(target < childs.size());
-  childs[target].AddListener(source, destination);
+  throw_assert(target < clients.size());
+  clients[target].AddListener(source, destination);
 }
 
 template<class ready_type>
@@ -80,6 +80,21 @@ void _TEMPLATE_::Workflow()
         e.source.event = ed::reserved::event::EVENT_REGISTER;
         memcpy(e.payload, &id, 4);
         socket.Notify(e);
+        continue;
+      }
+      if (m->event == reserved::event::LISTEN)
+      {
+        listen_message lm = *m;
+        delete m;
+        event_source e;
+        e.event = lm.event;
+        e.instance = lm.event_source_instance;
+        e.module = lm.event_source_module;
+
+        listener li;
+        li.module = lm.listener_module;
+        li.instance = lm.listener_instance;
+        AddListener(e, li);
         continue;
       }
       message a = *m;

@@ -43,6 +43,12 @@ namespace ed
         if (Exists(target))
           a.IfExists(childs[target]);
       }
+      
+      void CreateElement( unsigned int id )
+      {
+        while (childs.size() <= id)
+          childs.push_back(child_type());
+      }
     };
 
     struct listener
