@@ -11,8 +11,13 @@ void f()
   gateway gw(port);
   module_AAA a(gw);
   module_BBB b(gw);
+  gw.Workflow();
   a.SendTestEvents();
+  gw.Workflow();
   b.SendTestEvents();
+  gw.Workflow();
+  gw.Workflow();
+  gw.Workflow();
 }
 
 #include <iostream>

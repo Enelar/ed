@@ -87,6 +87,7 @@ void gateway::Listen( int source_instance, int dest_module, std::string module, 
 void gateway::Listen( int source_instance, int dest_module, int module_global_id, int event_global_id )
 {
   listen_message lm(event_global_id, module_global_id, source_instance);
+  lm.listener_module = dest_module;
 
   c.Notify(static_cast<message>(lm));
   listeners.AddListener(lm, lm);
