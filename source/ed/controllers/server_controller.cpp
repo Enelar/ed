@@ -105,6 +105,12 @@ void _TEMPLATE_::Workflow()
       if (a.flags.state == PRE_REPLY)
         todo(PRE REPLY ON SERVER CONTROLLER);
       MakeNotification(a);
+
+      // broadcast listeners
+      a.instance = 0;
+      MakeNotification(a);
+      a.module = 0;
+      MakeNotification(a);
     }
   }
 }
