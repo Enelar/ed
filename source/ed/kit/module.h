@@ -5,6 +5,7 @@
 #include "../names/translate.h"
 #include "event_result.h"
 #include "../notifications/event_types.h"
+#include "../names/reserved.h"
 
 namespace ed
 {
@@ -55,9 +56,11 @@ namespace ed
 
   protected:
 
-    void RegisterQueryCallback( query_callback_type, int source_instance, std::string event, std::string module );
+    void RegisterQueryCallback( query_callback_type, std::string event, 
+      std::string module = "", int source_instance = reserved::instance::BROADCAST );
     void RegisterQueryCallback( query_callback_type, event_source );
-    void RegisterEventCallback( event_callback_type, int source_instance, std::string event, std::string module );
+    void RegisterEventCallback( event_callback_type, std::string event,
+      std::string module = "", int source_instance = reserved::instance::BROADCAST );
     void RegisterEventCallback( event_callback_type, event_source );
   private:
     template<typename callback_type>

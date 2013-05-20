@@ -2,7 +2,7 @@
 
 using namespace ed;
 
-void module::RegisterQueryCallback( query_callback_type q, int source_instance, std::string event, std::string module )
+void module::RegisterQueryCallback( query_callback_type q, std::string event, std::string module, int source_instance )
 {
   int module_global_id = gw.RegisterName(MODULES, module);
   int event_global_id = gw.RegisterName(EVENTS, event);
@@ -23,7 +23,7 @@ void module::RegisterQueryCallback( query_callback_type q, event_source source )
   gw.Listen(source.instance, id, source.module, source.event);
 }
 
-void module::RegisterEventCallback( event_callback_type q, int source_instance, std::string event, std::string module )
+void module::RegisterEventCallback( event_callback_type q, std::string event, std::string module, int source_instance )
 {
   int module_global_id = gw.RegisterName(MODULES, module);
   int event_global_id = gw.RegisterName(EVENTS, event);
