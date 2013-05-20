@@ -31,11 +31,26 @@ namespace ed
       memcpy(buf, m.buf, len);
     }
 
+    buffer( const std::string &m ) : len(m.length()), buf(NEW unsigned char[len])
+    {
+      memcpy(buf, m.c_str(), len);
+    }
+
+    operator std::string() const
+    {
+      char *t = new char[len + 1];
+      memcpy(t, buf, len);
+      t[len] = 0;
+      std::string ret = t;
+      delete[] t;
+      return ret;
+    }
+
     ~buffer()
     {
       if (buf)
         delete buf;
-    }
+    }    
   private:
     void operator=( const buffer & );
   };
