@@ -10,8 +10,9 @@ module_AAA::module_AAA( ed::gateway &_gw ) : module("module_AAA", _gw)
   RegisterEvent(TOSTRING(TEST_EVENT), TEST_EVENT);
   ed::event_source es;
   es.event = TEST_EVENT;
-  SetPostEventHandler(static_cast<post_event_handler_t>(&module_AAA::AllEventsListener), es);
-  SetPostEventHandler(&module_AAA::MyTypeExample, es);
+  SysCreateHandler(&module_AAA::AllEventsListener, es);
+ // SetPostEventHandler(static_cast<post_event_handler_t>(&module_AAA::AllEventsListener), es);
+//  SetPostEventHandler(&module_AAA::MyTypeExample, es);
 }
 
 void module_AAA::MyTypeExample( const ed::event_context<my_type> &a )

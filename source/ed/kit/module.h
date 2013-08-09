@@ -49,7 +49,10 @@ namespace ed
     template<typename T, typename MODULE, typename RET>
     void SysCreateHandler( RET (MODULE::*f)( const event_context<T> & ), event_source es )
     {
-      event_handler_convert<> test = f;
+      typedef event_handler_convert<T, RET> adapterT;
+      adapterT *test = NEW adapterT(f);
+      callback_entry<unused_internal_type, RET> obj(es, test);
+
       /*
       callback_entry<post_event_handler_t> t;
   t.callback = q;
@@ -65,7 +68,8 @@ namespace ed
       event_source source;
       event_handler_convert<callback_type, RET> *callback;
 
-      callback_entry( event_handler_convert<callback_type, RET> *t ) : callback(t)
+      callback_entry( event_source es, event_handler_convert<callback_type, RET> *t )
+        : callback(t), source(es)
       {}
       ~callback_entry()
       {
