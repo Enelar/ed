@@ -139,6 +139,9 @@
     <ClInclude Include="ed\kit\event_context.h">
       <Filter>kit</Filter>
     </ClInclude>
+    <ClInclude Include="ed\kit\event_handler_convert.h">
+      <Filter>kit</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="ed\exceptions\exception.cpp">
