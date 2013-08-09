@@ -57,7 +57,11 @@ void module::EventReciever( const message &m )
   {
     const callback_entry<post_event_handler_t> &t = *i++;
     if (en == t.source || en0 == t.source)
-      (this->*t.callback)(event_context(adapter.ToLocal(m.event), en, m.payload));
+      (this->*t.callback)(
+        event_context<>(
+          adapter.ToLocal(m.event),
+          en, NEW event_data(m)
+            ));
   }
 }
 
@@ -71,7 +75,11 @@ bool module::Query( const message &m )
   {
     const callback_entry<pre_event_handler_t> &t = *i++;
     if (en.source == t.source)
-      if (!(this->*t.callback)(event_context(adapter.ToLocal(m.event), en.source, m.payload)))
+      if (!(this->*t.callback)(
+          event_context<>(
+            adapter.ToLocal(m.event),
+            en.source, 
+              NEW event_data(m))))
         return false;
   }
   return true;
