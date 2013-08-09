@@ -24,11 +24,16 @@ namespace ed
     {
       return reinterpret_cast<parentT>(f);
     }
+  private:
+    childT origin;
   public:
-    virtual void FarCall( parentT _f, event_context<> &_obj )
+    event_handler_convert( childT _origin ) : origin(_origin)
+    {}
+
+    void FarCall( event_context<> &_obj )
     {
       prefferedT obj = _obj;
-      childT f = _f;
+      childT f = origin;
 
       f(obj);
     }

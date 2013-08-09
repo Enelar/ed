@@ -14,6 +14,11 @@ module_AAA::module_AAA( ed::gateway &_gw ) : module("module_AAA", _gw)
   SetPostEventHandler(&module_AAA::MyTypeExample, es);
 }
 
+void module_AAA::MyTypeExample( const ed::event_context<my_type> &a )
+{
+
+}
+
 #include <iostream>
 
 void module_AAA::AllEventsListener( const ed::event_context<> &c )
