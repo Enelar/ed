@@ -63,14 +63,17 @@ namespace ed
     }
     void SetPostEventHandler( post_event_handler_t, event_source );
   private:
-    template<typename callback_type>
+    template<typename callback_type, typename RET>
     struct callback_entry
     {
       event_source source;
-      callback_type callback;
+      event_handler_convert<callback_type, RET> callback;
     };
-    std::vector<callback_entry<pre_event_handler_t>> QueryCallbacks;
-    std::vector<callback_entry<post_event_handler_t>> EventCallbacks;
+
+    typedef callback_entry<unused_internal_type, bool> base_pre_callback_entry;
+    typedef callback_entry<unused_internal_type, void> base_post_callback_entry;
+    std::vector<base_pre_callback_entry> QueryCallbacks;
+    std::vector<base_post_callback_entry> EventCallbacks;
 
     void EventReciever( const message & );
     bool Query( const message & );
