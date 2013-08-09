@@ -46,11 +46,21 @@ namespace ed
 
   protected:
 
-    void SetPreEventHandler( pre_event_handler_t, std::string event, 
-      std::string module = "", int source_instance = reserved::instance::BROADCAST );
+    //void SetPreEventHandler( pre_event_handler_t, std::string event, 
+//      std::string module = "", int source_instance = reserved::instance::BROADCAST );
+    template<typename T, typename MODULE>
+    void SetPreEventHandler( bool (MODULE::*f)( const event_context<T> & ), event_source es )
+    {
+      SetPreEventHandler(reinterpret_cast<pre_event_handler_t>(f), es);
+    }
     void SetPreEventHandler( pre_event_handler_t, event_source );
-    void SetPostEventHandler( post_event_handler_t, std::string event,
-      std::string module = "", int source_instance = reserved::instance::BROADCAST );
+  //  void SetPostEventHandler( post_event_handler_t, std::string event,
+      //std::string module = "", int source_instance = reserved::instance::BROADCAST );
+    template<typename T, typename MODULE>
+    void SetPostEventHandler( void (MODULE::*f)( const event_context<T> & ), event_source es )
+    {
+      SetPostEventHandler(reinterpret_cast<post_event_handler_t>(f), es);
+    }
     void SetPostEventHandler( post_event_handler_t, event_source );
   private:
     template<typename callback_type>

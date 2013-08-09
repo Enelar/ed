@@ -20,7 +20,7 @@ namespace ed
     {
       return reinterpret_cast<childT>(f);
     }
-    static parentT Convert( parentT f )
+    static parentT Convert( childT f )
     {
       return reinterpret_cast<parentT>(f);
     }

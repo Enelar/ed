@@ -1,7 +1,7 @@
 #include "module.h"
 
 using namespace ed;
-
+                /*
 void module::SetPreEventHandler( pre_event_handler_t q, std::string event, std::string module, int source_instance )
 {
   int module_global_id = gw.RegisterName(MODULES, module);
@@ -12,7 +12,7 @@ void module::SetPreEventHandler( pre_event_handler_t q, std::string event, std::
   es.module = module_global_id;
   es.instance = source_instance;
   SetPreEventHandler(q, es);
-}
+}                 */
 
 void module::SetPreEventHandler( pre_event_handler_t q, event_source source )
 {
@@ -22,7 +22,7 @@ void module::SetPreEventHandler( pre_event_handler_t q, event_source source )
   QueryCallbacks.push_back(t);
   gw.Listen(source.instance, id, source.module, source.event);
 }
-
+                   /*
 void module::SetPostEventHandler( post_event_handler_t q, std::string event, std::string module, int source_instance )
 {
   int module_global_id = gw.RegisterName(MODULES, module);
@@ -33,7 +33,7 @@ void module::SetPostEventHandler( post_event_handler_t q, std::string event, std
   es.module = module_global_id;
   es.instance = source_instance;
   SetPostEventHandler(q, es);
-}
+}                    */
 
 void module::SetPostEventHandler( post_event_handler_t q, event_source source )
 {
