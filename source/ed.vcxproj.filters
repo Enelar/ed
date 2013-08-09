@@ -1,0 +1,199 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <Filter Include="exceptions">
+      <UniqueIdentifier>{f44e01a1-f284-4a38-8ecd-a69b2cc470f2}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="names">
+      <UniqueIdentifier>{0338852b-46e6-4224-a8cc-934d45707628}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="controllers">
+      <UniqueIdentifier>{cfac82cd-d33b-4830-960e-1871f06ee0cb}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="notifications">
+      <UniqueIdentifier>{40964e61-4c9c-4b67-aea3-55afc37b7950}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="communications">
+      <UniqueIdentifier>{c061a63e-0bcf-44c2-9d4c-d228dd21f418}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="3party">
+      <UniqueIdentifier>{efc1bb91-701c-42e6-8d80-c14c7f9eadb6}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="3party\ax">
+      <UniqueIdentifier>{f224af45-8e17-46b6-bb97-8426cb6989d9}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="3party\win">
+      <UniqueIdentifier>{dea52017-f9b3-472a-b7dc-b0d52a2db737}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="messages">
+      <UniqueIdentifier>{4d8d1598-d00f-41f0-9dd1-9a7195ca2294}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="kit">
+      <UniqueIdentifier>{223f1848-43f2-4f7f-ae49-ea804faa78cd}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="ed\exceptions\disconnected.h">
+      <Filter>exceptions</Filter>
+    </ClInclude>
+    <ClInclude Include="ed\exceptions\exception.h">
+      <Filter>exceptions</Filter>
+    </ClInclude>
+    <ClInclude Include="ed\names\dictionary.h">
+      <Filter>names</Filter>
+    </ClInclude>
+    <ClInclude Include="ed\names\name_server.h">
+      <Filter>names</Filter>
+    </ClInclude>
+    <ClInclude Include="ed\names\name_type.h">
+      <Filter>names</Filter>
+    </ClInclude>
+    <ClInclude Include="ed\names\reserved.h">
+      <Filter>names</Filter>
+    </ClInclude>
+    <ClInclude Include="ed\names\translate.h">
+      <Filter>names</Filter>
+    </ClInclude>
+    <ClInclude Include="ed\controllers\client_controller.h">
+      <Filter>controllers</Filter>
+    </ClInclude>
+    <ClInclude Include="ed\controllers\server_controller.h">
+      <Filter>controllers</Filter>
+    </ClInclude>
+    <ClInclude Include="ed\notifications\event.h">
+      <Filter>notifications</Filter>
+    </ClInclude>
+    <ClInclude Include="ed\notifications\event_notification.h">
+      <Filter>notifications</Filter>
+    </ClInclude>
+    <ClInclude Include="ed\notifications\event_types.h">
+      <Filter>notifications</Filter>
+    </ClInclude>
+    <ClInclude Include="ed\notifications\instance.h">
+      <Filter>notifications</Filter>
+    </ClInclude>
+    <ClInclude Include="ed\notifications\listener.h">
+      <Filter>notifications</Filter>
+    </ClInclude>
+    <ClInclude Include="ed\notifications\listener_container.h">
+      <Filter>notifications</Filter>
+    </ClInclude>
+    <ClInclude Include="ed\notifications\slot.h">
+      <Filter>notifications</Filter>
+    </ClInclude>
+    <ClInclude Include="ed\notifications\slot_data.h">
+      <Filter>notifications</Filter>
+    </ClInclude>
+    <ClInclude Include="ed\notifications\slot_data_utils.h">
+      <Filter>notifications</Filter>
+    </ClInclude>
+    <ClInclude Include="ed\communications\abstract_connection.h">
+      <Filter>communications</Filter>
+    </ClInclude>
+    <ClInclude Include="ed\communications\connection_ready.h">
+      <Filter>communications</Filter>
+    </ClInclude>
+    <ClInclude Include="ed\communications\socket_connection.h">
+      <Filter>communications</Filter>
+    </ClInclude>
+    <ClInclude Include="ed\communications\socket_ready.h">
+      <Filter>communications</Filter>
+    </ClInclude>
+    <ClInclude Include="ed\3party\ax\tl4_def.h">
+      <Filter>3party\ax</Filter>
+    </ClInclude>
+    <ClInclude Include="ed\3party\ax\tl4_low.h">
+      <Filter>3party\ax</Filter>
+    </ClInclude>
+    <ClInclude Include="ed\3party\ax\types.h">
+      <Filter>3party\ax</Filter>
+    </ClInclude>
+    <ClInclude Include="ed\3party\win\utils.h">
+      <Filter>3party\win</Filter>
+    </ClInclude>
+    <ClInclude Include="ed\messages\listen.h">
+      <Filter>messages</Filter>
+    </ClInclude>
+    <ClInclude Include="ed\messages\message.h">
+      <Filter>messages</Filter>
+    </ClInclude>
+    <ClInclude Include="ed\messages\notification.h">
+      <Filter>messages</Filter>
+    </ClInclude>
+    <ClInclude Include="ed\messages\register.h">
+      <Filter>messages</Filter>
+    </ClInclude>
+    <ClInclude Include="ed\kit\event_result.h">
+      <Filter>kit</Filter>
+    </ClInclude>
+    <ClInclude Include="ed\kit\gateway.h">
+      <Filter>kit</Filter>
+    </ClInclude>
+    <ClInclude Include="ed\kit\module.h">
+      <Filter>kit</Filter>
+    </ClInclude>
+    <ClInclude Include="ed\def.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="ed\exceptions\exception.cpp">
+      <Filter>exceptions</Filter>
+    </ClCompile>
+    <ClCompile Include="ed\names\dictionary.cpp">
+      <Filter>names</Filter>
+    </ClCompile>
+    <ClCompile Include="ed\names\name_server.cpp">
+      <Filter>names</Filter>
+    </ClCompile>
+    <ClCompile Include="ed\names\translate.cpp">
+      <Filter>names</Filter>
+    </ClCompile>
+    <ClCompile Include="ed\controllers\client_controller.cpp">
+      <Filter>controllers</Filter>
+    </ClCompile>
+    <ClCompile Include="ed\controllers\server_controller.cpp">
+      <Filter>controllers</Filter>
+    </ClCompile>
+    <ClCompile Include="ed\notifications\event_notification.cpp">
+      <Filter>notifications</Filter>
+    </ClCompile>
+    <ClCompile Include="ed\notifications\slot.cpp">
+      <Filter>notifications</Filter>
+    </ClCompile>
+    <ClCompile Include="ed\notifications\slot_data_utils.cpp">
+      <Filter>notifications</Filter>
+    </ClCompile>
+    <ClCompile Include="ed\communications\socket_connection.cpp">
+      <Filter>communications</Filter>
+    </ClCompile>
+    <ClCompile Include="ed\communications\socket_ready.cpp">
+      <Filter>communications</Filter>
+    </ClCompile>
+    <ClCompile Include="ed\3party\ax\_w_tl4_low.cpp">
+      <Filter>3party\ax</Filter>
+    </ClCompile>
+    <ClCompile Include="ed\3party\ax\types.cpp">
+      <Filter>3party\ax</Filter>
+    </ClCompile>
+    <ClCompile Include="ed\3party\win\utils.cpp">
+      <Filter>3party\win</Filter>
+    </ClCompile>
+    <ClCompile Include="ed\messages\messages.cpp">
+      <Filter>messages</Filter>
+    </ClCompile>
+    <ClCompile Include="ed\messages\register.cpp">
+      <Filter>messages</Filter>
+    </ClCompile>
+    <ClCompile Include="ed\kit\event_result.cpp">
+      <Filter>kit</Filter>
+    </ClCompile>
+    <ClCompile Include="ed\kit\gateway.cpp">
+      <Filter>kit</Filter>
+    </ClCompile>
+    <ClCompile Include="ed\kit\module.cpp">
+      <Filter>kit</Filter>
+    </ClCompile>
+    <ClCompile Include="ed\kit\module_callback.cpp">
+      <Filter>kit</Filter>
+    </ClCompile>
+  </ItemGroup>
+</Project>
