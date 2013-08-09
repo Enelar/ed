@@ -133,6 +133,12 @@
       <Filter>kit</Filter>
     </ClInclude>
     <ClInclude Include="ed\def.h" />
+    <ClInclude Include="ed\kit\event_data.h">
+      <Filter>kit</Filter>
+    </ClInclude>
+    <ClInclude Include="ed\kit\event_context.h">
+      <Filter>kit</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="ed\exceptions\exception.cpp">

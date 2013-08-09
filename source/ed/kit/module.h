@@ -6,6 +6,7 @@
 #include "event_result.h"
 #include "../notifications/event_types.h"
 #include "../names/reserved.h"
+#include "event_context.h"
 
 namespace ed
 {
@@ -39,29 +40,17 @@ namespace ed
       EVENT_RING query_max_ring = RING0_THREAD,
       EVENT_RING notify_max_ring = RING3_WORLD );
       
-    struct event_context
-    {
-      int event_local_id;
-      const event_source &source;
-      buffer *const payload;
-      
-      event_context( int _event_local_id, const event_source &_source, buffer *const _payload  )
-        : event_local_id(_event_local_id), source(_source), payload(_payload)
-      {
-      }
-    };
-
-    typedef bool (module::*query_callback_type)( const event_context & );
-    typedef void (module::*event_callback_type)( const event_context & );
+    typedef bool (module::*pre_event_handler_t)( const event_context<> & );
+    typedef void (module::*post_event_handler_t)( const event_context<> & );
 
   protected:
 
-    void RegisterQueryCallback( query_callback_type, std::string event, 
+    void SetPreEventHandler( pre_event_handler_t, std::string event, 
       std::string module = "", int source_instance = reserved::instance::BROADCAST );
-    void RegisterQueryCallback( query_callback_type, event_source );
-    void RegisterEventCallback( event_callback_type, std::string event,
+    void SetPreEventHandler( pre_event_handler_t, event_source );
+    void SetPostEventHandler( post_event_handler_t, std::string event,
       std::string module = "", int source_instance = reserved::instance::BROADCAST );
-    void RegisterEventCallback( event_callback_type, event_source );
+    void SetPostEventHandler( post_event_handler_t, event_source );
   private:
     template<typename callback_type>
     struct callback_entry
@@ -69,8 +58,8 @@ namespace ed
       event_source source;
       callback_type callback;
     };
-    std::vector<callback_entry<query_callback_type>> QueryCallbacks;
-    std::vector<callback_entry<event_callback_type>> EventCallbacks;
+    std::vector<callback_entry<pre_event_handler_t>> QueryCallbacks;
+    std::vector<callback_entry<post_event_handler_t>> EventCallbacks;
 
     void EventReciever( const message & );
     bool Query( const message & );
