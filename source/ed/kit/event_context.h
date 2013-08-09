@@ -6,8 +6,12 @@
 namespace ed
 {
   template<typename dataT = event_data>
-  struct event_context
+  struct event_context;
+
+  template<>
+  struct event_context<event_data>
   {
+    typedef event_data dataT;
     int event_local_id;
     const event_source source;
     dataT *const payload;
@@ -20,6 +24,12 @@ namespace ed
     {
       delete payload;
     }
+  };
+
+  template<typename dataT>
+  struct event_context : public event_context<>
+  {
+
   };
 };
 
