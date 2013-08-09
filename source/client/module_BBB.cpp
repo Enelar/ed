@@ -13,10 +13,10 @@ module_BBB::module_BBB( ed::gateway &_gw ) : module("moduleBBB", _gw)
 
   ed::event_source es;
   es.event = AAA_TEST_EVENT;
-  RegisterQueryCallback(static_cast<query_callback_type>(&module_BBB::CheckAAAEventTEST), es);
+  SetPreEventHandler(static_cast<pre_event_handler_t>(&module_BBB::CheckAAAEventTEST), es);
 }
 
-bool module_BBB::CheckAAAEventTEST( const event_context & )
+bool module_BBB::CheckAAAEventTEST( const ed::event_context<> & )
 {
   return false;
 }

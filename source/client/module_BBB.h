@@ -5,7 +5,7 @@
 
 class module_BBB : public ed::module
 {
-  bool CheckAAAEventTEST( const event_context & );
+  bool CheckAAAEventTEST( const ed::event_context<> & );
 public:
   module_BBB( ed::gateway &_gw );
   void SendTestEvents();
