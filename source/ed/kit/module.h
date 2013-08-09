@@ -46,28 +46,31 @@ namespace ed
 
   protected:
 
-    //void SetPreEventHandler( pre_event_handler_t, std::string event, 
-//      std::string module = "", int source_instance = reserved::instance::BROADCAST );
-    template<typename T, typename MODULE>
-    void SetPreEventHandler( bool (MODULE::*f)( const event_context<T> & ), event_source es )
+    template<typename T, typename MODULE, typename RET>
+    void SysCreateHandler( RET (MODULE::*f)( const event_context<T> & ), event_source es )
     {
-      SetPreEventHandler(reinterpret_cast<pre_event_handler_t>(f), es);
+      event_handler_convert<> test = f;
+      /*
+      callback_entry<post_event_handler_t> t;
+  t.callback = q;
+  t.source = source;
+  EventCallbacks.push_back(t);
+  gw.Listen(source.instance, id, source.module, adapter.ToGlobal(source.event));       
+  */
     }
-    void SetPreEventHandler( pre_event_handler_t, event_source );
-  //  void SetPostEventHandler( post_event_handler_t, std::string event,
-      //std::string module = "", int source_instance = reserved::instance::BROADCAST );
-    template<typename T, typename MODULE>
-    void SetPostEventHandler( void (MODULE::*f)( const event_context<T> & ), event_source es )
-    {
-      SetPostEventHandler(reinterpret_cast<post_event_handler_t>(f), es);
-    }
-    void SetPostEventHandler( post_event_handler_t, event_source );
   private:
     template<typename callback_type, typename RET>
     struct callback_entry
     {
       event_source source;
-      event_handler_convert<callback_type, RET> callback;
+      event_handler_convert<callback_type, RET> *callback;
+
+      callback_entry( event_handler_convert<callback_type, RET> *t ) : callback(t)
+      {}
+      ~callback_entry()
+      {
+        delete callback;
+      }
     };
 
     typedef callback_entry<unused_internal_type, bool> base_pre_callback_entry;
