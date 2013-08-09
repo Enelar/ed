@@ -19,16 +19,16 @@ namespace ed
       return origin;
     }
 
-    const event_data &const Base() const
+    const event_data &Base() const
     {
       return *this;
     }
 
-    event_data &Base() const
+    event_data &Base()
     {
       return *this;
     }
-  }
+  };
 };
 
 #endif
