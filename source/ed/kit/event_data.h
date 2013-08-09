@@ -13,6 +13,21 @@ namespace ed
     {
       return origin;
     }
+
+    const message &operator->() const
+    {
+      return origin;
+    }
+
+    const event_data &const Base() const
+    {
+      return *this;
+    }
+
+    event_data &Base() const
+    {
+      return *this;
+    }
   }
 };
 
