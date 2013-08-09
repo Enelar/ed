@@ -8,8 +8,19 @@ namespace ed
   template<typename T>
   class event_handler_convert;
 
+  class unused_internal_type
+  {
+  };
+
+  template<>
+  class event_handler_convert<unused_internal_type>
+  {
+  public:
+    virtual void FarCall( event_context<> &_obj ) = 0;
+  };
+
   template<typename T>
-  class event_handler_convert
+  class event_handler_convert : public event_handler_convert<unused_internal_type>
   {
   public:
     typedef event_context<T> prefferedT;
@@ -30,7 +41,7 @@ namespace ed
     event_handler_convert( childT _origin ) : origin(_origin)
     {}
 
-    void FarCall( event_context<> &_obj )
+    virtual void FarCall( event_context<> &_obj )
     {
       prefferedT obj = _obj;
       childT f = origin;
