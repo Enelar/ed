@@ -7,6 +7,7 @@
 #include "../notifications/event_types.h"
 #include "../names/reserved.h"
 #include "event_context.h"
+#include "event_handler_convert.h"
 
 namespace ed
 {
