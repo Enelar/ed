@@ -40,7 +40,7 @@ namespace ed
       prefferedT obj = _obj;
       childT f = origin;
 
-      (m.*f)(obj);
+      return (m.*f)(obj);
     }
   };
 };
