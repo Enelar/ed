@@ -139,6 +139,9 @@
     <ClInclude Include="ed\kit\event_context.h">
       <Filter>kit</Filter>
     </ClInclude>
+    <ClInclude Include="ed\kit\event_handler_convert.h">
+      <Filter>kit</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="ed\exceptions\exception.cpp">
@@ -199,6 +202,9 @@
       <Filter>kit</Filter>
     </ClCompile>
     <ClCompile Include="ed\kit\module_callback.cpp">
+      <Filter>kit</Filter>
+    </ClCompile>
+    <ClCompile Include="ed\kit\event_handler_convert.cpp">
       <Filter>kit</Filter>
     </ClCompile>
   </ItemGroup>
