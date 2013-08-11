@@ -6,7 +6,7 @@
 
 namespace ed
 {
-  struct name_server
+  struct __declspec(dllexport) name_server
   {
     typedef dictionary::id_type id_type;
     typedef dictionary::word_type word_type;

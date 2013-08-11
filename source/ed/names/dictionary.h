@@ -6,7 +6,7 @@
 
 namespace ed
 {
-  struct dictionary
+  struct __declspec(dllexport) dictionary
   {
     typedef std::string word_type;
     typedef unsigned int id_type;

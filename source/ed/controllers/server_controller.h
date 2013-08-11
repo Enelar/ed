@@ -9,7 +9,7 @@
 namespace ed
 {
   template<class ready_type>
-  struct server_controller
+  struct __declspec(dllexport) server_controller
   {
     typedef name_server::id_type id_type;
     typedef name_server::word_type word_type;

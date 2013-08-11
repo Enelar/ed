@@ -4,7 +4,7 @@
 namespace ed
 {
   template<class connection>
-  struct client_controller
+  struct __declspec(dllexport) client_controller
   {
   private:
     connection *c;
