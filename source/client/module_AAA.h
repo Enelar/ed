@@ -3,8 +3,11 @@
 
 #include "header.h"
 
-struct my_type : public ed::event_data
+struct my_type
 {
+  my_type( const ed::event_data & )
+  {
+  }
 };
 
 class module_AAA : public ed::module

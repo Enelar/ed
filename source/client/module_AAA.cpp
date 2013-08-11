@@ -11,8 +11,7 @@ module_AAA::module_AAA( ed::gateway &_gw ) : module("module_AAA", _gw)
   ed::event_source es;
   es.event = TEST_EVENT;
   RegisterPostHandler(&module_AAA::AllEventsListener, es);
- // SetPostEventHandler(static_cast<post_event_handler_t>(&module_AAA::AllEventsListener), es);
-//  SetPostEventHandler(&module_AAA::MyTypeExample, es);
+  RegisterPostHandler(&module_AAA::MyTypeExample, es);
 }
 
 void module_AAA::MyTypeExample( const ed::event_context<my_type> &a )
