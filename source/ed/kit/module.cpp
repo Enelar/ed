@@ -14,6 +14,14 @@ module::module( const std::string &name, gateway &_gw )
   gw.CreateModule(name, this);
 }
 
+module::~module()
+{
+  for (unsigned int i = 0; i < QueryCallbacks.size(); ++i)
+    delete QueryCallbacks[i];
+  for (unsigned int i = 0; i < EventCallbacks.size(); ++i)
+    delete EventCallbacks[i];
+}
+
 void module::RegisterEvent( std::string name, int local_id )
 {
   int global_id = gw.RegisterEvent(name);

@@ -10,12 +10,18 @@ module_AAA::module_AAA( ed::gateway &_gw ) : module("module_AAA", _gw)
   RegisterEvent(TOSTRING(TEST_EVENT), TEST_EVENT);
   ed::event_source es;
   es.event = TEST_EVENT;
-  RegisterEventCallback(static_cast<event_callback_type>(&module_AAA::AllEventsListener), es);
+  RegisterPostHandler(&module_AAA::AllEventsListener, es);
+  RegisterPostHandler(&module_AAA::MyTypeExample, es);
+}
+
+void module_AAA::MyTypeExample( const ed::event_context<my_type> &a )
+{
+
 }
 
 #include <iostream>
 
-void module_AAA::AllEventsListener( const event_context &c )
+void module_AAA::AllEventsListener( const ed::event_context<> &c )
 {
   std::cout << "MODULE_AAA RECIEVED EVENT " << c.event_local_id << " FROM " << c.source.instance << ":" << c.source.module << std::endl;
 }

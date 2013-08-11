@@ -3,9 +3,17 @@
 
 #include "header.h"
 
+struct my_type
+{
+  my_type( const ed::event_data & )
+  {
+  }
+};
+
 class module_AAA : public ed::module
 {
-  void AllEventsListener( const event_context & );
+  void AllEventsListener( const ed::event_context<> & );
+  void MyTypeExample( const ed::event_context<my_type> & );
 public:
   module_AAA( ed::gateway &_gw );
   void SendTestEvents();

@@ -1,0 +1,158 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project DefaultTargets="Build" ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup Label="ProjectConfigurations">
+    <ProjectConfiguration Include="Debug|Win32">
+      <Configuration>Debug</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Release|Win32">
+      <Configuration>Release</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
+  </ItemGroup>
+  <PropertyGroup Label="Globals">
+    <ProjectGuid>{FDE0911E-9089-4B5E-A8C4-C55F77D7DC5A}</ProjectGuid>
+    <RootNamespace>ed</RootNamespace>
+    <Keyword>Win32Proj</Keyword>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'" Label="Configuration">
+    <ConfigurationType>StaticLibrary</ConfigurationType>
+    <CharacterSet>MultiByte</CharacterSet>
+    <WholeProgramOptimization>true</WholeProgramOptimization>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">
+    <ConfigurationType>StaticLibrary</ConfigurationType>
+    <CharacterSet>MultiByte</CharacterSet>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.props" />
+  <ImportGroup Label="ExtensionSettings">
+  </ImportGroup>
+  <ImportGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'" Label="PropertySheets">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <ImportGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="PropertySheets">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <PropertyGroup Label="UserMacros" />
+  <PropertyGroup>
+    <_ProjectFileVersion>10.0.30319.1</_ProjectFileVersion>
+    <OutDir Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">$(SolutionDir)\..\build\$(ProjectName)\$(Configuration)\</OutDir>
+    <IntDir Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">$(SolutionDir)\..\intermediate\$(ProjectName)\$(Configuration)\</IntDir>
+    <OutDir Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">$(SolutionDir)\..\build\$(ProjectName)\$(Configuration)\</OutDir>
+    <IntDir Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">$(SolutionDir)\..\intermediate\$(ProjectName)\$(Configuration)\</IntDir>
+    <CodeAnalysisRuleSet Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">AllRules.ruleset</CodeAnalysisRuleSet>
+    <CodeAnalysisRules Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" />
+    <CodeAnalysisRuleAssemblies Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" />
+    <CodeAnalysisRuleSet Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">AllRules.ruleset</CodeAnalysisRuleSet>
+    <CodeAnalysisRules Condition="'$(Configuration)|$(Platform)'=='Release|Win32'" />
+    <CodeAnalysisRuleAssemblies Condition="'$(Configuration)|$(Platform)'=='Release|Win32'" />
+  </PropertyGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+    <ClCompile>
+      <Optimization>Disabled</Optimization>
+      <PreprocessorDefinitions>WIN32;_DEBUG;_WINDOWS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <MinimalRebuild>true</MinimalRebuild>
+      <BasicRuntimeChecks>EnableFastChecks</BasicRuntimeChecks>
+      <RuntimeLibrary>MultiThreadedDebug</RuntimeLibrary>
+      <FloatingPointModel>Fast</FloatingPointModel>
+      <PrecompiledHeader>
+      </PrecompiledHeader>
+      <WarningLevel>Level3</WarningLevel>
+      <DebugInformationFormat>EditAndContinue</DebugInformationFormat>
+    </ClCompile>
+    <Lib>
+      <OutputFile>$(OutDir)$(ProjectName)_$(Configuration).lib</OutputFile>
+    </Lib>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+    <ClCompile>
+      <AdditionalOptions>/MP %(AdditionalOptions)</AdditionalOptions>
+      <Optimization>MaxSpeed</Optimization>
+      <InlineFunctionExpansion>AnySuitable</InlineFunctionExpansion>
+      <IntrinsicFunctions>true</IntrinsicFunctions>
+      <FavorSizeOrSpeed>Speed</FavorSizeOrSpeed>
+      <PreprocessorDefinitions>WIN32;NDEBUG;_WINDOWS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <StringPooling>true</StringPooling>
+      <MinimalRebuild>false</MinimalRebuild>
+      <BasicRuntimeChecks>Default</BasicRuntimeChecks>
+      <RuntimeLibrary>MultiThreaded</RuntimeLibrary>
+      <FunctionLevelLinking>true</FunctionLevelLinking>
+      <EnableEnhancedInstructionSet>StreamingSIMDExtensions2</EnableEnhancedInstructionSet>
+      <FloatingPointModel>Fast</FloatingPointModel>
+      <PrecompiledHeader>
+      </PrecompiledHeader>
+      <WarningLevel>Level3</WarningLevel>
+      <DebugInformationFormat>ProgramDatabase</DebugInformationFormat>
+      <CallingConvention>Cdecl</CallingConvention>
+    </ClCompile>
+    <Lib>
+      <OutputFile>$(OutDir)$(ProjectName)_$(Configuration).lib</OutputFile>
+    </Lib>
+  </ItemDefinitionGroup>
+  <ItemGroup>
+    <ClInclude Include="ed\exceptions\disconnected.h" />
+    <ClInclude Include="ed\exceptions\exception.h" />
+    <ClInclude Include="ed\kit\event_context.h" />
+    <ClInclude Include="ed\kit\event_data.h" />
+    <ClInclude Include="ed\kit\event_handler_convert.h" />
+    <ClInclude Include="ed\names\dictionary.h" />
+    <ClInclude Include="ed\names\name_server.h" />
+    <ClInclude Include="ed\names\name_type.h" />
+    <ClInclude Include="ed\names\reserved.h" />
+    <ClInclude Include="ed\names\translate.h" />
+    <ClInclude Include="ed\controllers\client_controller.h" />
+    <ClInclude Include="ed\controllers\server_controller.h" />
+    <ClInclude Include="ed\notifications\event.h" />
+    <ClInclude Include="ed\notifications\event_notification.h" />
+    <ClInclude Include="ed\notifications\event_types.h" />
+    <ClInclude Include="ed\notifications\instance.h" />
+    <ClInclude Include="ed\notifications\listener.h" />
+    <ClInclude Include="ed\notifications\listener_container.h" />
+    <ClInclude Include="ed\notifications\slot.h" />
+    <ClInclude Include="ed\notifications\slot_data.h" />
+    <ClInclude Include="ed\notifications\slot_data_utils.h" />
+    <ClInclude Include="ed\communications\abstract_connection.h" />
+    <ClInclude Include="ed\communications\connection_ready.h" />
+    <ClInclude Include="ed\communications\socket_connection.h" />
+    <ClInclude Include="ed\communications\socket_ready.h" />
+    <ClInclude Include="ed\3party\ax\tl4_def.h" />
+    <ClInclude Include="ed\3party\ax\tl4_low.h" />
+    <ClInclude Include="ed\3party\ax\types.h" />
+    <ClInclude Include="ed\3party\win\utils.h" />
+    <ClInclude Include="ed\messages\listen.h" />
+    <ClInclude Include="ed\messages\message.h" />
+    <ClInclude Include="ed\messages\notification.h" />
+    <ClInclude Include="ed\messages\register.h" />
+    <ClInclude Include="ed\kit\event_result.h" />
+    <ClInclude Include="ed\kit\gateway.h" />
+    <ClInclude Include="ed\kit\module.h" />
+    <ClInclude Include="ed\def.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="ed\exceptions\exception.cpp" />
+    <ClCompile Include="ed\kit\event_handler_convert.cpp" />
+    <ClCompile Include="ed\names\dictionary.cpp" />
+    <ClCompile Include="ed\names\name_server.cpp" />
+    <ClCompile Include="ed\names\translate.cpp" />
+    <ClCompile Include="ed\controllers\client_controller.cpp" />
+    <ClCompile Include="ed\controllers\server_controller.cpp" />
+    <ClCompile Include="ed\notifications\event_notification.cpp" />
+    <ClCompile Include="ed\notifications\slot.cpp" />
+    <ClCompile Include="ed\notifications\slot_data_utils.cpp" />
+    <ClCompile Include="ed\communications\socket_connection.cpp" />
+    <ClCompile Include="ed\communications\socket_ready.cpp" />
+    <ClCompile Include="ed\3party\ax\_w_tl4_low.cpp" />
+    <ClCompile Include="ed\3party\ax\types.cpp" />
+    <ClCompile Include="ed\3party\win\utils.cpp" />
+    <ClCompile Include="ed\messages\messages.cpp" />
+    <ClCompile Include="ed\messages\register.cpp" />
+    <ClCompile Include="ed\kit\event_result.cpp" />
+    <ClCompile Include="ed\kit\gateway.cpp" />
+    <ClCompile Include="ed\kit\module.cpp" />
+    <ClCompile Include="ed\kit\module_callback.cpp" />
+  </ItemGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
+  <ImportGroup Label="ExtensionTargets">
+  </ImportGroup>
+</Project>

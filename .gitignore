@@ -17,5 +17,7 @@
 *.ncb
 *.suo
 *.vcproj.*
+*.sdf
+*.opensdf
 build/*
 intermediate/*

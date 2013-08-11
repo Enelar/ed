@@ -6,6 +6,8 @@
 #include "event_result.h"
 #include "../notifications/event_types.h"
 #include "../names/reserved.h"
+#include "event_context.h"
+#include "event_handler_convert.h"
 
 namespace ed
 {
@@ -26,6 +28,7 @@ namespace ed
     std::vector<event_listeners> pre_listeners;
   public:
     module( const std::string &, gateway & );
+    virtual ~module();
     void RegisterEvent( std::string name, int local_id );
     void Listen( int instance, std::string module, std::string event );
     
@@ -39,38 +42,52 @@ namespace ed
       EVENT_RING query_max_ring = RING0_THREAD,
       EVENT_RING notify_max_ring = RING3_WORLD );
       
-    struct event_context
-    {
-      int event_local_id;
-      const event_source &source;
-      buffer *const payload;
-      
-      event_context( int _event_local_id, const event_source &_source, buffer *const _payload  )
-        : event_local_id(_event_local_id), source(_source), payload(_payload)
-      {
-      }
-    };
+    typedef bool (module::*pre_event_handler_t)( const event_context<> & );
+    typedef void (module::*post_event_handler_t)( const event_context<> & );
 
-    typedef bool (module::*query_callback_type)( const event_context & );
-    typedef void (module::*event_callback_type)( const event_context & );
-
-  protected:
-
-    void RegisterQueryCallback( query_callback_type, std::string event, 
-      std::string module = "", int source_instance = reserved::instance::BROADCAST );
-    void RegisterQueryCallback( query_callback_type, event_source );
-    void RegisterEventCallback( event_callback_type, std::string event,
-      std::string module = "", int source_instance = reserved::instance::BROADCAST );
-    void RegisterEventCallback( event_callback_type, event_source );
   private:
-    template<typename callback_type>
+    template<typename RET>
     struct callback_entry
     {
       event_source source;
-      callback_type callback;
+      event_handler_adapter<RET> *callback;
+
+      callback_entry( event_source es, event_handler_adapter<RET> *t )
+        : callback(t), source(es)
+      {}
+      ~callback_entry()
+      {
+        delete callback;
+      }
     };
-    std::vector<callback_entry<query_callback_type>> QueryCallbacks;
-    std::vector<callback_entry<event_callback_type>> EventCallbacks;
+  protected:
+    template<typename T, typename MODULE>
+    void RegisterPreHandler( bool (MODULE::*f)( const event_context<T> & ), event_source es )
+    {
+      callback_entry<bool> *obj = SysCreateHandler<T, MODULE, bool>(f, es);
+      QueryCallbacks.push_back(obj);
+    }
+
+    template<typename T, typename MODULE>
+    void RegisterPostHandler( void (MODULE::*f)( const event_context<T> & ), event_source es )
+    {
+      callback_entry<void> *obj = SysCreateHandler<T, MODULE, void>(f, es);
+      EventCallbacks.push_back(obj);
+    }
+
+  private:
+    template<typename T, typename MODULE, typename RET>
+    callback_entry<typename RET> *SysCreateHandler( RET (MODULE::*f)( const event_context<T> & ), event_source es )
+    {
+      typedef event_handler_convert<MODULE, T, RET> adapterT;
+      adapterT *test = NEW adapterT(static_cast<MODULE &>(*this), f);
+      return NEW callback_entry<RET>(es, test);
+    }
+
+    typedef callback_entry<bool> base_pre_callback_entry;
+    typedef callback_entry<void> base_post_callback_entry;
+    std::vector<base_pre_callback_entry *> QueryCallbacks;
+    std::vector<base_post_callback_entry *> EventCallbacks;
 
     void EventReciever( const message & );
     bool Query( const message & );
