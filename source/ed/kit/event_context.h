@@ -19,6 +19,7 @@ namespace ed
     event_context( int _event_local_id, const event_source &_source, dataT *const _payload  )
       : event_local_id(_event_local_id), source(_source), payload(_payload)
     {
+      throw_assert(payload);
     }
     ~event_context()
     {
@@ -27,9 +28,21 @@ namespace ed
   };
 
   template<typename dataT>
-  struct event_context : public event_context<>
+  struct event_context
   {
+    int event_local_id;
+    const event_source source;
+    dataT *const payload;
 
+    event_context( const event_context<> a )
+      : event_local_id(a.event_local_id), source(a.source), payload(NEW dataT(*a.payload))      
+    {
+    }
+
+    ~event_context()
+    {
+      delete payload;
+    }
   };
 };
 
