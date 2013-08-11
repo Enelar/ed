@@ -204,5 +204,8 @@
     <ClCompile Include="ed\kit\module_callback.cpp">
       <Filter>kit</Filter>
     </ClCompile>
+    <ClCompile Include="ed\kit\event_handler_convert.cpp">
+      <Filter>kit</Filter>
+    </ClCompile>
   </ItemGroup>
 </Project>

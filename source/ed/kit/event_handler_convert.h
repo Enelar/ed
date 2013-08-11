@@ -5,40 +5,34 @@
 
 namespace ed
 {
-  template<typename T, typename RET>
-  class event_handler_convert;
-
-  class unused_internal_type
-  {
-  };
-
   template<typename RET>
-  class event_handler_convert<unused_internal_type, RET>
+  class event_handler_adapter
   {
   public:
     virtual RET FarCall( event_context<> &_obj ) = 0;
   };
 
-  template<typename T, typename RET>
-  class event_handler_convert : public event_handler_convert<unused_internal_type, RET>
+  template<typename MODULE, typename T, typename RET>
+  class event_handler_convert : public event_handler_adapter<RET>
   {
   public:
     typedef event_context<T> prefferedT;
-    typedef RET (*childT)( const prefferedT & );
+    typedef RET (MODULE::*childT)( const prefferedT & );
     typedef RET (*parentT)( const event_context<> & );
 
-    static childT Convert( parentT f )
+    static childT Specific( parentT f )
     {
       return reinterpret_cast<childT>(f);
     }
-    static parentT Convert( childT f )
+    static parentT Generic( childT f )
     {
       return reinterpret_cast<parentT>(f);
     }
   private:
+    MODULE &m;
     childT origin;
   public:
-    event_handler_convert( childT _origin ) : origin(_origin)
+    event_handler_convert( MODULE &_m, childT _origin ) : m(_m), origin(_origin)
     {}
 
     virtual RET FarCall( event_context<> &_obj )
@@ -46,7 +40,7 @@ namespace ed
       prefferedT obj = _obj;
       childT f = origin;
 
-      f(obj);
+      (m.*f)(obj);
     }
   };
 };

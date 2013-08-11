@@ -49,26 +49,19 @@ namespace ed
     template<typename T, typename MODULE, typename RET>
     void SysCreateHandler( RET (MODULE::*f)( const event_context<T> & ), event_source es )
     {
-      typedef event_handler_convert<T, RET> adapterT;
-      adapterT *test = NEW adapterT(f);
-      callback_entry<unused_internal_type, RET> obj(es, test);
-
-      /*
-      callback_entry<post_event_handler_t> t;
-  t.callback = q;
-  t.source = source;
-  EventCallbacks.push_back(t);
-  gw.Listen(source.instance, id, source.module, adapter.ToGlobal(source.event));       
-  */
+      typedef event_handler_convert<MODULE, T, RET> adapterT;
+      adapterT *test = NEW adapterT(static_cast<MODULE &>(*this), f);
+      callback_entry<RET> obj(es, test);
+      todo(Add handler);
     }
   private:
-    template<typename callback_type, typename RET>
+    template<typename RET>
     struct callback_entry
     {
       event_source source;
-      event_handler_convert<callback_type, RET> *callback;
+      event_handler_adapter<RET> *callback;
 
-      callback_entry( event_source es, event_handler_convert<callback_type, RET> *t )
+      callback_entry( event_source es, event_handler_adapter<RET> *t )
         : callback(t), source(es)
       {}
       ~callback_entry()
@@ -77,8 +70,8 @@ namespace ed
       }
     };
 
-    typedef callback_entry<unused_internal_type, bool> base_pre_callback_entry;
-    typedef callback_entry<unused_internal_type, void> base_post_callback_entry;
+    typedef callback_entry<bool> base_pre_callback_entry;
+    typedef callback_entry<void> base_post_callback_entry;
     std::vector<base_pre_callback_entry> QueryCallbacks;
     std::vector<base_post_callback_entry> EventCallbacks;
 
