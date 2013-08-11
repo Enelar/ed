@@ -28,6 +28,7 @@ namespace ed
     std::vector<event_listeners> pre_listeners;
   public:
     module( const std::string &, gateway & );
+    virtual ~module();
     void RegisterEvent( std::string name, int local_id );
     void Listen( int instance, std::string module, std::string event );
     
