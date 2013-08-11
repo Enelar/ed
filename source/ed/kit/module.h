@@ -14,6 +14,7 @@ namespace ed
   class module
   {
     friend class gateway;
+    friend class gateway_impl;
     friend class event_result;
     module( int id, gateway & );
     gateway &gw;
