@@ -19,5 +19,6 @@
 *.vcproj.*
 *.sdf
 *.opensdf
+ipch/*
 build/*
 intermediate/*
