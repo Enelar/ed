@@ -1,3 +1,4 @@
+#include "../def.h"
 #include "dictionary.h"
 
 using namespace ed;
@@ -25,4 +26,14 @@ dictionary::id_type dictionary::RegisterWord( word_type word )
 bool dictionary::IsWordExist( word_type word ) const
 {
   return SearchWord(word) != reserved_as_failure;
+}
+
+dictionary::dictionary()
+  : data_base(*NEW std::vector<word_type>())
+{
+}
+
+dictionary::~dictionary()
+{
+  delete &data_base;
 }
