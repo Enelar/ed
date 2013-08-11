@@ -63,7 +63,7 @@ namespace ed
     template<typename T, typename MODULE>
     void RegisterPreHandler( bool (MODULE::*f)( const event_context<T> & ), event_source es )
     {
-      callback_entry<bool> obj = SysCreateHandler<T, MODULE, bool>(f, es);
+      callback_entry<bool> *obj = SysCreateHandler<T, MODULE, bool>(f, es);
       QueryCallbacks.push_back(obj);
     }
 
