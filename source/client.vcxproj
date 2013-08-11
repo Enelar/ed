@@ -64,7 +64,6 @@
       <DebugInformationFormat>EditAndContinue</DebugInformationFormat>
     </ClCompile>
     <Link>
-      <AdditionalOptions>$(SolutionDir)\..\build\ed\$(Configuration)\ed_$(Configuration).lib %(AdditionalOptions)</AdditionalOptions>
       <OutputFile>$(OutDir)$(SolutionName)_$(ProjectName)_$(Configuration).exe</OutputFile>
       <GenerateDebugInformation>true</GenerateDebugInformation>
       <GenerateMapFile>false</GenerateMapFile>
@@ -93,7 +92,6 @@
       <CallingConvention>Cdecl</CallingConvention>
     </ClCompile>
     <Link>
-      <AdditionalOptions>$(SolutionDir)\..\build\ed\$(Configuration)\ed_$(Configuration).lib %(AdditionalOptions)</AdditionalOptions>
       <OutputFile>$(OutDir)$(SolutionName)_$(ProjectName)_$(Configuration).exe</OutputFile>
       <SubSystem>Console</SubSystem>
       <LargeAddressAware>false</LargeAddressAware>
@@ -114,7 +112,6 @@
   <ItemGroup>
     <ProjectReference Include="ed.vcxproj">
       <Project>{fde0911e-9089-4b5e-a8c4-c55f77d7dc5a}</Project>
-      <ReferenceOutputAssembly>false</ReferenceOutputAssembly>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
