@@ -8,7 +8,7 @@ namespace ed
 {
   namespace com
   {
-    class socket_ready : public connection_ready
+    class __declspec(dllexport) socket_ready : public connection_ready
     {
       unsigned int accept, client;
     public:

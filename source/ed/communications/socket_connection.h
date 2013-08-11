@@ -9,7 +9,7 @@ namespace ed
 {
   namespace com
   {
-    class socket_connection : public abstract_connection
+    class __declspec(dllexport) socket_connection : public abstract_connection
     {
       unsigned int desc;
       bool connected;

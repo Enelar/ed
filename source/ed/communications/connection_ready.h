@@ -7,7 +7,7 @@ namespace ed
 {
   namespace com
   {
-    class connection_ready
+    class __declspec(dllexport) connection_ready
     {
     public:
       virtual bool Ready() = 0;
