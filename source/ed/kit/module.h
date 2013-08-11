@@ -44,16 +44,6 @@ namespace ed
     typedef bool (module::*pre_event_handler_t)( const event_context<> & );
     typedef void (module::*post_event_handler_t)( const event_context<> & );
 
-  protected:
-
-    template<typename T, typename MODULE, typename RET>
-    void SysCreateHandler( RET (MODULE::*f)( const event_context<T> & ), event_source es )
-    {
-      typedef event_handler_convert<MODULE, T, RET> adapterT;
-      adapterT *test = NEW adapterT(static_cast<MODULE &>(*this), f);
-      callback_entry<RET> obj(es, test);
-      todo(Add handler);
-    }
   private:
     template<typename RET>
     struct callback_entry
@@ -69,11 +59,34 @@ namespace ed
         delete callback;
       }
     };
+  protected:
+    template<typename T, typename MODULE>
+    void RegisterPreHandler( bool (MODULE::*f)( const event_context<T> & ), event_source es )
+    {
+      callback_entry<bool> obj = SysCreateHandler<T, MODULE, bool>(f, es);
+      QueryCallbacks.push_back(obj);
+    }
+
+    template<typename T, typename MODULE>
+    void RegisterPostHandler( void (MODULE::*f)( const event_context<T> & ), event_source es )
+    {
+      callback_entry<void> *obj = SysCreateHandler<T, MODULE, void>(f, es);
+      EventCallbacks.push_back(obj);
+    }
+
+  private:
+    template<typename T, typename MODULE, typename RET>
+    callback_entry<typename RET> *SysCreateHandler( RET (MODULE::*f)( const event_context<T> & ), event_source es )
+    {
+      typedef event_handler_convert<MODULE, T, RET> adapterT;
+      adapterT *test = NEW adapterT(static_cast<MODULE &>(*this), f);
+      return NEW callback_entry<RET>(es, test);
+    }
 
     typedef callback_entry<bool> base_pre_callback_entry;
     typedef callback_entry<void> base_post_callback_entry;
-    std::vector<base_pre_callback_entry> QueryCallbacks;
-    std::vector<base_post_callback_entry> EventCallbacks;
+    std::vector<base_pre_callback_entry *> QueryCallbacks;
+    std::vector<base_post_callback_entry *> EventCallbacks;
 
     void EventReciever( const message & );
     bool Query( const message & );
