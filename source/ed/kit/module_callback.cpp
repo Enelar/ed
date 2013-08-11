@@ -29,7 +29,7 @@ void module::RegisterEventCallback( event_callback_type q, std::string event, st
   int event_global_id = gw.RegisterName(EVENTS, event);
 
   event_source es;
-  es.event = event_global_id;
+  es.event = adapter.ToLocal(event_global_id);
   es.module = module_global_id;
   es.instance = source_instance;
   RegisterEventCallback(q, es);

@@ -19,6 +19,17 @@ module &gateway::CreateModule( std::string name )
 
 int gateway::RegisterName( NAME_TYPE nt, std::string name )
 {
+  if (!name.length())
+    switch (nt)
+    {
+    case EVENTS:
+      return reserved::event::BROADCAST;
+    case MODULES:
+      return reserved::module::BROADCAST;
+    default:
+      dead_space();
+    }
+
   register_message rm(nt, name);
   c.SendRegister(rm);
 
