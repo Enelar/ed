@@ -6,7 +6,7 @@
 
 namespace ed
 {
-  struct __declspec(dllexport) dictionary
+  struct dictionary
   {
     typedef std::string internal_wt;
     typedef const internal_wt &word_type;

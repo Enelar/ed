@@ -13,7 +13,7 @@ namespace ed
     LISTEN,
     NOTIFY
   };
-  struct __declspec(dllexport) buffer
+  struct buffer
   {
     const int len;
     unsigned char *buf;
