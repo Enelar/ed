@@ -9,7 +9,7 @@ namespace ed
 {
   struct exception;
 };
-std::ostream &operator<<( std::ostream &os, const ed::exception &e );
+__declspec(dllexport) std::ostream & operator<<( std::ostream &os, const ed::exception &e );
 namespace ed
 {
   struct exception
