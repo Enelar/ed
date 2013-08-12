@@ -26,6 +26,7 @@ void f()
 
 void main()
 {
+  Sleep(1);
   //BREAK_ON_MEMORY_LEAK(274);
   try
   {
