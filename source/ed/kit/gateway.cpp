@@ -8,7 +8,9 @@ using namespace ed::com;
 
 
 gateway::gateway( com::abstract_connection &_c )
+#pragma warning(disable: 4355)
   : impl(* NEW gateway_impl(*this, _c))
+#pragma warning(default: 4355)
 {
 }
 

@@ -4,12 +4,16 @@
 using namespace ed;
 
 module::module( int _id, gateway &_gw )
+#pragma warning(disable: 4355)
   : impl(*NEW module_impl(*this, _id, _gw))
+#pragma warning(default: 4355)
 {
 }
 
 module::module( const std::string &name, gateway &_gw )
+#pragma warning(disable: 4355)
   : impl(*NEW module_impl(*this, name, _gw))
+#pragma warning(default: 4355)
 {
 }
 
