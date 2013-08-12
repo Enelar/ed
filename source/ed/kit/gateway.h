@@ -29,7 +29,7 @@ namespace ed
 namespace ed
 {
   struct register_answer;
-  class __declspec(dllexport) gateway
+  class _ED_DLL_EXPORT_ gateway
   {
     typedef slot_data::instance instance_listener;
 

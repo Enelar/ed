@@ -9,7 +9,7 @@ namespace ed
 {
   struct exception;
 
-  class __declspec(dllexport) string
+  class _ED_DLL_EXPORT_ string
   {
     std::string &obj;
   public:
@@ -48,10 +48,10 @@ namespace ed
 };
 
 
-__declspec(dllexport) std::ostream & operator<<( std::ostream &os, const ed::exception &e );
+_ED_DLL_EXPORT_ std::ostream & operator<<( std::ostream &os, const ed::exception &e );
 namespace ed
 {
-  struct __declspec(dllexport) exception
+  struct _ED_DLL_EXPORT_ exception
   {
     typedef ed::string string;
     const string file, comment;

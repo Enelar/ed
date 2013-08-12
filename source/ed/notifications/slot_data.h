@@ -10,7 +10,7 @@ namespace ed
   {
     
     template<typename child_type>
-    struct __declspec(dllexport) common_container
+    struct _ED_DLL_EXPORT_ common_container
     {
       typedef std::vector<child_type> container_type;
       container_type &childs;

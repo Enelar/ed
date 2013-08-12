@@ -6,20 +6,22 @@
 #ifndef _AX_TYPES_H_
 #define _AX_TYPES_H_
 
+#include "../../def.h"
+
 namespace ax
 {
-  class __declspec(dllexport) object
+  class _ED_DLL_EXPORT_ object
   {
   public:
     virtual ~object()
     {}
   };
-  class __declspec(dllexport) copyable : public object
+  class _ED_DLL_EXPORT_ copyable : public object
   {
   public:
     virtual copyable *Copy( void ) const = 0;
   };
-  class __declspec(dllexport) shared : public object
+  class _ED_DLL_EXPORT_ shared : public object
   {
   protected:
     typedef unsigned int dword;
@@ -30,7 +32,7 @@ namespace ax
     virtual void RemoveShare( );
     ~shared();
   };
-  class __declspec(dllexport) shared_self_controlled : public shared
+  class _ED_DLL_EXPORT_ shared_self_controlled : public shared
   {
   public:
     virtual void RemoveShare( );

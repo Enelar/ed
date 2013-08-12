@@ -10,7 +10,7 @@
 
 namespace ed
 {
-  struct __declspec(dllexport) server_controller
+  struct _ED_DLL_EXPORT_ server_controller
   {
     typedef name_server::id_type id_type;
     typedef name_server::word_type word_type;

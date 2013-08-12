@@ -63,6 +63,14 @@ namespace ed
         delete callback;
       }
     };
+    void AddPreHandler( callback_entry<bool> *obj )
+    {
+    //  QueryCallbacks.push_back(NULL);
+    }
+    void AddPostHandler( callback_entry<void> *obj )
+    {
+//      EventCallbacks.push_back(NULL);
+    }
   protected:
     template<typename T, typename MODULE>
     void RegisterPreHandler( bool (MODULE::*f)( const event_context<T> & ), event_source es )
@@ -85,6 +93,15 @@ namespace ed
       typedef event_handler_convert<MODULE, T, RET> adapterT;
       adapterT *test = NEW adapterT(static_cast<MODULE &>(*this), f);
       return NEW callback_entry<RET>(es, test);
+    }
+
+    template<typename MODULE>
+    void UnregisterHandlers()
+    {
+      for (unsigned int i = 0; i < QueryCallbacks.size(); ++i)
+        delete QueryCallbacks[i];
+      for (unsigned int i = 0; i < EventCallbacks.size(); ++i)
+        delete EventCallbacks[i];
     }
 
     typedef callback_entry<bool> base_pre_callback_entry;

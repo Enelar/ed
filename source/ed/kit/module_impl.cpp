@@ -16,10 +16,6 @@ module_impl::module_impl( module &_m, const std::string &name, gateway &_gw )
 
 module_impl::~module_impl()
 {
-  for (unsigned int i = 0; i < QueryCallbacks.size(); ++i)
-    delete QueryCallbacks[i];
-  for (unsigned int i = 0; i < EventCallbacks.size(); ++i)
-    delete EventCallbacks[i];
 }
 
 void module_impl::RegisterEvent( const std::string &name, int local_id )

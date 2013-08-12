@@ -6,7 +6,7 @@
 
 namespace ed
 {
-  struct __declspec(dllexport) register_message
+  struct _ED_DLL_EXPORT_ register_message
   {
     NAME_TYPE nt;
     std::string &name;

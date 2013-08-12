@@ -12,7 +12,7 @@
 #include "module_impl.h"
 namespace ed
 {
-  class __declspec(dllexport) module
+  class _ED_DLL_EXPORT_ module
   {
     module_impl &impl;
     friend class gateway;
@@ -51,15 +51,31 @@ namespace ed
     void RegisterPreHandler( bool (MODULE::*f)( const event_context<T> & ), event_source es )
     {
       module_impl::callback_entry<bool> *obj = SysCreateHandler<T, MODULE, bool>(f, es);
-      impl.QueryCallbacks.push_back(obj);
+      impl.AddPreHandler(obj);
     }
 
     template<typename T, typename MODULE>
     void RegisterPostHandler( void (MODULE::*f)( const event_context<T> & ), event_source es )
     {
       module_impl::callback_entry<void> *obj = SysCreateHandler<T, MODULE, void>(f, es);
-      impl.EventCallbacks.push_back(obj);
+      impl.AddPostHandler(obj);
     }
+
+    /*
+    template<typename MODULE>
+    void UnregisterHandlers()
+    {
+      for (unsigned int i = 0; i < QueryCallbacks.size(); ++i)
+      {
+        delete QueryCallbacks[i];
+        QueryCallbacks[i] = NULL;
+      }
+      for (unsigned int i = 0; i < EventCallbacks.size(); ++i)
+      {
+        delete EventCallbacks[i];
+        QueryCallbacks[i]
+      }
+    }*/
 
   private:
     template<typename T, typename MODULE, typename RET>

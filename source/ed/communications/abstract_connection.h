@@ -8,7 +8,7 @@ namespace ed
 {
   namespace com
   {
-    class __declspec(dllexport) abstract_connection
+    class _ED_DLL_EXPORT_ abstract_connection
     {
     public:
       virtual void Notify( const event_notification & ) = 0;
