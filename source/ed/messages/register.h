@@ -6,16 +6,21 @@
 
 namespace ed
 {
-  struct register_message
+  struct __declspec(dllexport) register_message
   {
     NAME_TYPE nt;
-    std::string name;
+    std::string &name;
 
     register_message( message &e );
     
     register_message( NAME_TYPE _nt, std::string _name )
-      : nt(_nt), name(_name)
+      : nt(_nt), name(*NEW std::string(_name))
     {
+    }
+
+    ~register_message()
+    {
+      delete &name;
     }
     
     operator message() const;

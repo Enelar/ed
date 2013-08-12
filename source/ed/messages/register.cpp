@@ -25,6 +25,7 @@ register_message::operator message() const
 }
 
 register_message::register_message( message &e )
+  : name(*NEW std::string())
 {
   switch (e.event)
   {
