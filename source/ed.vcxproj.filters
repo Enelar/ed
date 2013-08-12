@@ -60,31 +60,13 @@
     <ClInclude Include="ed\controllers\server_controller.h">
       <Filter>controllers</Filter>
     </ClInclude>
-    <ClInclude Include="ed\notifications\event.h">
-      <Filter>notifications</Filter>
-    </ClInclude>
     <ClInclude Include="ed\notifications\event_notification.h">
       <Filter>notifications</Filter>
     </ClInclude>
     <ClInclude Include="ed\notifications\event_types.h">
       <Filter>notifications</Filter>
     </ClInclude>
-    <ClInclude Include="ed\notifications\instance.h">
-      <Filter>notifications</Filter>
-    </ClInclude>
     <ClInclude Include="ed\notifications\listener.h">
-      <Filter>notifications</Filter>
-    </ClInclude>
-    <ClInclude Include="ed\notifications\listener_container.h">
-      <Filter>notifications</Filter>
-    </ClInclude>
-    <ClInclude Include="ed\notifications\slot.h">
-      <Filter>notifications</Filter>
-    </ClInclude>
-    <ClInclude Include="ed\notifications\slot_data.h">
-      <Filter>notifications</Filter>
-    </ClInclude>
-    <ClInclude Include="ed\notifications\slot_data_utils.h">
       <Filter>notifications</Filter>
     </ClInclude>
     <ClInclude Include="ed\communications\abstract_connection.h">
@@ -148,9 +130,6 @@
     <ClInclude Include="ed\kit\module_impl.h">
       <Filter>kit</Filter>
     </ClInclude>
-    <ClInclude Include="route_storage.h">
-      <Filter>notifications</Filter>
-    </ClInclude>
     <ClInclude Include="ed\controllers\server_controller_impl.h">
       <Filter>controllers</Filter>
     </ClInclude>
@@ -175,12 +154,6 @@
       <Filter>controllers</Filter>
     </ClCompile>
     <ClCompile Include="ed\notifications\event_notification.cpp">
-      <Filter>notifications</Filter>
-    </ClCompile>
-    <ClCompile Include="ed\notifications\slot.cpp">
-      <Filter>notifications</Filter>
-    </ClCompile>
-    <ClCompile Include="ed\notifications\slot_data_utils.cpp">
       <Filter>notifications</Filter>
     </ClCompile>
     <ClCompile Include="ed\communications\socket_connection.cpp">
