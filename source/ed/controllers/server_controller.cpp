@@ -6,7 +6,8 @@
 #define _TEMPLATE_ server_controller<ready_type>
 
 template<class ready_type>
-_TEMPLATE_::server_controller( ready_type *_ready ) : ready(_ready)
+_TEMPLATE_::server_controller( ready_type *_ready )
+  : clients(*NEW std::vector<client_type>()), ready(_ready)
 {
   throw_assert(_ready);
 }
@@ -15,6 +16,7 @@ template<class ready_type>
 _TEMPLATE_::~server_controller( )
 {
   delete ready;
+  delete &clients;
 }
 
 template<class ready_type>

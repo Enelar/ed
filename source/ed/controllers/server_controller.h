@@ -19,7 +19,7 @@ namespace ed
     typedef slot<connection> client_type;
 
     name_server names;
-    std::vector<client_type> clients;
+    std::vector<client_type> &clients;
     ready_type *ready;
   public:
     server_controller( ready_type * );
