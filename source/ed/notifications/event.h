@@ -7,7 +7,7 @@ namespace ed
 {
   namespace slot_data
   {
-    struct event : public listeners_container<listener>
+    struct __declspec(dllexport) event : public listeners_container<listener>
     {
       template<typename obj_type>
       void Each( obj_type &a )

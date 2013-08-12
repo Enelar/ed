@@ -5,7 +5,7 @@ namespace ed
 {
   namespace slot_data
   {
-    struct listener
+    struct __declspec(dllexport) listener
     {
       int instance, module;
     };

@@ -7,7 +7,7 @@
 
 namespace ed
 {
-  struct event_source
+  struct __declspec(dllexport) event_source
   {
     int instance, module, event;
     
