@@ -20,7 +20,7 @@ namespace ed
 
       void SendMessage( const message &m );
     public:
-      socket_connection( std::string addr, int port );
+      socket_connection( const std::string &addr, int port );
 
       virtual void Notify( const ed::event_notification & );
       virtual int Incoming( );

@@ -7,7 +7,7 @@ using namespace ed;
 using namespace ax::tl4;
 typedef ax::tl4::LOW_STATUSES low_status;
 
-socket_connection::socket_connection( std::string addr, int port )
+socket_connection::socket_connection( const std::string &addr, int port )
  : connected(false), desc(_TL4_NOT_SOCKET_)
 {
   unsigned int ip;
