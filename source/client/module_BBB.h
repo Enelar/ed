@@ -8,6 +8,7 @@ class module_BBB : public ed::module
   bool CheckAAAEventTEST( const ed::event_context<> & );
 public:
   module_BBB( ed::gateway &_gw );
+  ~module_BBB();
   void SendTestEvents();
 };
 

@@ -25,3 +25,8 @@ void module_BBB::SendTestEvents()
 {
   SendEvent(MY_EVENT);
 }
+
+module_BBB::~module_BBB()
+{
+  UnregisterHandlers(this);
+}

@@ -71,14 +71,14 @@ namespace ed
     }
 
     template<typename MODULE>
-    void UnregisterHandlers()
+    void UnregisterHandlers( const MODULE *const )
     {
-      for (unsigned int i = 0; i < QueryCallbacks.size(); ++i)
+      for (unsigned int i = 0; i < impl.QueryCallbacks.size(); ++i)
       {
         delete impl.QueryCallbacks[i];
         impl.QueryCallbacks[i] = NULL;
       }
-      for (unsigned int i = 0; i < EventCallbacks.size(); ++i)
+      for (unsigned int i = 0; i < impl.EventCallbacks.size(); ++i)
       {
         delete impl.EventCallbacks[i];
         impl.EventCallbacks[i] = NULL;
