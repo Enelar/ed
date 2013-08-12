@@ -7,7 +7,7 @@
 namespace ed
 {
   class module;
-  class event_result
+  class __declspec(dllexport) event_result
   {
     mutable bool deactivated;
 
