@@ -31,6 +31,9 @@
     <Filter Include="kit">
       <UniqueIdentifier>{223f1848-43f2-4f7f-ae49-ea804faa78cd}</UniqueIdentifier>
     </Filter>
+    <Filter Include="slot">
+      <UniqueIdentifier>{1d57f82d-acc9-4b1a-aa60-9c11cfb2f5d7}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="ed\exceptions\disconnected.h">
@@ -132,6 +135,21 @@
     </ClInclude>
     <ClInclude Include="ed\controllers\server_controller_impl.h">
       <Filter>controllers</Filter>
+    </ClInclude>
+    <ClInclude Include="ed\slot\event.h">
+      <Filter>slot</Filter>
+    </ClInclude>
+    <ClInclude Include="ed\slot\module.h">
+      <Filter>slot</Filter>
+    </ClInclude>
+    <ClInclude Include="ed\slot\instance.h">
+      <Filter>slot</Filter>
+    </ClInclude>
+    <ClInclude Include="ed\slot\route.h">
+      <Filter>slot</Filter>
+    </ClInclude>
+    <ClInclude Include="ed\notifications\event_source.h">
+      <Filter>notifications</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

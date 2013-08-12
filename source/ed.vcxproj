@@ -115,6 +115,7 @@
     <ClInclude Include="ed\controllers\client_controller.h" />
     <ClInclude Include="ed\controllers\server_controller.h" />
     <ClInclude Include="ed\notifications\event_notification.h" />
+    <ClInclude Include="ed\notifications\event_source.h" />
     <ClInclude Include="ed\notifications\event_types.h" />
     <ClInclude Include="ed\notifications\listener.h" />
     <ClInclude Include="ed\communications\abstract_connection.h" />
@@ -133,6 +134,10 @@
     <ClInclude Include="ed\kit\gateway.h" />
     <ClInclude Include="ed\kit\module.h" />
     <ClInclude Include="ed\def.h" />
+    <ClInclude Include="ed\slot\event.h" />
+    <ClInclude Include="ed\slot\instance.h" />
+    <ClInclude Include="ed\slot\module.h" />
+    <ClInclude Include="ed\slot\route.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="ed\controllers\server_controller_impl.cpp" />

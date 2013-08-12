@@ -6,7 +6,6 @@
 #include <string>
 #include "../communications/abstract_connection.h"
 #include "../names/translate.h"
-#include "../notifications/instance.h"
 
 namespace ed
 {
