@@ -26,7 +26,7 @@ namespace ed
       virtual int Incoming( );
 
       virtual void SendRegister( const register_message & );
-      virtual message *Get();
+      virtual message Get();
 
       ~socket_connection();
       friend class socket_ready;

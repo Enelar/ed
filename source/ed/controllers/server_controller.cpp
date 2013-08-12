@@ -67,7 +67,7 @@ void _TEMPLATE_::Workflow()
     connection &socket = clients[i].Socket();
     if (socket.Incoming() >= min_message_length)
     {
-      message *m = socket.Get();
+      message *m = NEW message(socket.Get());
       m->instance = i;
       if (!m)
         continue;
