@@ -8,18 +8,18 @@
 
 namespace ax
 {
-  class object
+  class __declspec(dllexport) object
   {
   public:
     virtual ~object()
     {}
   };
-  class copyable : public object
+  class __declspec(dllexport) copyable : public object
   {
   public:
     virtual copyable *Copy( void ) const = 0;
   };
-  class shared : public object
+  class __declspec(dllexport) shared : public object
   {
   protected:
     typedef unsigned int dword;
@@ -30,7 +30,7 @@ namespace ax
     virtual void RemoveShare( );
     ~shared();
   };
-  class shared_self_controlled : public shared
+  class __declspec(dllexport) shared_self_controlled : public shared
   {
   public:
     virtual void RemoveShare( );
