@@ -16,6 +16,13 @@ module_impl::module_impl( module &_m, const std::string &name, gateway &_gw )
 
 module_impl::~module_impl()
 {
+  for (unsigned int i = 0; i < QueryCallbacks.size(); ++i)
+    if (QueryCallbacks[i])
+      throw_message("You forget to unregister modules handler");
+
+  for (unsigned int i = 0; i < EventCallbacks.size(); ++i)
+    if (EventCallbacks[i])
+      throw_message("You forget to unregister modules handler");
 }
 
 void module_impl::RegisterEvent( const std::string &name, int local_id )

@@ -70,21 +70,20 @@ namespace ed
       impl.AddPostHandler(obj);
     }
 
-    /*
     template<typename MODULE>
     void UnregisterHandlers()
     {
       for (unsigned int i = 0; i < QueryCallbacks.size(); ++i)
       {
-        delete QueryCallbacks[i];
-        QueryCallbacks[i] = NULL;
+        delete impl.QueryCallbacks[i];
+        impl.QueryCallbacks[i] = NULL;
       }
       for (unsigned int i = 0; i < EventCallbacks.size(); ++i)
       {
-        delete EventCallbacks[i];
-        QueryCallbacks[i]
+        delete impl.EventCallbacks[i];
+        impl.EventCallbacks[i] = NULL;
       }
-    }*/
+    }
 
   private:
     template<typename T, typename MODULE, typename RET>
