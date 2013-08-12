@@ -51,13 +51,22 @@ namespace ed
     void RegisterPreHandler( bool (MODULE::*f)( const event_context<T> & ), event_source es )
     {
       module_impl::callback_entry<bool> *obj = SysCreateHandler<T, MODULE, bool>(f, es);
-      impl.AddPreHandler(obj);
+      AddPreHandler(obj);
     }
 
     template<typename T, typename MODULE>
     void RegisterPostHandler( void (MODULE::*f)( const event_context<T> & ), event_source es )
     {
       module_impl::callback_entry<void> *obj = SysCreateHandler<T, MODULE, void>(f, es);
+      AddPostHandler(obj);
+    }
+
+    void AddPreHandler( module_impl::callback_entry<bool> *obj )
+    {
+      impl.AddPreHandler(obj);
+    }
+    void AddPostHandler( module_impl::callback_entry<void> *obj )
+    {
       impl.AddPostHandler(obj);
     }
 

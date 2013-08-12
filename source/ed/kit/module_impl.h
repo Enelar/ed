@@ -65,11 +65,11 @@ namespace ed
     };
     void AddPreHandler( callback_entry<bool> *obj )
     {
-    //  QueryCallbacks.push_back(NULL);
+      QueryCallbacks.push_back(obj);
     }
     void AddPostHandler( callback_entry<void> *obj )
     {
-//      EventCallbacks.push_back(NULL);
+      EventCallbacks.push_back(obj);
     }
   protected:
     template<typename T, typename MODULE>
