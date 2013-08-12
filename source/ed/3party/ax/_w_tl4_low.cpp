@@ -163,11 +163,8 @@ LOW_STATUSES low::Recieve( const unsafe_dword s, byte *const buff, word &readed,
   return SUCCESS;
 }
 
-int low::Incoming( const unsafe_dword s, word size )
+inline int Incoming( const unsafe_dword s, word size )
 {
-  if (s == _TL4_NOT_SOCKET_)
-    throw_message("Low level protect");
-  throw_assert(size <= _TL4_DATA_SEGMENT_SIZE);
   char buffer[_TL4_DATA_SEGMENT_SIZE];
   short res = recv(s, buffer, size, MSG_PEEK);
   if (res == -1)
@@ -184,6 +181,27 @@ int low::Incoming( const unsafe_dword s, word size )
   if (res == 0)
     return -1;
   return res;
+}
+
+int low::Incoming( const unsafe_dword s, word size )
+{
+  if (s == _TL4_NOT_SOCKET_)
+    throw_message("Low level protect");
+  throw_assert(size <= _TL4_DATA_SEGMENT_SIZE);
+  int status = ::Incoming(s, 1);
+  if (status < 1)
+    return status;
+  do
+  {
+    int t = ::Incoming(s, size);
+    if (!t)
+      size >>= 1;
+    else
+      return t;
+    if (size == 0)
+      return status;
+  } while (true);
+  dead_space();
 }
 
 
