@@ -12,7 +12,7 @@
 #include "module_impl.h"
 namespace ed
 {
-  class module
+  class __declspec(dllexport) module
   {
     module_impl &impl;
     friend class gateway;
