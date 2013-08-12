@@ -7,7 +7,7 @@ using namespace ed;
 using namespace ax::tl4;
 typedef ax::tl4::LOW_STATUSES low_status;
 
-socket_connection::socket_connection( std::string addr, int port )
+socket_connection::socket_connection( const std::string &addr, int port )
  : connected(false), desc(_TL4_NOT_SOCKET_)
 {
   unsigned int ip;
@@ -88,7 +88,7 @@ void SuccessRecieve( unsigned int socket, type *buffer, int size )
   throw_assert(readed == size);
 }
 
-message *socket_connection::Get()
+message socket_connection::Get()
 {
   if (Incoming() < message::MinRequiredSize())
     return NULL;
@@ -101,12 +101,12 @@ message *socket_connection::Get()
 
   SuccessRecieve(desc, b.buf + 1, header_size - 1);
 
-  message *ret = NEW message(b);
-  int expected_payload = ret->ExpectedPayloadSize();
+  message ret(b);
+  int expected_payload = ret.ExpectedPayloadSize();
   if (expected_payload)
   {
-    ret->payload = NEW buffer(expected_payload);
-    SuccessRecieve(desc, ret->payload->buf, expected_payload);
+    ret.payload = NEW buffer(expected_payload);
+    SuccessRecieve(desc, ret.payload->buf, expected_payload);
   }
   return ret;
 }

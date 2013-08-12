@@ -4,75 +4,50 @@
 using namespace ed;
 
 module::module( int _id, gateway &_gw )
-  : id(_id), gw(_gw)
+#pragma warning(disable: 4355)
+  : impl(*NEW module_impl(*this, _id, _gw))
+#pragma warning(default: 4355)
 {
 }
 
 module::module( const std::string &name, gateway &_gw )
-  : gw(_gw)
+#pragma warning(disable: 4355)
+  : impl(*NEW module_impl(*this, name, _gw))
+#pragma warning(default: 4355)
 {
-  gw.CreateModule(name, this);
 }
 
 module::~module()
 {
-  for (unsigned int i = 0; i < QueryCallbacks.size(); ++i)
-    delete QueryCallbacks[i];
-  for (unsigned int i = 0; i < EventCallbacks.size(); ++i)
-    delete EventCallbacks[i];
+  delete &impl;
 }
 
-void module::RegisterEvent( std::string name, int local_id )
+void module::RegisterEvent( const std::string &name, int local_id )
 {
-  int global_id = gw.RegisterEvent(name);
-  adapter.AddPair(local_id, global_id);
+  impl.RegisterEvent(name, local_id);
 }
 
 event_result module::SendEvent( int local_id, EVENT_RING query_max_ring, EVENT_RING notify_max_ring )
 {
-  return SendEvent(local_id, buffer(0), query_max_ring, notify_max_ring);
+  return impl.SendEvent(local_id, query_max_ring, notify_max_ring);
 }
 
 event_result module::SendEvent( int local_id, buffer payload, EVENT_RING query_max_ring, EVENT_RING notify_max_ring )
 {
-  event_notification e(payload);
-  e.target_module = reserved::module::BROADCAST;
-  e.source.event = adapter.ToGlobal(local_id);
-  e.source.module = id;
-  e.source.instance = reserved::module::BROADCAST;
-  
-  message m = e;
-  m.flags.state = PRE_QUERY;
-  m.flags.ring = query_max_ring;
-
-  bool result = SendPreEvent(local_id, m);
-  return event_result(m, *this, local_id, result, notify_max_ring);
+  return impl.SendEvent(local_id, payload, query_max_ring, notify_max_ring);
 }
 
 bool module::SendPreEvent( int local_id, message &m )
 {
-  if (pre_listeners.size() > (unsigned)local_id && pre_listeners[local_id].modules.size() > 0)
-  { // RING 0
-    std::list<int>::const_iterator
-      i = pre_listeners[local_id].modules.begin(),
-      e = pre_listeners[local_id].modules.end();
-    while (i != e)
-    {
-      if (!gw.QueryModule(*i, m))
-        return false;
-      i++;
-    }
-  }
-
-  return gw.PreNotify(m);
+  return impl.SendPreEvent(local_id, m);
 }
 
 void module::SendPostEvent( int local_id, message &e )
 {
-  gw.PostNotify(e);
+  impl.SendPostEvent(local_id, e);
 }
 
-void module::Listen( int instance, std::string module, std::string event )
+void module::Listen( int instance, const std::string &module, const std::string &event )
 {
-  //gw.CreateModule
+  impl.Listen(instance, module, event);
 }

@@ -9,7 +9,7 @@ namespace ed
 {
   namespace com
   {
-    class socket_connection : public abstract_connection
+    class _ED_DLL_EXPORT_ socket_connection : public abstract_connection
     {
       unsigned int desc;
       bool connected;
@@ -20,13 +20,13 @@ namespace ed
 
       void SendMessage( const message &m );
     public:
-      socket_connection( std::string addr, int port );
+      socket_connection( const std::string &addr, int port );
 
       virtual void Notify( const ed::event_notification & );
       virtual int Incoming( );
 
       virtual void SendRegister( const register_message & );
-      virtual message *Get();
+      virtual message Get();
 
       ~socket_connection();
       friend class socket_ready;

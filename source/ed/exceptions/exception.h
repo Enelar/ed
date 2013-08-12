@@ -8,20 +8,59 @@
 namespace ed
 {
   struct exception;
+
+  class _ED_DLL_EXPORT_ string
+  {
+    std::string &obj;
+  public:
+    string( std::string a ) : obj(*NEW std::string(a))
+    {
+    }
+    std::string &operator *()
+    {
+      return obj;
+    }
+    std::string &operator *() const
+    {
+      return obj;
+    }
+    std::string *operator ->()
+    {
+      return &obj;
+    }
+    const std::string *operator ->() const
+    {
+      return &obj;
+    }
+    operator std::string &()
+    {
+      return obj;
+    }
+    operator std::string &() const
+    {
+      return obj;
+    }
+    ~string()
+    {
+      delete &obj;
+    }
+  };
 };
-std::ostream &operator<<( std::ostream &os, const ed::exception &e );
+
+
+_ED_DLL_EXPORT_ std::ostream & operator<<( std::ostream &os, const ed::exception &e );
 namespace ed
 {
-  struct exception
+  struct _ED_DLL_EXPORT_ exception
   {
-    typedef std::string string;
+    typedef ed::string string;
     const string file, comment;
     const int line;
-    exception( const string _file, const int _line, const string _comment ) :
+    exception( const std::string _file, const int _line, const std::string _comment ) :
       file(_file), line(_line), comment(_comment)
     {
     }
-    exception( const string _file, const int _line ) :
+    exception( const std::string _file, const int _line ) :
       file(_file), line(_line), comment("")
     {
     }

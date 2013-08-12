@@ -3,27 +3,36 @@
 #include "server_controller.h"
 #endif
 
-#define _TEMPLATE_ server_controller<ready_type>
+using namespace ed;
 
-template<class ready_type>
-_TEMPLATE_::server_controller( ready_type *_ready ) : ready(_ready)
+#define _TEMPLATE_HEAD_ 
+#define _TEMPLATE_ server_controller
+
+_TEMPLATE_HEAD_
+_TEMPLATE_::server_controller( ready_type *_ready )
+  :
+  names(*NEW name_server),
+  clients(*NEW std::vector<client_type>()), 
+  ready(_ready)
 {
   throw_assert(_ready);
 }
 
-template<class ready_type>
+_TEMPLATE_HEAD_
 _TEMPLATE_::~server_controller( )
 {
   delete ready;
+  delete &clients;
+  delete &names;
 }
 
-template<class ready_type>
-typename _TEMPLATE_::id_type _TEMPLATE_::RegisterName( NAME_TYPE nt, word_type name )
+_TEMPLATE_HEAD_
+_TEMPLATE_::id_type _TEMPLATE_::RegisterName( NAME_TYPE nt, word_type name )
 {
   return names[nt].RegisterWord(name);
 }
 
-template<class ready_type>
+_TEMPLATE_HEAD_
 void _TEMPLATE_::AddListener( event_source source, listener destination )
 {
   //! @NOTE Not really good, maybe all childs should be in common container??
@@ -33,7 +42,7 @@ void _TEMPLATE_::AddListener( event_source source, listener destination )
   clients[target].AddListener(source, destination);
 }
 
-template<class ready_type>
+_TEMPLATE_HEAD_
 void _TEMPLATE_::MakeNotification( message &a, const event_source &search_source )
 {
   slot_data::event *e = clients[search_source.instance].GetEvent(search_source);
@@ -48,7 +57,7 @@ void _TEMPLATE_::MakeNotification( message &a, const event_source &search_source
   }
 }
 
-template<class ready_type>
+_TEMPLATE_HEAD_
 void _TEMPLATE_::Workflow()
 {
   if (ready->Ready())
@@ -65,7 +74,7 @@ void _TEMPLATE_::Workflow()
     connection &socket = clients[i].Socket();
     if (socket.Incoming() >= min_message_length)
     {
-      message *m = socket.Get();
+      message *m = NEW message(socket.Get());
       m->instance = i;
       if (!m)
         continue;
@@ -117,3 +126,4 @@ void _TEMPLATE_::Workflow()
 }
 
 #undef _TEMPLATE_
+#undef _TEMPLATE_HEAD_

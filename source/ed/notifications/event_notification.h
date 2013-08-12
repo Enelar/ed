@@ -7,7 +7,7 @@
 
 namespace ed
 {
-  struct event_source
+  struct _ED_DLL_EXPORT_ event_source
   {
     int instance, module, event;
     
@@ -24,7 +24,7 @@ namespace ed
     }
   };
 
-  struct event_notification
+  struct _ED_DLL_EXPORT_ event_notification
   {
     event_source source;
     int target_module;
@@ -43,22 +43,24 @@ namespace ed
       payload = NEW char[payload_size];
       memcpy(payload, _payload.buf, payload_size);
     }
-
-    static const int
+  private:
+    enum sizeofs
+    {
       sizeof_magic = 1,
       sizeof_target_module = 1,
       sizeof_source_event = 2,
       sizeof_source_module = 1,
       sizeof_source_instance = 2,
-      sizeof_payload_size = 1;
-    static const int
+      sizeof_payload_size = 1,
       head_size = 
-        sizeof_payload_size +
-        sizeof_target_module +
-        sizeof_source_event +
-        sizeof_source_module +
-        sizeof_source_instance;
+          sizeof_payload_size +
+          sizeof_target_module +
+          sizeof_source_event +
+          sizeof_source_module +
+          sizeof_source_instance
+    };
 
+  public:
     operator message() const;
     operator event_source() const
     {

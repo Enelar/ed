@@ -12,7 +12,7 @@ namespace ed
     class RemoveInstance;
     struct event;
     template<typename child_type>
-    struct listeners_container : public common_container<child_type>
+    struct _ED_DLL_EXPORT_ listeners_container : public common_container<child_type>
     {
       typedef common_container<child_type>::container_type container_type;
       void RemoveDisconnectedInstance( int id )
