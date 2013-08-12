@@ -10,9 +10,10 @@ namespace ed
   namespace slot_data
   {
     class RemoveInstance;
+    class AddListener;
     struct event;
     template<typename child_type>
-    struct _ED_DLL_EXPORT_ listeners_container : public common_container<child_type>
+    struct listeners_container : public common_container<child_type>
     {
       typedef common_container<child_type>::container_type container_type;
       void RemoveDisconnectedInstance( int id )
@@ -21,9 +22,8 @@ namespace ed
       }
       void AddListener( event_source source, listener dest )
       {
-        AddListener *al = NEW slot_data::AddListener(source, dest)
-        al->Direct(*this);
-        delete al;
+        //::ed::slot_data::AddListener al(source, dest)
+        //al.Direct(*this);
       }
       event *GetEvent( event_source source )
       {

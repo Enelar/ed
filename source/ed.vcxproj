@@ -98,6 +98,7 @@
     </Lib>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClInclude Include="ed\controllers\server_controller_impl.h" />
     <ClInclude Include="ed\exceptions\disconnected.h" />
     <ClInclude Include="ed\exceptions\exception.h" />
     <ClInclude Include="ed\kit\event_context.h" />
@@ -137,8 +138,10 @@
     <ClInclude Include="ed\kit\gateway.h" />
     <ClInclude Include="ed\kit\module.h" />
     <ClInclude Include="ed\def.h" />
+    <ClInclude Include="route_storage.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="ed\controllers\server_controller_impl.cpp" />
     <ClCompile Include="ed\exceptions\exception.cpp" />
     <ClCompile Include="ed\kit\event_handler_convert.cpp" />
     <ClCompile Include="ed\kit\gateway_impl.cpp" />
@@ -151,7 +154,9 @@
     <ClCompile Include="ed\controllers\server_controller.cpp" />
     <ClCompile Include="ed\notifications\event_notification.cpp" />
     <ClCompile Include="ed\notifications\slot.cpp" />
-    <ClCompile Include="ed\notifications\slot_data_utils.cpp" />
+    <ClCompile Include="ed\notifications\slot_data_utils.cpp">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
+    </ClCompile>
     <ClCompile Include="ed\communications\socket_connection.cpp" />
     <ClCompile Include="ed\communications\socket_ready.cpp" />
     <ClCompile Include="ed\3party\ax\_w_tl4_low.cpp" />

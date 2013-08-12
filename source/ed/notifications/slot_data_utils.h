@@ -10,7 +10,7 @@ namespace ed
 {
   namespace slot_data
   {
-    class _ED_DLL_EXPORT_ RemoveInstance
+    class RemoveInstance
     {
       int id;
     public:
@@ -27,7 +27,7 @@ namespace ed
       }
     };
 
-    class _ED_DLL_EXPORT_ AddListener
+    class AddListener
     {
       static const int target_count = 3;
       int targets[target_count];
@@ -64,7 +64,7 @@ namespace ed
 
     //! @NOTE Not really good..
     struct module;
-    class _ED_DLL_EXPORT_ SearchEvent
+    class SearchEvent
     {
       static const int target_count = 3;
       int targets[target_count];

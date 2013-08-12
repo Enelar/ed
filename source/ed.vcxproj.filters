@@ -148,6 +148,12 @@
     <ClInclude Include="ed\kit\module_impl.h">
       <Filter>kit</Filter>
     </ClInclude>
+    <ClInclude Include="route_storage.h">
+      <Filter>notifications</Filter>
+    </ClInclude>
+    <ClInclude Include="ed\controllers\server_controller_impl.h">
+      <Filter>controllers</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="ed\exceptions\exception.cpp">
@@ -221,6 +227,9 @@
     </ClCompile>
     <ClCompile Include="ed\kit\module_impl.cpp">
       <Filter>kit</Filter>
+    </ClCompile>
+    <ClCompile Include="ed\controllers\server_controller_impl.cpp">
+      <Filter>controllers</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>
