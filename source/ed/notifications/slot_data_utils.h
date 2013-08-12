@@ -10,7 +10,7 @@ namespace ed
 {
   namespace slot_data
   {
-    class RemoveInstance
+    class __declspec(dllexport) RemoveInstance
     {
       int id;
     public:
@@ -27,7 +27,7 @@ namespace ed
       }
     };
 
-    class AddListener
+    class __declspec(dllexport) AddListener
     {
       static const int target_count = 3;
       int targets[target_count];
@@ -64,7 +64,7 @@ namespace ed
 
     //! @NOTE Not really good..
     struct module;
-    class SearchEvent
+    class __declspec(dllexport) SearchEvent
     {
       static const int target_count = 3;
       int targets[target_count];
