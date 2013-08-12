@@ -143,7 +143,9 @@
     <ClCompile Include="ed\controllers\server_controller_impl.cpp" />
     <ClCompile Include="ed\exceptions\exception.cpp" />
     <ClCompile Include="ed\kit\event_handler_convert.cpp" />
-    <ClCompile Include="ed\kit\gateway_impl.cpp" />
+    <ClCompile Include="ed\kit\gateway_impl.cpp">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
+    </ClCompile>
     <ClCompile Include="ed\kit\module_impl.cpp" />
     <ClCompile Include="ed\kit\module_impl_callback.cpp" />
     <ClCompile Include="ed\names\dictionary.cpp" />

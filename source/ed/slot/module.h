@@ -10,6 +10,8 @@ namespace ed
     class module
     {
       std::vector<event> data;
+    public:
+      event &GetEvent( const event_source & );
     };
   };
 };

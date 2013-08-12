@@ -11,8 +11,9 @@ namespace ed
     {
       std::vector<instance> data;
     public:
-
-
+      instance &GetInstance( const event_source & );
+      module &GetModule( const event_source & );
+      event &GetEvent( const event_source & );
     };
   };
 };

@@ -8,7 +8,7 @@
 
 namespace ed
 {
-  struct _ED_DLL_EXPORT_ event_notification
+  struct event_notification
   {
     event_source source;
     int target_module;
