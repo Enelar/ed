@@ -29,7 +29,7 @@ int gateway::RegisterName( NAME_TYPE nt, std::string name )
   return impl.RegisterName(nt, name);
 }
 
-void gateway::CreateModule( std::string name, module *const ret )
+void gateway::CreateModule( std::string name, module_impl &ret )
 {
   impl.CreateModule(name, ret);
 }

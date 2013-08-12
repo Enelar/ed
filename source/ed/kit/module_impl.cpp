@@ -11,7 +11,7 @@ module_impl::module_impl( module &_m, int _id, gateway &_gw )
 module_impl::module_impl( module &_m, const std::string &name, gateway &_gw )
   : gw(_gw), m(_m)
 {
-  gw.CreateModule(name, &m);
+  gw.CreateModule(name, *this);
 }
 
 module_impl::~module_impl()

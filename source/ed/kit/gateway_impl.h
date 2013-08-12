@@ -3,6 +3,7 @@
 
 namespace ed
 {
+  class module_impl;
   class gateway_impl
   {
     friend class gateway;
@@ -23,7 +24,7 @@ namespace ed
 
     instance_listener listeners;
 
-    void CreateModule( std::string name, module *const );
+    void CreateModule( std::string name, module_impl & );
 
     void IncomingNotification( message m );
     void DelegateNotification( const message &m );

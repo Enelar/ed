@@ -46,7 +46,7 @@ namespace ed
     void Listen( int source_instance, int dest_module, std::string module, std::string event );
     void Listen( int source_instance, int dest_module, int module, int event );
 
-    void CreateModule( std::string name, module *const );
+    void CreateModule( std::string name, module_impl & );
 
     void IncomingNotification( message m );
     void DelegateNotification( const message &m );

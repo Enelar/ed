@@ -53,10 +53,10 @@ int gateway_impl::RegisterName( NAME_TYPE nt, std::string name )
   return *(int *)e.payload;
 }
 
-void gateway_impl::CreateModule( std::string name, module *const ret )
+void gateway_impl::CreateModule( std::string name, module_impl &ret )
 {
-  ret->impl.id = RegisterName(MODULES, name);
-  local_modules.AddModule(ret, ret->impl.id);
+  ret.id = RegisterName(MODULES, name);
+  local_modules.AddModule(&ret.m, ret.id);
 }
 
 
