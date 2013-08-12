@@ -8,7 +8,30 @@
 namespace ed
 {
   struct exception;
+
+  class __declspec(dllexport) string
+  {
+    std::string &obj;
+
+    string( std::string a ) : obj(*NEW std::string(a))
+    {
+    }
+    operator std::string &()
+    {
+      return obj;
+    }
+    operator std::string &() const
+    {
+      return obj;
+    }
+    ~string()
+    {
+      delete &obj;
+    }
+  };
 };
+
+
 __declspec(dllexport) std::ostream & operator<<( std::ostream &os, const ed::exception &e );
 namespace ed
 {
