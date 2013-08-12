@@ -79,3 +79,14 @@ void module_impl::Listen( int instance, const std::string &module, const std::st
 {
   //gw.CreateModule
 }
+
+void module_impl::AddPreHandler( callback_entry<bool> *obj )
+{
+  QueryCallbacks.push_back(obj);
+  gw.Listen(obj->source.instance, id, obj->source.module, adapter.ToGlobal(obj->source.event));
+}
+void module_impl::AddPostHandler( callback_entry<void> *obj )
+{
+  EventCallbacks.push_back(obj);
+  gw.Listen(obj->source.instance, id, obj->source.module, adapter.ToGlobal(obj->source.event));
+}
