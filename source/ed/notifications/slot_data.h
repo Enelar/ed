@@ -10,10 +10,17 @@ namespace ed
   {
     
     template<typename child_type>
-    struct common_container
+    struct _ED_DLL_EXPORT_ common_container
     {
       typedef std::vector<child_type> container_type;
-      container_type childs;
+      container_type &childs;
+
+      common_container() : childs(*NEW container_type())
+      {}
+      ~common_container()
+      {
+        delete &childs;
+      }
 
       template<typename obj_type>
       void Each( obj_type &common_operator )

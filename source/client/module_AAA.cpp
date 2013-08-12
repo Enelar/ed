@@ -30,3 +30,8 @@ void module_AAA::SendTestEvents()
 {
   SendEvent(TEST_EVENT);
 }
+
+module_AAA::~module_AAA()
+{
+  UnregisterHandlers(this);
+}

@@ -22,27 +22,31 @@ namespace ed
       return (module *)ToLocal(global);
     }
   };
+};
 
+#include "gateway_impl.h"
+
+namespace ed
+{
   struct register_answer;
-  class gateway
+  class _ED_DLL_EXPORT_ gateway
   {
-    com::abstract_connection &c;
+    typedef slot_data::instance instance_listener;
+
+    gateway_impl &impl;
+
+    friend class gateway_impl;
+    friend class module_impl;
     friend class module;
+
     int RegisterEvent( std::string name );
     bool PreNotify( const message &e );
     void PostNotify( const message &e);
-    int instance;
-    std::list<message> delayed_messages;
-    modules_translate local_modules;
     int RegisterName( NAME_TYPE nt, std::string name );
     void Listen( int source_instance, int dest_module, std::string module, std::string event );
     void Listen( int source_instance, int dest_module, int module, int event );
 
-    typedef slot_data::instance instance_listener;
-
-    instance_listener listeners;
-
-    void CreateModule( std::string name, module *const );
+    void CreateModule( std::string name, module_impl & );
 
     void IncomingNotification( message m );
     void DelegateNotification( const message &m );
@@ -51,6 +55,7 @@ namespace ed
     module &CreateModule( std::string name );
     bool QueryModule( int global_id, const message & );
     void Workflow();
+    ~gateway();
   };
 };
 

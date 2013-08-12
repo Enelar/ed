@@ -16,6 +16,7 @@ class module_AAA : public ed::module
   void MyTypeExample( const ed::event_context<my_type> & );
 public:
   module_AAA( ed::gateway &_gw );
+  ~module_AAA();
   void SendTestEvents();
 };
 

@@ -3,7 +3,7 @@
 
 namespace ed
 {
-  void Sleep( unsigned int ms );
+  void _ED_DLL_EXPORT_ Sleep( unsigned int ms );
 }
 
 #endif

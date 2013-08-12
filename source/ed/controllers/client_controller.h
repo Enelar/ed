@@ -1,10 +1,12 @@
 #ifndef _ED_CONTROLLERS_CLIENT_CONTROLLER_H_
 #define _ED_CONTROLLERS_CLIENT_CONTROLLER_H_
 
+#include "../def.h"
+
 namespace ed
 {
   template<class connection>
-  struct client_controller
+  struct __declspec(dllexport) client_controller
   {
   private:
     connection *c;

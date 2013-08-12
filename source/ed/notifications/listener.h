@@ -5,7 +5,7 @@ namespace ed
 {
   namespace slot_data
   {
-    struct listener
+    struct _ED_DLL_EXPORT_ listener
     {
       int instance, module;
     };

@@ -8,14 +8,14 @@ namespace ed
 {
   namespace com
   {
-    class abstract_connection
+    class _ED_DLL_EXPORT_ abstract_connection
     {
     public:
       virtual void Notify( const event_notification & ) = 0;
       virtual int Incoming( ) = 0;
 
       virtual void SendRegister( const register_message & ) = 0;
-      virtual message *Get() = 0;
+      virtual message Get() = 0;
 
       virtual ~abstract_connection()
       {

@@ -11,7 +11,7 @@ using namespace ed::com;
 void f()
 {
   socket_ready *port = NEW socket_ready(3030);
-  server_controller<socket_ready> s(port);
+  server_controller s(port);
   socket_ready::pair_type *socket = NEW socket_ready::pair_type("localhost", 3030);
   client_controller<socket_ready::pair_type> c(socket);
 
@@ -26,6 +26,7 @@ void f()
 
 void main()
 {
+  Sleep(1);
   //BREAK_ON_MEMORY_LEAK(274);
   try
   {
