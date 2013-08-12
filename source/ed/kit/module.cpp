@@ -22,7 +22,7 @@ module::~module()
   delete &impl;
 }
 
-void module::RegisterEvent( std::string name, int local_id )
+void module::RegisterEvent( const std::string &name, int local_id )
 {
   impl.RegisterEvent(name, local_id);
 }
@@ -47,7 +47,7 @@ void module::SendPostEvent( int local_id, message &e )
   impl.SendPostEvent(local_id, e);
 }
 
-void module::Listen( int instance, std::string module, std::string event )
+void module::Listen( int instance, const std::string &module, const std::string &event )
 {
   impl.Listen(instance, module, event);
 }

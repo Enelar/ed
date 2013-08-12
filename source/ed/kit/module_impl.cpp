@@ -22,7 +22,7 @@ module_impl::~module_impl()
     delete EventCallbacks[i];
 }
 
-void module_impl::RegisterEvent( std::string name, int local_id )
+void module_impl::RegisterEvent( const std::string &name, int local_id )
 {
   int global_id = gw.RegisterEvent(name);
   adapter.AddPair(local_id, global_id);
@@ -72,7 +72,7 @@ void module_impl::SendPostEvent( int local_id, message &e )
   gw.PostNotify(e);
 }
 
-void module_impl::Listen( int instance, std::string module, std::string event )
+void module_impl::Listen( int instance, const std::string &module, const std::string &event )
 {
   //gw.CreateModule
 }

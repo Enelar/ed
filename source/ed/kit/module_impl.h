@@ -32,8 +32,8 @@ namespace ed
   public:
     module_impl( module &, const std::string &, gateway & );
     virtual ~module_impl();
-    void RegisterEvent( std::string name, int local_id );
-    void Listen( int instance, std::string module, std::string event );
+    void RegisterEvent( const std::string &name, int local_id );
+    void Listen( int instance, const std::string &module, const std::string &event );
     
     event_result SendEvent( 
       int local_id,
