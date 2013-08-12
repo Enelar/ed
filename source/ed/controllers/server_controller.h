@@ -5,20 +5,22 @@
 #include "../notifications/slot.h"
 #include "../notifications/event_notification.h"
 #include <vector>
+#include "../communications/connection_ready.h"
+#include "../communications/abstract_connection.h"
 
 namespace ed
 {
-  template<class ready_type>
   struct __declspec(dllexport) server_controller
   {
     typedef name_server::id_type id_type;
     typedef name_server::word_type word_type;
     typedef slot_data::listener listener;
   private:
-    typedef typename ready_type::pair_type connection;
+    typedef com::connection_ready ready_type;
+    typedef com::abstract_connection connection;
     typedef slot<connection> client_type;
 
-    name_server names;
+    name_server &names;
     std::vector<client_type> &clients;
     ready_type *ready;
   public:
@@ -34,14 +36,5 @@ namespace ed
 #include "../names/reserved.h"
 #include "../messages/listen.h"
 #include <iostream>
-
-#ifndef _ED_SERVER_CONTROLLER_IMPL_
-namespace ed
-{
-  #include "server_controller.cpp"
-};
-#else
-using namespace ed;
-#endif
 
 #endif

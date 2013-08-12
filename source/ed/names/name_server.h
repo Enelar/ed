@@ -6,15 +6,19 @@
 
 namespace ed
 {
-  struct __declspec(dllexport) name_server
+  struct name_server
   {
     typedef dictionary::id_type id_type;
     typedef dictionary::word_type word_type;
   private:
-    dictionary books[COUNT];
+    dictionary *books;
     void ValidateBookId( const NAME_TYPE nt ) const;
   public:
     name_server();
+    ~name_server()
+    {
+      delete[] books;
+    }
     dictionary &operator[]( const NAME_TYPE nt );
     const dictionary &operator[]( const NAME_TYPE nt ) const;
   };

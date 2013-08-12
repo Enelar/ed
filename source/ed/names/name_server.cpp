@@ -44,7 +44,7 @@ namespace
   }
 };
 
-name_server::name_server()
+name_server::name_server() : books(NEW dictionary[COUNT])
 {
   {
     dictionary &a = (*this)[INSTANCES];

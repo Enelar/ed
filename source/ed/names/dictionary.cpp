@@ -29,7 +29,7 @@ bool dictionary::IsWordExist( word_type word ) const
 }
 
 dictionary::dictionary()
-  : data_base(*NEW std::vector<word_type>())
+  : data_base(*NEW std::vector<internal_wt>())
 {
 }
 
