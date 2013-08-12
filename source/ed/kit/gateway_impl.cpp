@@ -37,7 +37,7 @@ int gateway_impl::RegisterName( NAME_TYPE nt, std::string name )
   {
     while (c.Incoming() < 1)
       ed::Sleep(1);
-    m = c.Get();
+    m = NEW message(c.Get());
     throw_assert(m);
     if (m->event == reserved::event::EVENT_REGISTER)
       break;
@@ -136,7 +136,7 @@ void gateway_impl::Workflow()
   }
   if (c.Incoming() < 1)
     return;
-  message *m = c.Get();
+  message *m = NEW message(c.Get());
   if (!m)
     return;
   IncomingNotification(*m);
