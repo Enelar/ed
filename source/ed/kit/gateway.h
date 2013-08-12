@@ -36,6 +36,7 @@ namespace ed
     gateway_impl &impl;
 
     friend class gateway_impl;
+    friend class module_impl;
     friend class module;
 
     int RegisterEvent( std::string name );

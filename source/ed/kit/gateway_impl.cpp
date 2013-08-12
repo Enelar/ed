@@ -55,8 +55,8 @@ int gateway_impl::RegisterName( NAME_TYPE nt, std::string name )
 
 void gateway_impl::CreateModule( std::string name, module *const ret )
 {
-  ret->id = RegisterName(MODULES, name);
-  local_modules.AddModule(ret, ret->id);
+  ret->impl.id = RegisterName(MODULES, name);
+  local_modules.AddModule(ret, ret->impl.id);
 }
 
 

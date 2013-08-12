@@ -99,6 +99,7 @@
     <ClInclude Include="ed\kit\event_data.h" />
     <ClInclude Include="ed\kit\event_handler_convert.h" />
     <ClInclude Include="ed\kit\gateway_impl.h" />
+    <ClInclude Include="ed\kit\module_impl.h" />
     <ClInclude Include="ed\names\dictionary.h" />
     <ClInclude Include="ed\names\name_server.h" />
     <ClInclude Include="ed\names\name_type.h" />
@@ -136,6 +137,8 @@
     <ClCompile Include="ed\exceptions\exception.cpp" />
     <ClCompile Include="ed\kit\event_handler_convert.cpp" />
     <ClCompile Include="ed\kit\gateway_impl.cpp" />
+    <ClCompile Include="ed\kit\module_impl.cpp" />
+    <ClCompile Include="ed\kit\module_impl_callback.cpp" />
     <ClCompile Include="ed\names\dictionary.cpp" />
     <ClCompile Include="ed\names\name_server.cpp" />
     <ClCompile Include="ed\names\translate.cpp" />
