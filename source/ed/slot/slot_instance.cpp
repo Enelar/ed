@@ -30,7 +30,7 @@ event &instance::GetEvent( const event_source &es, bool force )
 
 void instance::Create( int i )
 {
-  while (data.size() < i)
+  while (data.size() <= i)
     data.push_back(module());
 }
 

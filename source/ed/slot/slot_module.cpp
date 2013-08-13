@@ -25,6 +25,6 @@ void module::AddListener( const listen_message &m, bool force )
 
 void module::Create( int i )
 {
-  while (data.size() < i)
+  while (data.size() <= i)
     data.push_back(event());
 }

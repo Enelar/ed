@@ -23,7 +23,7 @@ server_controller_impl::id_type server_controller_impl::RegisterName( NAME_TYPE 
 
 void server_controller_impl::AddListener( event_source source, listener destination )
 {
-  clients.AddListener(source, destination);
+  clients.AddListener(source, destination, true);
 }
 
 
