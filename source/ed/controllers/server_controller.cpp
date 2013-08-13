@@ -6,7 +6,7 @@ using namespace ed;
 #define _TEMPLATE_ server_controller
 
 _TEMPLATE_HEAD_
-_TEMPLATE_::server_controller( ready_type *_ready )
+_TEMPLATE_::server_controller( ready_type &_ready )
   : impl(*NEW server_controller_impl(_ready))
 {
 }

@@ -11,14 +11,14 @@ using namespace ed::com;
 void f()
 {
   socket_ready *port = NEW socket_ready(3030);
-  server_controller s(port);
+  server_controller s(*port);
   socket_ready::pair_type *socket = NEW socket_ready::pair_type("localhost", 3030);
   client_controller<socket_ready::pair_type> c(socket);
 
   while (1)
   {
     Sleep(1);
-    s.Workflow();
+      s.Workflow();
   }
 }
 

@@ -2,19 +2,16 @@
 
 using namespace ed;
 
-server_controller_impl::server_controller_impl( ready_type *_ready )
+server_controller_impl::server_controller_impl( ready_type &_ready )
   :
-  names(*NEW name_server),
   ready(_ready)
 {
-  throw_assert(_ready);
+
 }
 
 
 server_controller_impl::~server_controller_impl( )
 {
-  delete ready;
-  delete &names;
 }
 
 
@@ -47,9 +44,9 @@ void server_controller_impl::MakeNotification( message &a, const event_source &s
 
 void server_controller_impl::Workflow()
 {
-  if (ready->Ready())
+  if (ready.Ready())
   {
-    connection *c = static_cast<connection *>(ready->Read());
+    connection *c = static_cast<connection *>(ready.Read());
     throw_assert(c);
     todo(Add client);
     //clients.push_back(client_type(c));
@@ -58,6 +55,8 @@ void server_controller_impl::Workflow()
 
   for (; i < s; i++)
   {
+try
+{
     const int min_message_length = 1;
     connection &socket = clients.GetInstance(i).Socket();
     if (socket.Incoming() >= min_message_length)
@@ -110,5 +109,8 @@ void server_controller_impl::Workflow()
       es.module = reserved::module::BROADCAST;
       MakeNotification(a, es);
     }
+} catch (slot_not_found &)
+{
+}
   }
 }

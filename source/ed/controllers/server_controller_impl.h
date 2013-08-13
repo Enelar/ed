@@ -19,11 +19,11 @@ namespace ed
     typedef com::abstract_connection connection;
     //typedef slot client_type;
 
-    name_server &names;
+    name_server names;
     slot::route clients;
-    ready_type *ready;
+    ready_type &ready;
   public:
-    server_controller_impl( ready_type * );
+    server_controller_impl( ready_type & );
     ~server_controller_impl();
     id_type RegisterName( NAME_TYPE nt, word_type name );
     void AddListener( event_source source, listener destination );

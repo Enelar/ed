@@ -19,7 +19,7 @@ namespace ed
     typedef name_server::word_type word_type;
     typedef slot_data::listener listener;
   public:
-    server_controller( ready_type * );
+    server_controller( ready_type & );
     ~server_controller();
     id_type RegisterName( NAME_TYPE nt, word_type name );
     void AddListener( event_source source, listener destination );
