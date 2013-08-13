@@ -37,7 +37,8 @@ void server_controller_impl::MakeNotification( const message &a, const event_sou
     {
       const slot_data::listener &d = e.data[i];
       throw_assert(d.instance);
-      clients.GetInstance(d.instance).Socket().Notify(a);
+      com::abstract_connection &con = clients.GetInstance(d.instance).Socket();
+      con.Notify(a);
       std::cout << "[" << d.instance << ":" << d.module << "] NOTIFIED ABOUT " <<
         search_source.event << " EVENT " << std::endl;
     }
