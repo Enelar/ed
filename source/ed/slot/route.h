@@ -21,6 +21,7 @@ namespace ed
       void AddListener( const event_source &, const slot_data::listener &, bool force = false );
 
       int AddInstance( com::abstract_connection * );
+      void RemoveDisconnected( const int instance );
     };
   };
 };

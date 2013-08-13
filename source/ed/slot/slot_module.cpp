@@ -28,3 +28,9 @@ void module::Create( int i )
   while (data.size() <= i)
     data.push_back(event());
 }
+
+void module::RemoveDisconnected( const int instance )
+{
+  for (int i = 0; i < data.size(); i++)
+    data[i].RemoveDisconnected(instance);
+}

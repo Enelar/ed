@@ -76,7 +76,7 @@ void socket_connection::SendMessage( const message &m )
     Sleep(1);
   if (s == SUCCESS)
     return;
-  EXCEPTION(disconnected);
+  EXCEPTION(disconnected());
 }
 
 template<typename type>
