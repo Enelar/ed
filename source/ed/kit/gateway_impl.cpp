@@ -103,13 +103,12 @@ void gateway_impl::Listen( int source_instance, int dest_module, int module_glob
   listeners.AddListener(lm, true);
 }
 
-void gateway_impl::DelegateNotification( const message &mes )
+void gateway_impl::DelegateNotification( const message &mes, const event_source &es )
 {
-  const event_notification en = mes;
   slot::event *t;
   try
   {
-    t = &listeners.GetEvent(en.source);
+    t = &listeners.GetEvent(es);
   }  catch (slot_not_found)
   {
     return;
@@ -127,11 +126,12 @@ void gateway_impl::DelegateNotification( const message &mes )
 
 void gateway_impl::IncomingNotification( message m )
 {
-  DelegateNotification(m);
-  m.instance = reserved::instance::BROADCAST;
-  DelegateNotification(m);
-  m.module = reserved::module::BROADCAST;
-  DelegateNotification(m);
+  event_source es = static_cast<event_notification>(m).source;
+  DelegateNotification(m, es);
+  es.instance = reserved::instance::BROADCAST;
+  DelegateNotification(m, es);
+  es.module = reserved::module::BROADCAST;
+  DelegateNotification(m, es);
 }
 
 void gateway_impl::Workflow()

@@ -1,13 +1,25 @@
 #include "module.h"
 
 using namespace ed;
-            
+
+
+bool BroadCastPatten( const event_source &filter, event_source catched )
+{
+  if (filter == catched)
+    return true;
+  catched.instance = reserved::instance::BROADCAST;
+  if (filter == catched)
+    return true;
+  catched.module = reserved::module::BROADCAST;
+  if (filter == catched)
+    return true;
+  return false;
+}
 
 void module_impl::EventReciever( const message &m )
 {
   const event_source en = static_cast<event_notification>(m);
   event_source en0 = en;
-  en0.event = reserved::event::BROADCAST;
   std::vector<base_post_callback_entry *>::const_iterator
     i = EventCallbacks.begin(),
     e = EventCallbacks.end();
@@ -19,7 +31,8 @@ void module_impl::EventReciever( const message &m )
   while (i != e)
   {
     const base_post_callback_entry &t = **i++;
-    if (en == t.source || en0 == t.source)
+    
+    if (BroadCastPatten(t.source, en))
       t.callback->FarCall(data);
   }
 }
