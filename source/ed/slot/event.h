@@ -8,6 +8,9 @@
 
 namespace ed
 {
+  struct slot_not_found
+  {
+  };
   namespace slot
   {
     struct event
