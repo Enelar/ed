@@ -100,7 +100,7 @@ void gateway_impl::Listen( int source_instance, int dest_module, int module_glob
   lm.listener_module = dest_module;
 
   c.Notify(static_cast<message>(lm));
-  listeners.AddListener(lm);
+  listeners.AddListener(lm, true);
 }
 
 void gateway_impl::DelegateNotification( const message &mes )

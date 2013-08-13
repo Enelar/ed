@@ -8,6 +8,11 @@ namespace ed
     struct listener
     {
       int instance, module;
+
+      bool operator==( const listener &a ) const
+      {
+        return instance == a.instance && module == a.module;
+      }
     };
   };
 };
