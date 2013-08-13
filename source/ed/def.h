@@ -53,9 +53,11 @@ namespace ed
 #endif // MEMLEAK_DETECT_ENABLE
 
 #ifdef _ED_COMPILLED_LOCALLY_
-#define _ED_DLL_EXPORT_ __declspec(dllexport)
+#define _ED_DLL_EXPORT_ 
+//__declspec(dllexport)
 #else
-#define _ED_DLL_EXPORT_ __declspec(dllimport)
+#define _ED_DLL_EXPORT_
+//__declspec(dllimport)
 #endif
 
 #endif
