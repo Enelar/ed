@@ -6,7 +6,6 @@
 #include <string>
 #include "../communications/abstract_connection.h"
 #include "../names/translate.h"
-#include "../notifications/instance.h"
 
 namespace ed
 {
@@ -31,8 +30,6 @@ namespace ed
   struct register_answer;
   class _ED_DLL_EXPORT_ gateway
   {
-    typedef slot_data::instance instance_listener;
-
     gateway_impl &impl;
 
     friend class gateway_impl;

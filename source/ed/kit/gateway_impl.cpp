@@ -100,19 +100,27 @@ void gateway_impl::Listen( int source_instance, int dest_module, int module_glob
   lm.listener_module = dest_module;
 
   c.Notify(static_cast<message>(lm));
-  listeners.AddListener(lm, lm);
+  listeners.AddListener(lm, true);
 }
 
 void gateway_impl::DelegateNotification( const message &mes )
 {
   const event_notification en = mes;
-  slot_data::event *e = listeners.GetEvent(en.source);
-  if (!e)
-    return; // no listeners registered;
-  unsigned int i = 0, s = e->childs.size();
+  slot::event *t;
+  try
+  {
+    t = &listeners.GetEvent(en.source);
+  }  catch (slot_not_found)
+  {
+    return;
+  }
+  throw_assert(t);
+  slot::event &e = *t;
+
+  unsigned int i = 0, s = e.data.size();
   for (i = 0; i < s; ++i)
   {
-    module *m = local_modules.GetModule(e->childs[i].module);
+    module *m = local_modules.GetModule(e.data[i].module);
     m->EventReciever(mes);
   }
 }

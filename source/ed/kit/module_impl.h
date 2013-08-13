@@ -63,14 +63,8 @@ namespace ed
         delete callback;
       }
     };
-    void AddPreHandler( callback_entry<bool> *obj )
-    {
-      QueryCallbacks.push_back(obj);
-    }
-    void AddPostHandler( callback_entry<void> *obj )
-    {
-      EventCallbacks.push_back(obj);
-    }
+    void AddPreHandler( callback_entry<bool> *obj );
+    void AddPostHandler( callback_entry<void> *obj );
   protected:
     template<typename T, typename MODULE>
     void RegisterPreHandler( bool (MODULE::*f)( const event_context<T> & ), event_source es )
