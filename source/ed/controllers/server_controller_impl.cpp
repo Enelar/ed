@@ -29,16 +29,19 @@ void server_controller_impl::AddListener( event_source source, listener destinat
 
 void server_controller_impl::MakeNotification( const message &a, const event_source &search_source )
 {
-  todo(Catch no event exception);
-  slot::event &e = clients.GetEvent(search_source);
-/*
-  const slot_data::event::container_type &childs = e->childs;
-  client_type &client = clients[a.instance];
-  for (int i = 0, s = childs.size(); i < s; i++)
+  try
   {
-    const listener &t = childs[i];
-    client.Socket().Notify(a);
-  }*/
+    slot::event &e = clients.GetEvent(search_source);
+
+    for (int i = 0, s = e.data.size(); i < s; i++)
+    {
+      const slot_data::listener &d = e.data[i];
+      throw_assert(d.instance);
+      clients.GetInstance(d.instance).Socket().Notify(a);
+    }
+  } catch (slot_not_found &)
+  {
+  }
 }
 
 void server_controller_impl::RegisterWorkflow( int i, connection &socket, const register_message &r )
