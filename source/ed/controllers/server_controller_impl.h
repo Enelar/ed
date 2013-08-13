@@ -2,7 +2,7 @@
 #define _ED_CONTROLLERS_SERVER_CONTROLLER_H_
 
 #include "server_controller.h"
-#include "../notifications/slot.h"
+#include "../slot/route.h"
 #include "../notifications/event_notification.h"
 #include <vector>
 
@@ -17,10 +17,10 @@ namespace ed
   private:
     typedef com::connection_ready ready_type;
     typedef com::abstract_connection connection;
-    typedef slot<connection> client_type;
+    //typedef slot client_type;
 
     name_server &names;
-    std::vector<client_type> &clients;
+    slot::route clients;
     ready_type *ready;
   public:
     server_controller_impl( ready_type * );

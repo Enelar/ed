@@ -138,6 +138,7 @@
     <ClInclude Include="ed\slot\instance.h" />
     <ClInclude Include="ed\slot\module.h" />
     <ClInclude Include="ed\slot\route.h" />
+    <ClInclude Include="ed\slot\slot.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="ed\controllers\server_controller_impl.cpp" />

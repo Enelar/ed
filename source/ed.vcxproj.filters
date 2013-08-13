@@ -151,6 +151,9 @@
     <ClInclude Include="ed\notifications\event_source.h">
       <Filter>notifications</Filter>
     </ClInclude>
+    <ClInclude Include="ed\slot\slot.h">
+      <Filter>slot</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="ed\exceptions\exception.cpp">
