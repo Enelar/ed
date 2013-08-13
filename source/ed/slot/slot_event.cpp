@@ -30,7 +30,7 @@ void event::RemoveDisconnected( const int instance )
   while (i != e)
   {
     if ((*i).instance == instance)
-      data.erase(i);
+      i = data.erase(i);
     else
       i++;
   }
