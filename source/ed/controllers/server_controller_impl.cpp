@@ -38,6 +38,8 @@ void server_controller_impl::MakeNotification( const message &a, const event_sou
       const slot_data::listener &d = e.data[i];
       throw_assert(d.instance);
       clients.GetInstance(d.instance).Socket().Notify(a);
+      std::cout << "[" << d.instance << ":" << d.module << "] NOTIFIED ABOUT " <<
+        search_source.event << " EVENT " << std::endl;
     }
   } catch (slot_not_found &)
   {
@@ -54,7 +56,13 @@ void server_controller_impl::RegisterWorkflow( int i, connection &socket, const 
   memcpy(e.payload, &id, 4);
   socket.Notify(e);
 
-  std::cout << "Registered name: " << r.nt << " " << r.name << " AS " << id << std::endl;
+  char 
+   *debug = "  name";
+  if (r.nt == MODULES)
+    debug = "module";
+  if (r.nt == EVENTS)
+    debug = " event";
+  std::cout << "Registered " << debug << ": " << r.name << " AS " << id << std::endl;
 }
 
 void server_controller_impl::ListenWorkflow( int i, connection &socket, const listen_message &res )
@@ -74,6 +82,7 @@ void server_controller_impl::NotifyWorkflow( int i, connection &socket, const me
     todo(PRE REPLY ON SERVER CONTROLLER);
   std::cout << "EVENT " << a.event << " APPEARS FROM " << a.instance << ":" << (int)a.module << std::endl;
   event_source es = static_cast<event_notification>(a);
+
   MakeNotification(a, es);
 
   // broadcast listeners
@@ -121,7 +130,8 @@ void server_controller_impl::Workflow()
   {
     connection *c = static_cast<connection *>(ready.Read());
     throw_assert(c);
-    clients.AddInstance(c);
+    std::cout << "New ED instance! ID: " << clients.AddInstance(c) << std::endl;
+    
   }
   int i = 0, s = clients.data.size();
 

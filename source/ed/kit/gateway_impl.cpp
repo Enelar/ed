@@ -106,8 +106,16 @@ void gateway_impl::Listen( int source_instance, int dest_module, int module_glob
 void gateway_impl::DelegateNotification( const message &mes )
 {
   const event_notification en = mes;
-  slot::event &e = listeners.GetEvent(en.source);
-  todo("Catch exception `no found slot`");
+  slot::event *t;
+  try
+  {
+    t = &listeners.GetEvent(en.source);
+  }  catch (slot_not_found)
+  {
+    return;
+  }
+  throw_assert(t);
+  slot::event &e = *t;
 
   unsigned int i = 0, s = e.data.size();
   for (i = 0; i < s; ++i)
