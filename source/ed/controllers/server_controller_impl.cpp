@@ -27,7 +27,7 @@ void server_controller_impl::AddListener( event_source source, listener destinat
 }
 
 
-void server_controller_impl::MakeNotification( message &a, const event_source &search_source )
+void server_controller_impl::MakeNotification( const message &a, const event_source &search_source )
 {
   todo(Catch no event exception);
   slot::event &e = clients.GetEvent(search_source);
@@ -41,6 +41,76 @@ void server_controller_impl::MakeNotification( message &a, const event_source &s
   }*/
 }
 
+void server_controller_impl::RegisterWorkflow( int i, connection &socket, const register_message &r )
+{
+  id_type id = RegisterName(r.nt, r.name);
+  event_notification e(4); // 32 bit
+  e.source.instance = i;
+  e.source.module = 0;
+  e.source.event = ed::reserved::event::EVENT_REGISTER;
+  memcpy(e.payload, &id, 4);
+  socket.Notify(e);
+
+  std::cout << "Registered name: " << r.nt << " " << r.name << " AS " << id << std::endl;
+}
+
+void server_controller_impl::ListenWorkflow( int i, connection &socket, const listen_message &res )
+{
+  listen_message lm = res;
+  lm.listener_instance = i;
+  AddListener(lm, lm);
+  std::cout << lm.listener_instance << ":" << (int)lm.listener_module << " LISTEN " << lm.event << " FROM " <<
+    lm.event_source_instance << ":" << (int)lm.event_source_module << std::endl;
+}
+
+void server_controller_impl::NotifyWorkflow( int i, connection &socket, const message &a )
+{
+  if (a.flags.ring < RING2_NETWORK)
+    return;
+  if (a.flags.state == PRE_REPLY)
+    todo(PRE REPLY ON SERVER CONTROLLER);
+  std::cout << "EVENT " << a.event << " APPEARS FROM " << a.instance << ":" << (int)a.module << std::endl;
+  event_source es = static_cast<event_notification>(a);
+  MakeNotification(a, es);
+
+  // broadcast listeners
+  es.instance = reserved::instance::BROADCAST;
+  MakeNotification(a, es);
+  es.module = reserved::module::BROADCAST;
+  MakeNotification(a, es);
+}
+
+void server_controller_impl::SysWorkflow( int i, connection &socket )
+{
+  const int min_message_length = 1;
+  if (socket.Incoming() < min_message_length)
+    return;
+
+  message *m = NEW message(socket.Get());
+  m->instance = i;
+  if (!m)
+    return;
+
+  if (m->event == reserved::event::EVENT_GLOBAL_ID_REQUEST ||
+    m->event == reserved::event::MODULE_GLOBAL_ID_REQUEST)
+  {
+    register_message r = *m;
+    delete m;
+    RegisterWorkflow(i, socket, r);
+    return;
+  }
+
+  if (m->event == reserved::event::LISTEN)
+  {
+    listen_message lm = *m;
+    delete m;
+    ListenWorkflow(i, socket, lm);
+    return;
+  }
+  message a = *m;
+  delete m;
+  NotifyWorkflow(i, socket, a);
+}
 
 void server_controller_impl::Workflow()
 {
@@ -54,62 +124,11 @@ void server_controller_impl::Workflow()
 
   for (; i < s; i++)
   {
-try
-{
-    const int min_message_length = 1;
-    connection &socket = clients.GetInstance(i).Socket();
-    if (socket.Incoming() >= min_message_length)
+    try
     {
-      message *m = NEW message(socket.Get());
-      m->instance = i;
-      if (!m)
-        continue;
-      if (m->event == reserved::event::EVENT_GLOBAL_ID_REQUEST ||
-        m->event == reserved::event::MODULE_GLOBAL_ID_REQUEST)
-      {
-        register_message r = *m;
-        delete m;
-        id_type id = RegisterName(r.nt, r.name);
-        event_notification e(4); // 32 bit
-        e.source.instance = i;
-        e.source.module = 0;
-        e.source.event = ed::reserved::event::EVENT_REGISTER;
-        memcpy(e.payload, &id, 4);
-        socket.Notify(e);
-
-        std::cout << "Registered name: " << r.nt << " " << r.name << " AS " << id << std::endl;
-        continue;
-      }
-      if (m->event == reserved::event::LISTEN)
-      {
-        listen_message lm = *m;
-        delete m;
-
-        lm.listener_instance = i;
-        AddListener(lm, lm);
-        std::cout << lm.listener_instance << ":" << (int)lm.listener_module << " LISTEN " << lm.event << " FROM " <<
-          lm.event_source_instance << ":" << (int)lm.event_source_module << std::endl;
-        continue;
-      }
-      message a = *m;
-      delete m;
-
-      if (a.flags.ring < RING2_NETWORK)
-        continue;
-      if (a.flags.state == PRE_REPLY)
-        todo(PRE REPLY ON SERVER CONTROLLER);
-      std::cout << "EVENT " << a.event << " APPEARS FROM " << a.instance << ":" << (int)a.module << std::endl;
-      event_source es = static_cast<event_notification>(a);
-      MakeNotification(a, es);
-
-      // broadcast listeners
-      es.instance = reserved::instance::BROADCAST;
-      MakeNotification(a, es);
-      es.module = reserved::module::BROADCAST;
-      MakeNotification(a, es);
+      SysWorkflow(i, clients.GetInstance(i).Socket());
+    } catch (slot_not_found &)
+    {
     }
-} catch (slot_not_found &)
-{
-}
   }
 }
