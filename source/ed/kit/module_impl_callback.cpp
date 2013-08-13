@@ -11,15 +11,16 @@ void module_impl::EventReciever( const message &m )
   std::vector<base_post_callback_entry *>::const_iterator
     i = EventCallbacks.begin(),
     e = EventCallbacks.end();
+
+  event_context<> data(
+          adapter.ToLocal(m.event),
+          en, NEW event_data(m)
+            );
   while (i != e)
   {
     const base_post_callback_entry &t = **i++;
     if (en == t.source || en0 == t.source)
-      t.callback->FarCall(
-        event_context<>(
-          adapter.ToLocal(m.event),
-          en, NEW event_data(m)
-            ));
+      t.callback->FarCall(data);
   }
 }
 
