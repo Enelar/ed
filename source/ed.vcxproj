@@ -17,12 +17,12 @@
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'" Label="Configuration">
-    <ConfigurationType>DynamicLibrary</ConfigurationType>
+    <ConfigurationType>StaticLibrary</ConfigurationType>
     <CharacterSet>MultiByte</CharacterSet>
     <WholeProgramOptimization>true</WholeProgramOptimization>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">
-    <ConfigurationType>DynamicLibrary</ConfigurationType>
+    <ConfigurationType>StaticLibrary</ConfigurationType>
     <CharacterSet>MultiByte</CharacterSet>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.props" />
@@ -64,6 +64,7 @@
       </PrecompiledHeader>
       <WarningLevel>Level3</WarningLevel>
       <DebugInformationFormat>EditAndContinue</DebugInformationFormat>
+      <ShowIncludes>false</ShowIncludes>
     </ClCompile>
     <Lib>
       <OutputFile>$(OutDir)$(ProjectName)_$(Configuration).lib</OutputFile>
@@ -98,6 +99,7 @@
     </Lib>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClInclude Include="ed\controllers\server_controller_impl.h" />
     <ClInclude Include="ed\exceptions\disconnected.h" />
     <ClInclude Include="ed\exceptions\exception.h" />
     <ClInclude Include="ed\kit\event_context.h" />
@@ -112,15 +114,10 @@
     <ClInclude Include="ed\names\translate.h" />
     <ClInclude Include="ed\controllers\client_controller.h" />
     <ClInclude Include="ed\controllers\server_controller.h" />
-    <ClInclude Include="ed\notifications\event.h" />
     <ClInclude Include="ed\notifications\event_notification.h" />
+    <ClInclude Include="ed\notifications\event_source.h" />
     <ClInclude Include="ed\notifications\event_types.h" />
-    <ClInclude Include="ed\notifications\instance.h" />
     <ClInclude Include="ed\notifications\listener.h" />
-    <ClInclude Include="ed\notifications\listener_container.h" />
-    <ClInclude Include="ed\notifications\slot.h" />
-    <ClInclude Include="ed\notifications\slot_data.h" />
-    <ClInclude Include="ed\notifications\slot_data_utils.h" />
     <ClInclude Include="ed\communications\abstract_connection.h" />
     <ClInclude Include="ed\communications\connection_ready.h" />
     <ClInclude Include="ed\communications\socket_connection.h" />
@@ -137,8 +134,14 @@
     <ClInclude Include="ed\kit\gateway.h" />
     <ClInclude Include="ed\kit\module.h" />
     <ClInclude Include="ed\def.h" />
+    <ClInclude Include="ed\slot\event.h" />
+    <ClInclude Include="ed\slot\instance.h" />
+    <ClInclude Include="ed\slot\module.h" />
+    <ClInclude Include="ed\slot\route.h" />
+    <ClInclude Include="ed\slot\slot.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="ed\controllers\server_controller_impl.cpp" />
     <ClCompile Include="ed\exceptions\exception.cpp" />
     <ClCompile Include="ed\kit\event_handler_convert.cpp" />
     <ClCompile Include="ed\kit\gateway_impl.cpp" />
@@ -150,8 +153,6 @@
     <ClCompile Include="ed\controllers\client_controller.cpp" />
     <ClCompile Include="ed\controllers\server_controller.cpp" />
     <ClCompile Include="ed\notifications\event_notification.cpp" />
-    <ClCompile Include="ed\notifications\slot.cpp" />
-    <ClCompile Include="ed\notifications\slot_data_utils.cpp" />
     <ClCompile Include="ed\communications\socket_connection.cpp" />
     <ClCompile Include="ed\communications\socket_ready.cpp" />
     <ClCompile Include="ed\3party\ax\_w_tl4_low.cpp" />
@@ -163,6 +164,10 @@
     <ClCompile Include="ed\kit\gateway.cpp" />
     <ClCompile Include="ed\kit\module.cpp" />
     <ClCompile Include="ed\kit\module_callback.cpp" />
+    <ClCompile Include="ed\slot\slot_event.cpp" />
+    <ClCompile Include="ed\slot\slot_instance.cpp" />
+    <ClCompile Include="ed\slot\slot_module.cpp" />
+    <ClCompile Include="ed\slot\slot_route.cpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

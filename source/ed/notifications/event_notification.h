@@ -4,27 +4,11 @@
 #include "../def.h"
 #include "../messages/message.h"
 #include "../names/reserved.h"
+#include "event_source.h"
 
 namespace ed
 {
-  struct _ED_DLL_EXPORT_ event_source
-  {
-    int instance, module, event;
-    
-    event_source() :
-      event(reserved::event::BROADCAST), 
-      module(reserved::module::BROADCAST),
-      instance(reserved::instance::BROADCAST)
-    {
-    }
-
-    bool operator==( const event_source &a ) const
-    {
-      return instance == a.instance && module == a.module && event == a.event;
-    }
-  };
-
-  struct _ED_DLL_EXPORT_ event_notification
+  struct event_notification
   {
     event_source source;
     int target_module;

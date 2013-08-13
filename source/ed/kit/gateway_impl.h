@@ -1,6 +1,8 @@
 #ifndef _ED_GATEWAY_IMPL_H_
 #define _ED_GATEWAY_IMPL_H_
 
+#include "../slot/instance.h"
+
 namespace ed
 {
   class module_impl;
@@ -20,7 +22,7 @@ namespace ed
     void Listen( int source_instance, int dest_module, std::string module, std::string event );
     void Listen( int source_instance, int dest_module, int module, int event );
 
-    typedef slot_data::instance instance_listener;
+    typedef slot::instance instance_listener;
 
     instance_listener listeners;
 

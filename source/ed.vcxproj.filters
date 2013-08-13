@@ -31,6 +31,12 @@
     <Filter Include="kit">
       <UniqueIdentifier>{223f1848-43f2-4f7f-ae49-ea804faa78cd}</UniqueIdentifier>
     </Filter>
+    <Filter Include="slot">
+      <UniqueIdentifier>{1d57f82d-acc9-4b1a-aa60-9c11cfb2f5d7}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="slot\source">
+      <UniqueIdentifier>{5a81c1fb-c75d-47d2-86b1-8403c6a11116}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="ed\exceptions\disconnected.h">
@@ -60,31 +66,13 @@
     <ClInclude Include="ed\controllers\server_controller.h">
       <Filter>controllers</Filter>
     </ClInclude>
-    <ClInclude Include="ed\notifications\event.h">
-      <Filter>notifications</Filter>
-    </ClInclude>
     <ClInclude Include="ed\notifications\event_notification.h">
       <Filter>notifications</Filter>
     </ClInclude>
     <ClInclude Include="ed\notifications\event_types.h">
       <Filter>notifications</Filter>
     </ClInclude>
-    <ClInclude Include="ed\notifications\instance.h">
-      <Filter>notifications</Filter>
-    </ClInclude>
     <ClInclude Include="ed\notifications\listener.h">
-      <Filter>notifications</Filter>
-    </ClInclude>
-    <ClInclude Include="ed\notifications\listener_container.h">
-      <Filter>notifications</Filter>
-    </ClInclude>
-    <ClInclude Include="ed\notifications\slot.h">
-      <Filter>notifications</Filter>
-    </ClInclude>
-    <ClInclude Include="ed\notifications\slot_data.h">
-      <Filter>notifications</Filter>
-    </ClInclude>
-    <ClInclude Include="ed\notifications\slot_data_utils.h">
       <Filter>notifications</Filter>
     </ClInclude>
     <ClInclude Include="ed\communications\abstract_connection.h">
@@ -148,6 +136,27 @@
     <ClInclude Include="ed\kit\module_impl.h">
       <Filter>kit</Filter>
     </ClInclude>
+    <ClInclude Include="ed\controllers\server_controller_impl.h">
+      <Filter>controllers</Filter>
+    </ClInclude>
+    <ClInclude Include="ed\slot\event.h">
+      <Filter>slot</Filter>
+    </ClInclude>
+    <ClInclude Include="ed\slot\module.h">
+      <Filter>slot</Filter>
+    </ClInclude>
+    <ClInclude Include="ed\slot\instance.h">
+      <Filter>slot</Filter>
+    </ClInclude>
+    <ClInclude Include="ed\slot\route.h">
+      <Filter>slot</Filter>
+    </ClInclude>
+    <ClInclude Include="ed\notifications\event_source.h">
+      <Filter>notifications</Filter>
+    </ClInclude>
+    <ClInclude Include="ed\slot\slot.h">
+      <Filter>slot</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="ed\exceptions\exception.cpp">
@@ -169,12 +178,6 @@
       <Filter>controllers</Filter>
     </ClCompile>
     <ClCompile Include="ed\notifications\event_notification.cpp">
-      <Filter>notifications</Filter>
-    </ClCompile>
-    <ClCompile Include="ed\notifications\slot.cpp">
-      <Filter>notifications</Filter>
-    </ClCompile>
-    <ClCompile Include="ed\notifications\slot_data_utils.cpp">
       <Filter>notifications</Filter>
     </ClCompile>
     <ClCompile Include="ed\communications\socket_connection.cpp">
@@ -221,6 +224,21 @@
     </ClCompile>
     <ClCompile Include="ed\kit\module_impl.cpp">
       <Filter>kit</Filter>
+    </ClCompile>
+    <ClCompile Include="ed\controllers\server_controller_impl.cpp">
+      <Filter>controllers</Filter>
+    </ClCompile>
+    <ClCompile Include="ed\slot\slot_module.cpp">
+      <Filter>slot\source</Filter>
+    </ClCompile>
+    <ClCompile Include="ed\slot\slot_event.cpp">
+      <Filter>slot\source</Filter>
+    </ClCompile>
+    <ClCompile Include="ed\slot\slot_instance.cpp">
+      <Filter>slot\source</Filter>
+    </ClCompile>
+    <ClCompile Include="ed\slot\slot_route.cpp">
+      <Filter>slot\source</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>
