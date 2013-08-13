@@ -228,16 +228,16 @@
     <ClCompile Include="ed\controllers\server_controller_impl.cpp">
       <Filter>controllers</Filter>
     </ClCompile>
-    <ClCompile Include="ed\slot\event.cpp">
+    <ClCompile Include="ed\slot\slot_module.cpp">
       <Filter>slot\source</Filter>
     </ClCompile>
-    <ClCompile Include="ed\slot\module.cpp">
+    <ClCompile Include="ed\slot\slot_event.cpp">
       <Filter>slot\source</Filter>
     </ClCompile>
-    <ClCompile Include="ed\slot\instance.cpp">
+    <ClCompile Include="ed\slot\slot_instance.cpp">
       <Filter>slot\source</Filter>
     </ClCompile>
-    <ClCompile Include="ed\slot\route.cpp">
+    <ClCompile Include="ed\slot\slot_route.cpp">
       <Filter>slot\source</Filter>
     </ClCompile>
   </ItemGroup>
