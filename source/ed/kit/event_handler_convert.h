@@ -9,7 +9,7 @@ namespace ed
   class event_handler_adapter
   {
   public:
-    virtual RET FarCall( event_context<> &_obj ) = 0;
+    virtual RET FarCall( const event_context<> &_obj ) = 0;
   };
 
   template<typename MODULE, typename T, typename RET>
@@ -35,7 +35,7 @@ namespace ed
     event_handler_convert( MODULE &_m, childT _origin ) : m(_m), origin(_origin)
     {}
 
-    virtual RET FarCall( event_context<> &_obj )
+    virtual RET FarCall( const event_context<> &_obj )
     {
       prefferedT obj = _obj;
       childT f = origin;

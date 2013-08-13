@@ -12,6 +12,9 @@ namespace ed
     event_data( const message &_origin ) : origin(_origin)
     {}
 
+    event_data( const event_data &a ) : origin(a.origin)
+    {}
+
     operator const message &() const
     {
       return origin;

@@ -21,6 +21,13 @@ namespace ed
     {
       throw_assert(payload);
     }
+
+    event_context( const event_context &a )
+      : event_local_id(a.event_local_id), source(a.source), payload(NEW event_data(*a.payload))
+    {
+
+    }
+
     ~event_context()
     {
       delete payload;
@@ -34,7 +41,7 @@ namespace ed
     const event_source source;
     dataT *const payload;
 
-    event_context( const event_context<> a )
+    event_context( const event_context<> &a )
       : event_local_id(a.event_local_id), source(a.source), payload(NEW dataT(*a.payload))      
     {
     }
