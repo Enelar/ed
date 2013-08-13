@@ -35,3 +35,11 @@ void route::AddListener( const event_source &es, const slot_data::listener &li )
 {
   GetEvent(es).AddListener(li);
 }
+
+int route::AddInstance( com::abstract_connection *a )
+{
+  int ret = data.size();
+  data.push_back(instance());
+  data[ret].con = a; // crapcode
+  return ret;
+}

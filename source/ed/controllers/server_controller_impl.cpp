@@ -48,8 +48,7 @@ void server_controller_impl::Workflow()
   {
     connection *c = static_cast<connection *>(ready.Read());
     throw_assert(c);
-    todo(Add client);
-    //clients.push_back(client_type(c));
+    clients.AddInstance(c);
   }
   int i = 0, s = clients.data.size();
 

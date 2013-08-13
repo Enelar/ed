@@ -19,6 +19,8 @@ namespace ed
 
       void AddListener( const listen_message & );
       void AddListener( const event_source &, const slot_data::listener & );
+
+      int AddInstance( com::abstract_connection * );
     };
   };
 };
