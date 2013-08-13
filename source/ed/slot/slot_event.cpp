@@ -22,3 +22,17 @@ bool event::ListenerExist( const slot_data::listener &m ) const
       return true;
   return false;
 }
+
+void event::RemoveDisconnected( const int instance )
+{
+  std::vector<slot_data::listener>::const_iterator i = data.begin(), e = data.end();
+
+  while (i != e)
+    if ((*i).instance == instance)
+    {
+      i = data.erase(i);
+      e = data.end();
+    }
+    else
+      i++;
+}

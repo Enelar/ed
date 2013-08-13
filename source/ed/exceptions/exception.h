@@ -68,6 +68,7 @@ namespace ed
   };
 }
 
+#define _SLOW_THROW_
 #ifdef _SLOW_THROW_
   #define EXCEPTION(x) throw x
 #else
