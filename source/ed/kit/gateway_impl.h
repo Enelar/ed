@@ -29,7 +29,7 @@ namespace ed
     void CreateModule( std::string name, module_impl & );
 
     void IncomingNotification( message m );
-    void DelegateNotification( const message &m );
+    void DelegateNotification( const message &m, const event_source & );
   public:
     gateway_impl( gateway &, com::abstract_connection & );
     module &CreateModule( std::string name );

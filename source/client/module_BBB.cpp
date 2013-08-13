@@ -16,8 +16,11 @@ module_BBB::module_BBB( ed::gateway &_gw ) : module("moduleBBB", _gw)
   RegisterPreHandler(&module_BBB::CheckAAAEventTEST, es);
 }
 
-bool module_BBB::CheckAAAEventTEST( const ed::event_context<> & )
+#include <iostream>
+
+bool module_BBB::CheckAAAEventTEST( const ed::event_context<> &c )
 {
+  std::cout << "MODULE_BBB PREEVENT " << c.event_local_id << " FROM " << c.source.instance << ":" << c.source.module << std::endl;
   return false;
 }
 

@@ -69,7 +69,7 @@ void gateway::Listen( int source_instance, int dest_module, int module_global_id
 
 void gateway::DelegateNotification( const message &mes )
 {
-  impl.DelegateNotification(mes);
+  impl.DelegateNotification(mes, static_cast<event_notification>(mes));
 }
 
 void gateway::IncomingNotification( message m )
