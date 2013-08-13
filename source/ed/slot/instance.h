@@ -13,6 +13,8 @@ namespace ed
     public:
       module &GetModule( const event_source & );
       event &GetEvent( const event_source & );
+
+      void AddListener( const listen_message & );
     };
   };
 };

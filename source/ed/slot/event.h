@@ -3,6 +3,7 @@
 
 #include "../notifications/event_source.h"
 #include "../notifications/listener.h"
+#include "../messages/listen.h"
 #include <vector>
 
 namespace ed
@@ -12,6 +13,8 @@ namespace ed
     struct event
     {
       std::vector<slot_data::listener> data;
+
+      void AddListener( const listen_message & );
     };
   };
 };

@@ -12,6 +12,8 @@ namespace ed
       std::vector<event> data;
     public:
       event &GetEvent( const event_source & );
+
+      void AddListener( const listen_message & );
     };
   };
 };
