@@ -3,12 +3,12 @@
 using namespace ed::slot;
 using namespace ed;
 
-void event::AddListener( const listen_message &m )
+void event::AddListener( const listen_message &m, bool force )
 {
   AddListener((slot_data::listener)m);
 }
 
-void event::AddListener( const slot_data::listener &m )
+void event::AddListener( const slot_data::listener &m, bool force )
 {
   if (ListenerExist(m))
     return;

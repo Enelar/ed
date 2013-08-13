@@ -129,6 +129,7 @@ void server_controller_impl::Workflow()
       SysWorkflow(i, clients.GetInstance(i).Socket());
     } catch (slot_not_found &)
     {
+      std::cout << "Slot not found exception catched" << std::endl;
     }
   }
 }

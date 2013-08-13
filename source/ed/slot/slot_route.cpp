@@ -16,24 +16,24 @@ instance &route::GetInstance( const event_source &es )
   return GetInstance(es.instance);
 }
 
-module &route::GetModule( const event_source &es )
+module &route::GetModule( const event_source &es, bool force )
 {
-  return GetInstance(es).GetModule(es);
+  return GetInstance(es).GetModule(es, force);
 }
 
-event &route::GetEvent( const event_source &es )
+event &route::GetEvent( const event_source &es, bool force )
 {
-  return GetInstance(es).GetEvent(es);
+  return GetInstance(es).GetEvent(es, force);
 }
 
-void route::AddListener( const listen_message &m )
+void route::AddListener( const listen_message &m, bool force )
 {
-  GetInstance(m).AddListener(m);
+  GetInstance(m).AddListener(m, force);
 }
 
-void route::AddListener( const event_source &es, const slot_data::listener &li )
+void route::AddListener( const event_source &es, const slot_data::listener &li, bool force )
 {
-  GetEvent(es).AddListener(li);
+  GetEvent(es, force).AddListener(li, force);
 }
 
 int route::AddInstance( com::abstract_connection *a )

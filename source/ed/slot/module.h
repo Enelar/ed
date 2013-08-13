@@ -11,10 +11,10 @@ namespace ed
     {
       std::vector<event> data;
     public:
-      event &GetEvent( const int i );
-      event &GetEvent( const event_source & );
+      event &GetEvent( const int i, bool force = false );
+      event &GetEvent( const event_source &, bool force = false );
 
-      void AddListener( const listen_message & );
+      void AddListener( const listen_message &, bool force = false );
     };
   };
 };
