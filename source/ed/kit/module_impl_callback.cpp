@@ -7,13 +7,13 @@ bool BroadCastPatten( const event_source &filter, event_source catched )
 {
   if (filter == catched)
     return true;
-  catched.instance = reserved::instance::BROADCAST;
-  if (filter == catched)
-    return true;
-  catched.module = reserved::module::BROADCAST;
-  if (filter == catched)
-    return true;
-  return false;
+  if (filter.instance && filter.instance != catched.instance)
+    return false;
+  if (filter.module && filter.module != catched.module)
+    return false;
+  if (filter.event && filter.event != catched.event)
+    return false;
+  return true;
 }
 
 void module_impl::EventReciever( const message &m )
