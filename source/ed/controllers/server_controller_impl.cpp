@@ -151,6 +151,7 @@ void server_controller_impl::Workflow()
       std::cout << "Slot not found exception catched" << std::endl;
     } catch (ed::disconnected &)
     {
+      std::cout << "ED instance " << i << " disconnected" << std::endl;
       clients.RemoveDisconnected(i);
     }
   }
