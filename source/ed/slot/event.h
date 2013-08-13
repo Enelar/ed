@@ -20,7 +20,7 @@ namespace ed
       void AddListener( const listen_message & );
       void AddListener( const slot_data::listener & );
     private:
-      bool ListenerExist( const listen_message & ) const;
+      bool ListenerExist( const slot_data::listener & ) const;
     };
   };
 };
