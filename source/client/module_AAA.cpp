@@ -14,12 +14,12 @@ module_AAA::module_AAA( ed::gateway &_gw ) : module("module_AAA", _gw)
   RegisterPostHandler(&module_AAA::MyTypeExample, es);
 }
 
-void module_AAA::MyTypeExample( const ed::event_context<my_type> &a )
-{
-
-}
-
 #include <iostream>
+
+void module_AAA::MyTypeExample( const ed::event_context<my_type> &c )
+{
+  std::cout << "MODULE_AAA MY_TYPE!! " << c.event_local_id << " FROM " << c.source.instance << ":" << c.source.module << std::endl;
+}
 
 void module_AAA::AllEventsListener( const ed::event_context<> &c )
 {
