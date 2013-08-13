@@ -48,4 +48,6 @@ void route::RemoveDisconnected( const int instance )
 {
   for (int i = 0; i < data.size(); i++)
     data[i].RemoveDisconnected(instance);
+  delete GetInstance(instance).con;
+  GetInstance(instance).con = NULL;
 }
