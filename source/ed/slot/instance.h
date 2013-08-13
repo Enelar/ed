@@ -11,6 +11,7 @@ namespace ed
     class instance
     {
       std::vector<module> data;
+      void Create( int i );
     public:
       com::abstract_connection *con;
       com::abstract_connection &Socket() const;
