@@ -125,6 +125,8 @@ void server_controller_impl::SysWorkflow( int i, connection &socket )
   NotifyWorkflow(i, socket, a);
 }
 
+#include "../exceptions/disconnected.h"
+
 void server_controller_impl::Workflow()
 {
   if (ready.Ready())
@@ -144,6 +146,9 @@ void server_controller_impl::Workflow()
     } catch (slot_not_found &)
     {
       std::cout << "Slot not found exception catched" << std::endl;
+    } catch (ed::disconnected &)
+    {
+      clients.RemoveDisconnected(i);
     }
   }
 }

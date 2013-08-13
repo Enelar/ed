@@ -22,6 +22,7 @@ namespace ed
       event &GetEvent( const event_source &, bool force = false );
 
       void AddListener( const listen_message &, bool force = false );
+      void RemoveDisconnected( const int instance );
     };
   };
 };

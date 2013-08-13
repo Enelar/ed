@@ -19,6 +19,7 @@ namespace ed
 
       void AddListener( const listen_message &, bool force = true );
       void AddListener( const slot_data::listener &, bool force = true );
+      void RemoveDisconnected( const int instance );
     private:
       bool ListenerExist( const slot_data::listener & ) const;
     };

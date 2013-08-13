@@ -38,3 +38,9 @@ void instance::AddListener( const listen_message &m, bool force )
 {
   GetModule(m, force).AddListener(m, force);
 }
+
+void instance::RemoveDisconnected( const int instance )
+{
+  for (int i = 0; i < data.size(); i++)
+    data[i].RemoveDisconnected(instance);
+}

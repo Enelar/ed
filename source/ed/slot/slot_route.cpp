@@ -43,3 +43,9 @@ int route::AddInstance( com::abstract_connection *a )
   data[ret].con = a; // crapcode
   return ret;
 }
+
+void route::RemoveDisconnected( const int instance )
+{
+  for (int i = 0; i < data.size(); i++)
+    data[i].RemoveDisconnected(instance);
+}
