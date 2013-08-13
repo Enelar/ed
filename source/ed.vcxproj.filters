@@ -225,5 +225,8 @@
     <ClCompile Include="ed\controllers\server_controller_impl.cpp">
       <Filter>controllers</Filter>
     </ClCompile>
+    <ClCompile Include="ed\slot\event.cpp">
+      <Filter>slot</Filter>
+    </ClCompile>
   </ItemGroup>
 </Project>

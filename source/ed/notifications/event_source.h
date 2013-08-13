@@ -1,9 +1,10 @@
 #ifndef _ED_NOTIFICATIONS_EVENT_SOURCE_H_
 #define _ED_NOTIFICATIONS_EVENT_SOURCE_H_
 
+#include "../names/reserved.h"
 namespace ed
 {
-  struct _ED_DLL_EXPORT_ event_source
+  struct event_source
   {
     int instance, module, event;
     

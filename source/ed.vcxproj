@@ -164,6 +164,7 @@
     <ClCompile Include="ed\kit\gateway.cpp" />
     <ClCompile Include="ed\kit\module.cpp" />
     <ClCompile Include="ed\kit\module_callback.cpp" />
+    <ClCompile Include="ed\slot\event.cpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

@@ -15,6 +15,8 @@ namespace ed
       std::vector<slot_data::listener> data;
 
       void AddListener( const listen_message & );
+    private:
+      bool ListenerExist( const listen_message & ) const;
     };
   };
 };
