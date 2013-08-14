@@ -42,7 +42,7 @@ namespace ed
     dataT *const payload;
 
     event_context( const event_context<> &a )
-      : event_local_id(a.event_local_id), source(a.source), payload(NEW dataT(*a.payload))      
+      : event_local_id(a.event_local_id), source(a.source), payload(NEW dataT(convert<dataT>(*a.payload)))      
     {
     }
 
