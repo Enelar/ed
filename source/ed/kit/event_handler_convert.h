@@ -37,7 +37,7 @@ namespace ed
 
     virtual RET FarCall( const event_context<> &_obj )
     {
-      prefferedT obj = _obj;
+      prefferedT obj = convert<prefferedT>(_obj);
       childT f = origin;
 
       return (m.*f)(obj);

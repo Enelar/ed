@@ -60,4 +60,13 @@ namespace ed
 //__declspec(dllimport)
 #endif
 
+template<typename B, typename A>
+B convert( const A &a )
+{
+  return static_cast<B>(a);
+}
+
+template<typename B, typename A, typename A1>
+B convert<>( const A &, const A1 & );
+
 #endif
