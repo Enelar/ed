@@ -36,6 +36,8 @@ void server_controller_impl::MakeNotification( const message &a, const event_sou
     for (int i = 0, s = e.data.size(); i < s; i++)
     {
       const slot_data::listener &d = e.data[i];
+      if (d == convert<event_notification>(a))
+        continue;
       throw_assert(d.instance);
       com::abstract_connection &con = clients.GetInstance(d.instance).Socket();
       con.Notify(a);
