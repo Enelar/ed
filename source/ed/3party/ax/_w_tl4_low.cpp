@@ -119,14 +119,7 @@ LOW_STATUSES low::Send( const unsafe_dword s, const unsafe_byte *buff, const wor
   int a;
   if ((a = send(s, (char *)buff, size, 0)) == -1)
     return UnderstandTheMessagesError();
-  /*
-  FILE *F = fopen("outc.txt", "at");
-  unsafe_byte hex[] = {'0','1','2','3','4','5','6','7','8','9','a','b','c','d','e','f'};
-  fprintf(F, "\n[%4i]", a);
-  for (int i = 0; i < a; i++)
-    fprintf(F, "%c%c ", hex[buff[i]>>4], hex[buff[i]&15]);
-  fclose(F);
-  */
+
   throw_assert(a == size);
   return SUCCESS;
 }
@@ -141,27 +134,7 @@ LOW_STATUSES low::Recieve( const unsafe_dword s, byte *const buff, word &readed,
     return UnderstandTheMessagesError();
   if (res == 0)
     return DISCONNECT;
-  /*
-  FILE *F = fopen("inc.txt", "at");
-  unsafe_byte hex[] = {'0','1','2','3','4','5','6','7','8','9','a','b','c','d','e','f'};
-  fprintf(F, "\n[%4i]", res);
-  for (int i = 0; i < res; i++)
-    fprintf(F, "%c%c ", hex[buff[i]>>4], hex[buff[i]&15]);
-  fclose(F);
-  /*
-  static bword recieved = 0;
-  recieved += res;
-  static byte q = -1;
-  static word pos = 0;
-  for (int i = 0; i < res; ++i)
-    if (pos == 0)
-      throw_assert(buff[i] == 1 && buff[i+1] == 255)
-      i += 1, pos += 2;
-    else
-      throw_assert(++q == buff[i])
-      if (++pos == 257)
-        pos = 0;
-        /**/
+
   readed = res;
   return SUCCESS;
 }
