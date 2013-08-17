@@ -57,6 +57,32 @@ namespace
     }
     return true;
   }
+
+  LOW_STATUSES UnderstandTheError( int res = 0 )
+  {
+    if (!res)
+      res = WSAGetLastError();
+    if (res == WSAEISCONN)
+      return SUCCESS;
+    if (res == WSAEWOULDBLOCK || res == WSAEINVAL)
+      return TRYING_CONNECT;
+    if (res == WSAENOTSOCK)
+      throw_message("Low level protect. Random socket descriptor");
+    if (res == WSAECONNRESET || res == WSAECONNABORTED)
+      return DISCONNECT;
+    todo("Reaction to other statuses");
+    dead_space();
+  }
+
+  LOW_STATUSES UnderstandTheMessagesError( int r = 0 )
+  {
+    if (!r)
+      r = WSAGetLastError();
+    LOW_STATUSES res = UnderstandTheError(r);
+    if (res == TRYING_CONNECT)
+      return NO_MESSAGES;
+    return res;
+  }
 }
 
 LOW_STATUSES low::GetIp( const char * const addr, unsafe_dword &ip )
@@ -82,16 +108,7 @@ LOW_STATUSES low::Connect( unsafe_dword &s,
   address.sin_addr.S_un.S_addr = addr;
   memset(address.sin_zero, 0, 8);
   if (connect(s, (sockaddr *)&address, sizeof(address)) == SOCKET_ERROR)
-  {
-    int res = WSAGetLastError();
-    if (res == WSAEISCONN)
-      return SUCCESS;
-    if (res == WSAEWOULDBLOCK || res == WSAEINVAL)
-      return TRYING_CONNECT;
-    if (res == WSAENOTSOCK)
-      throw_message("Low level protect. Random socket descriptor");
-    return LOW_CONNECTION_REFUSED;
-  }
+    return UnderstandTheError();
   return SUCCESS;
 }
 
@@ -101,14 +118,7 @@ LOW_STATUSES low::Send( const unsafe_dword s, const unsafe_byte *buff, const wor
     throw_message("Low level protect");
   int a;
   if ((a = send(s, (char *)buff, size, 0)) == -1)
-  {
-    a = WSAGetLastError();
-    if (a == WSAEWOULDBLOCK)
-      return PLEASE_WAIT;
-    if (a == WSAENOTSOCK)
-      throw_message("Low level protect. Random socket descriptor");
-    return DISCONNECT;
-  }
+    return UnderstandTheMessagesError();
   /*
   FILE *F = fopen("outc.txt", "at");
   unsafe_byte hex[] = {'0','1','2','3','4','5','6','7','8','9','a','b','c','d','e','f'};
@@ -128,14 +138,7 @@ LOW_STATUSES low::Recieve( const unsafe_dword s, byte *const buff, word &readed,
   readed = 0;
   short res = recv(s, (char *)buff, size, 0);
   if (res == -1)
-  {
-    word r = WSAGetLastError();
-    if (r == WSAECONNRESET)
-      return DISCONNECT;
-    if (res == WSAENOTSOCK)
-      throw_message("Low level protect. Random socket descriptor");
-    return NO_MESSAGES;
-  }
+    return UnderstandTheMessagesError();
   if (res == 0)
     return DISCONNECT;
   /*
@@ -169,12 +172,8 @@ inline int Incoming( const unsafe_dword s, word size )
   short res = recv(s, buffer, size, MSG_PEEK);
   if (res == -1)
   {
-    word r = WSAGetLastError();
-    if (r == WSAECONNRESET)
-      return -1;
-    if (r == WSAENOTSOCK)
-      throw_message("Low level protect. Random socket descriptor");
-    if (r == WSAEWOULDBLOCK)
+    LOW_STATUSES t = UnderstandTheMessagesError();
+    if (t == NO_MESSAGES)
       return 0;
     dead_space();
   }
@@ -226,9 +225,7 @@ LOW_STATUSES low::Open( unsafe_dword &s,
   addr.sin_addr.S_un.S_addr = htonl(INADDR_ANY);
   if (bind(s, (struct sockaddr *)&addr, sizeof(addr)))
   {
-    word res = WSAGetLastError();
-    if (res == WSAENOTSOCK)
-      throw_message("Low level protect. Random socket descriptor");
+    UnderstandTheError();
     return CANT_BIND;
   }
   if (listen(s, 0))
@@ -249,8 +246,7 @@ udw low::Accept( const unsafe_dword s, unsafe_dword &ip, unsafe_word &port )
     return res;
   }
   else
-    if (WSAGetLastError() == WSAENOTSOCK)
-      throw_message("Low level protect. Random socket descriptor");
+    UnderstandTheError();
   ip = _TL4_NOT_IP_;
   port = _TL4_NOT_PORT_;
   return _TL4_NOT_SOCKET_;
@@ -261,9 +257,7 @@ LOW_STATUSES low::SetBacklog( const unsafe_dword socket,
 {
   if (listen(socket, max_connections))
   {
-    word res = WSAGetLastError();
-    if (res == WSAENOTSOCK)
-      throw_message("Low level protect. Random socket descriptor");
+    UnderstandTheError();
     return CANT_LISTEN;
   }
   return SUCCESS;
