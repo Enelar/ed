@@ -17,8 +17,8 @@ namespace ed
       unsigned int ip;
       const unsigned int port;
 
-      void ConnectAttempt();
-      void ConnectAttempt( unsigned int ip, int port );
+      bool ConnectAttempt();
+      bool ConnectAttempt( unsigned int ip, int port );
       socket_connection( int icoming_descriptor, int ip, int port );
 
       void SendMessage( const message &m );
