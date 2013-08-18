@@ -44,9 +44,6 @@ namespace ed
     template<typename T, typename MODULE>
     void RegisterPostHandler( void (MODULE::*f)( const event_context<T> & ), event_source es );
 
-    void AddPreHandler( base_pre_callback_entry *obj );
-    void AddPostHandler( base_post_callback_entry *obj );
-
     template<typename MODULE>
     void UnregisterHandlers( const MODULE *const );
 

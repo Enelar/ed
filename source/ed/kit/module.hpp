@@ -8,14 +8,14 @@ namespace ed
   void module::RegisterPreHandler( bool (MODULE::*f)( const event_context<T> & ), event_source es )
   {
     base_pre_callback_entry *obj = SysCreateHandler<T, MODULE, bool>(f, es);
-    AddPreHandler(obj);
+    impl.AddPreHandler(obj);
   }
 
   template<typename T, typename MODULE>
   void module::RegisterPostHandler( void (MODULE::*f)( const event_context<T> & ), event_source es )
   {
     base_post_callback_entry *obj = SysCreateHandler<T, MODULE, void>(f, es);
-    AddPostHandler(obj);
+    impl.AddPostHandler(obj);
   }
 
   template<typename MODULE>
