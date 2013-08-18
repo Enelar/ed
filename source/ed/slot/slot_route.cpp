@@ -52,7 +52,7 @@ void route::RemoveDisconnected( const int instance )
   GetInstance(instance).con = NULL;
 }
 
-std::set<int> route::SubscribedInstances( const event_source &_es )
+std::set<int> route::Subscribed( int slot_data::listener::* type, const event_source &_es )
 {
   std::set<int> ret, res1, res2;
   event_source es = _es;
@@ -61,7 +61,7 @@ std::set<int> route::SubscribedInstances( const event_source &_es )
   try
   {
     instance &e = GetInstance(_es);
-    res1 = e.SubscribedInstances(_es);
+    res1 = e.Subscribed(type, _es);
   } catch (slot_not_found )
   {
   }
@@ -69,7 +69,7 @@ std::set<int> route::SubscribedInstances( const event_source &_es )
   try
   {
     instance &e = GetInstance(es);
-    res2 = e.SubscribedInstances(_es);
+    res2 = e.Subscribed(type, _es);
   } catch (slot_not_found )
   {
   }
