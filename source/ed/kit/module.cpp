@@ -51,3 +51,12 @@ void module::Listen( int instance, const std::string &module, const std::string 
 {
   impl.Listen(instance, module, event);
 }
+
+void module::AddPreHandler( module_impl::callback_entry<bool> *obj )
+{
+  impl.AddPreHandler(obj);
+}
+void module::AddPostHandler( module_impl::callback_entry<void> *obj )
+{
+  impl.AddPostHandler(obj);
+}
