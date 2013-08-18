@@ -112,6 +112,7 @@
     <ClInclude Include="ed\kit\event_data.h" />
     <ClInclude Include="ed\kit\event_handler_convert.h" />
     <ClInclude Include="ed\kit\gateway_impl.h" />
+    <ClInclude Include="ed\kit\module.hpp" />
     <ClInclude Include="ed\kit\module_impl.h" />
     <ClInclude Include="ed\names\dictionary.h" />
     <ClInclude Include="ed\names\name_server.h" />

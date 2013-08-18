@@ -48,18 +48,10 @@ namespace ed
   private:
   protected:
     template<typename T, typename MODULE>
-    void RegisterPreHandler( bool (MODULE::*f)( const event_context<T> & ), event_source es )
-    {
-      module_impl::callback_entry<bool> *obj = SysCreateHandler<T, MODULE, bool>(f, es);
-      AddPreHandler(obj);
-    }
+    void RegisterPreHandler( bool (MODULE::*f)( const event_context<T> & ), event_source es );
 
     template<typename T, typename MODULE>
-    void RegisterPostHandler( void (MODULE::*f)( const event_context<T> & ), event_source es )
-    {
-      module_impl::callback_entry<void> *obj = SysCreateHandler<T, MODULE, void>(f, es);
-      AddPostHandler(obj);
-    }
+    void RegisterPostHandler( void (MODULE::*f)( const event_context<T> & ), event_source es );
 
     void AddPreHandler( module_impl::callback_entry<bool> *obj )
     {
@@ -71,28 +63,10 @@ namespace ed
     }
 
     template<typename MODULE>
-    void UnregisterHandlers( const MODULE *const )
-    {
-      for (unsigned int i = 0; i < impl.QueryCallbacks.size(); ++i)
-      {
-        delete impl.QueryCallbacks[i];
-        impl.QueryCallbacks[i] = NULL;
-      }
-      for (unsigned int i = 0; i < impl.EventCallbacks.size(); ++i)
-      {
-        delete impl.EventCallbacks[i];
-        impl.EventCallbacks[i] = NULL;
-      }
-    }
-
+    void UnregisterHandlers( const MODULE *const );
   private:
     template<typename T, typename MODULE, typename RET>
-    module_impl::callback_entry<typename RET> *SysCreateHandler( RET (MODULE::*f)( const event_context<T> & ), event_source es )
-    {
-      typedef event_handler_convert<MODULE, T, RET> adapterT;
-      adapterT *test = NEW adapterT(static_cast<MODULE &>(*this), f);
-      return NEW module_impl::callback_entry<RET>(es, test);
-    }
+    module_impl::callback_entry<typename RET> *SysCreateHandler( RET (MODULE::*f)( const event_context<T> & ), event_source es );
 
     typedef module_impl::callback_entry<bool> base_pre_callback_entry;
     typedef module_impl::callback_entry<void> base_post_callback_entry;
@@ -103,5 +77,7 @@ namespace ed
     bool Query( const message & );
   };
 };
+
+#include "module.hpp"
 
 #endif

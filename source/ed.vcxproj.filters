@@ -157,6 +157,9 @@
     <ClInclude Include="ed\slot\slot.h">
       <Filter>slot</Filter>
     </ClInclude>
+    <ClInclude Include="ed\kit\module.hpp">
+      <Filter>kit</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="ed\exceptions\exception.cpp">
