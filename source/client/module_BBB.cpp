@@ -11,7 +11,7 @@ module_BBB::module_BBB( ed::gateway &_gw ) : module("moduleBBB", _gw)
   RegisterEvent(TOSTRING(MY_EVENT), MY_EVENT);
   RegisterEvent("TEST_EVENT", AAA_TEST_EVENT);
 
-  ed::event_source es;
+  ed::event_source_constructor es = GetSourceConstructor();
   es.event = AAA_TEST_EVENT;
   RegisterPreHandler(&module_BBB::CheckAAAEventTEST, es);
 }

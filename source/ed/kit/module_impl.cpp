@@ -83,13 +83,13 @@ void module_impl::Listen( int instance, const std::string &module, const std::st
 void module_impl::AddPreHandler( base_pre_callback_entry *obj )
 {
   QueryCallbacks.push_back(obj);
-  gw.Listen(obj->source.instance, id, obj->source.module, adapter.ToGlobal(obj->source.event));
+  gw.Listen(obj->source.instance, id, obj->source.module, obj->source.event);
 }
 
 void module_impl::AddPostHandler( base_post_callback_entry *obj )
 {
   EventCallbacks.push_back(obj);
-  gw.Listen(obj->source.instance, id, obj->source.module, adapter.ToGlobal(obj->source.event));
+  gw.Listen(obj->source.instance, id, obj->source.module, obj->source.event);
 }
 
 const translate &module_impl::GetAdapter() const

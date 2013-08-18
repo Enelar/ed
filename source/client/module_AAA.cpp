@@ -8,7 +8,7 @@ enum MY_EVENTS
 module_AAA::module_AAA( ed::gateway &_gw ) : module("module_AAA", _gw)
 {
   RegisterEvent(TOSTRING(TEST_EVENT), TEST_EVENT);
-  ed::event_source es;
+  ed::event_source_constructor es = GetSourceConstructor();
   es.event = TEST_EVENT;
   RegisterPostHandler(&module_AAA::AllEventsListener, es);
   RegisterPostHandler(&module_AAA::MyTypeExample, es);
