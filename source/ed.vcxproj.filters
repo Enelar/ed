@@ -163,6 +163,9 @@
     <ClInclude Include="ed\kit\module_base.hpp">
       <Filter>kit</Filter>
     </ClInclude>
+    <ClInclude Include="ed\kit\event_source_constructor.h">
+      <Filter>kit</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="ed\exceptions\exception.cpp">
@@ -247,6 +250,9 @@
       <Filter>slot\source</Filter>
     </ClCompile>
     <ClCompile Include="ed\kit\module_base.cpp">
+      <Filter>kit</Filter>
+    </ClCompile>
+    <ClCompile Include="ed\kit\event_source_constructor.cpp">
       <Filter>kit</Filter>
     </ClCompile>
   </ItemGroup>
