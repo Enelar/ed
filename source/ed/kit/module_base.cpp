@@ -30,3 +30,23 @@ bool module_base::Query( const message &m )
 {
   return impl.Query(m); 
 }
+
+void module_base::RegisterEvent( const std::string &name, int local_id )
+{
+  impl.RegisterEvent(name, local_id);
+}
+
+bool module_base::SendPreEvent( int local_id, message &m )
+{
+  return impl.SendPreEvent(local_id, m);
+}
+
+void module_base::SendPostEvent( int local_id, message &e )
+{
+  impl.SendPostEvent(local_id, e);
+}
+
+void module_base::Listen( int instance, const std::string &module, const std::string &event )
+{
+  impl.Listen(instance, module, event);
+}
