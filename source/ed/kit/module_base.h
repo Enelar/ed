@@ -24,6 +24,7 @@ namespace ed
     typedef module_impl::base_post_callback_entry base_post_callback_entry;
 
     module_base( const std::string &, gateway & );
+    ~module_base();
   protected:
     template<typename T, typename MODULE>
     void RegisterPreHandler( bool (MODULE::*f)( const event_context<T> & ), event_source es );
@@ -46,6 +47,7 @@ namespace ed
     friend class gateway;
     friend class gateway_impl;
     friend class event_result;
+    friend class module;
     module_base( int id, gateway & );
     bool SendPreEvent( int local_id, message & );
     void SendPostEvent( int local_id, message & );

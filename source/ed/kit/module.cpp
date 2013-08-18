@@ -3,7 +3,7 @@
 
 using namespace ed;
 
-module::module( int _id, gateway &_gw ) : module_base(id, _gw)
+module::module( int _id, gateway &_gw ) : module_base(_id, _gw)
 {
 }
 

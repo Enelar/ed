@@ -2,7 +2,7 @@
 
 using namespace ed;
 
-event_result::event_result( message &_e, module &_m, int _local_id, bool _result, EVENT_RING _notify )
+event_result::event_result( message &_e, module_base &_m, int _local_id, bool _result, EVENT_RING _notify )
   : m(_m), local_id(_local_id), result(_result), deactivated(false),
   e(_e), r(_notify)
 {
