@@ -15,6 +15,11 @@ namespace ed
   class module_base : public ax::object
   {
   public:
+    template<typename MODULE, typename RET, typename T = event_data>
+    struct event_handler
+    {
+      typedef RET (MODULE::*t)( const event_context<T> & );
+    };
     typedef bool (module_base::*pre_event_handler_t)( const event_context<> & );
     typedef void (module_base::*post_event_handler_t)( const event_context<> & );
 
