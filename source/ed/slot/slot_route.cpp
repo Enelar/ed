@@ -51,3 +51,30 @@ void route::RemoveDisconnected( const int instance )
   delete GetInstance(instance).con;
   GetInstance(instance).con = NULL;
 }
+
+std::set<int> route::SubscribedInstances( const event_source &_es )
+{
+  std::set<int> ret, res1, res2;
+  event_source es = _es;
+
+  es.instance = reserved::instance::BROADCAST;
+  try
+  {
+    instance &e = GetInstance(_es);
+    res1 = e.SubscribedInstances(_es);
+  } catch (slot_not_found )
+  {
+  }
+
+  try
+  {
+    instance &e = GetInstance(es);
+    res2 = e.SubscribedInstances(_es);
+  } catch (slot_not_found )
+  {
+  }
+
+  ret.insert(res1.begin(), res1.end());
+  ret.insert(res2.begin(), res2.end());
+  return ret;
+}

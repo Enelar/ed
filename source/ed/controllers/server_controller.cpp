@@ -32,7 +32,8 @@ void _TEMPLATE_::AddListener( event_source source, listener destination )
 _TEMPLATE_HEAD_
 void _TEMPLATE_::MakeNotification( message &a, const event_source &search_source )
 {
-  impl.MakeNotification(a, search_source);
+  todo("Server controller make_notification refactor");
+  //impl.MakeNotification(a, search_source);
 }
 
 _TEMPLATE_HEAD_
