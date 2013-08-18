@@ -12,7 +12,7 @@
 #include "module_impl.h"
 namespace ed
 {
-  class _ED_DLL_EXPORT_ module
+  class module
   {
     module_impl &impl;
     friend class gateway;
@@ -25,7 +25,6 @@ namespace ed
     {
       std::list<int> modules;
     };
-    //std::vector<event_listeners> pre_listeners;
   public:
     module( const std::string &, gateway & );
     virtual ~module();
@@ -64,8 +63,6 @@ namespace ed
 
     typedef module_impl::callback_entry<bool> base_pre_callback_entry;
     typedef module_impl::callback_entry<void> base_post_callback_entry;
-    //std::vector<base_pre_callback_entry *> QueryCallbacks;
-    //std::vector<base_post_callback_entry *> EventCallbacks;
 
     void EventReciever( const message & );
     bool Query( const message & );
