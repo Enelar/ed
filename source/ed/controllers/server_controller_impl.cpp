@@ -26,27 +26,15 @@ void server_controller_impl::AddListener( event_source source, listener destinat
   clients.AddListener(source, destination, true);
 }
 
-
-void server_controller_impl::MakeNotification( const message &a, const event_source &search_source )
+void server_controller_impl::MakeNotification( int i, const message &a )
 {
-  try
-  {
-    slot::event &e = clients.GetEvent(search_source);
-
-    for (int i = 0, s = e.data.size(); i < s; i++)
-    {
-      const slot_data::listener &d = e.data[i];
-      if (d == convert<event_notification>(a))
-        continue;
-      throw_assert(d.instance);
-      com::abstract_connection &con = clients.GetInstance(d.instance).Socket();
-      con.Notify(a);
-      std::cout << "[" << d.instance << ":" << d.module << "] NOTIFIED ABOUT " <<
-        search_source.event << " EVENT " << std::endl;
-    }
-  } catch (slot_not_found &)
-  {
-  }
+  slot::instance &inst = clients.GetInstance(i);
+  if (!inst.con)
+    return;
+  com::abstract_connection &con = inst.Socket();
+  con.Notify(a);
+  std::cout << "[" << i << "] NOTIFIED ABOUT " <<
+    a.event << " EVENT " << std::endl;
 }
 
 void server_controller_impl::RegisterWorkflow( int i, connection &socket, const register_message &r )
@@ -86,13 +74,13 @@ void server_controller_impl::NotifyWorkflow( int i, connection &socket, const me
   std::cout << "EVENT " << a.event << " APPEARS FROM " << a.instance << ":" << (int)a.module << std::endl;
   event_source es = static_cast<event_notification>(a);
 
-  MakeNotification(a, es);
-
-  // broadcast listeners
-  es.instance = reserved::instance::BROADCAST;
-  MakeNotification(a, es);
-  es.module = reserved::module::BROADCAST;
-  MakeNotification(a, es);
+  std::set<int> instances = clients.SubscribedInstances(es);
+  std::set<int>::const_iterator i = instances.begin(), e = instances.end();
+  while (i != e)
+  {
+    MakeNotification(i, a);
+    i++;
+  }
 }
 
 void server_controller_impl::SysWorkflow( int i, connection &socket )
