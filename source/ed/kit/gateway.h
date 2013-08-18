@@ -9,16 +9,18 @@
 
 namespace ed
 {
-  class module;
+  class module_base;
   struct modules_translate : private translate
   {
-    void AddModule( module *local, translate::id_type global )
+    typedef module_base moduleT;
+    void AddModule( moduleT *local, translate::id_type global )
     {
       translate::AddPair(*reinterpret_cast<translate::id_type *>(&local), global);
     }
-    module *GetModule( id_type global ) const
+
+    moduleT *GetModule( id_type global ) const
     {
-      return (module *)ToLocal(global);
+      return (moduleT *)ToLocal(global);
     }
   };
 };
