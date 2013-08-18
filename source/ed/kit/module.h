@@ -29,10 +29,6 @@ namespace ed
     module( int id, gateway & );
     bool SendPreEvent( int local_id, message & );
     void SendPostEvent( int local_id, message & );
-    struct event_listeners
-    {
-      std::list<int> modules;
-    };
   public:
     module( const std::string &, gateway & );
     virtual ~module();
