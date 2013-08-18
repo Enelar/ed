@@ -11,6 +11,8 @@
 #include <fcntl.h>
 #include "tl4_low.h"
 
+#include "../../exceptions/disconnected.h"
+
 using namespace ax::tl4;
 
 namespace
@@ -69,7 +71,7 @@ namespace
     if (res == WSAENOTSOCK)
       throw_message("Low level protect. Random socket descriptor");
     if (res == WSAECONNRESET || res == WSAECONNABORTED)
-      return DISCONNECT;
+      throw ed::disconnected();
     todo("Reaction to other statuses");
     dead_space();
   }
@@ -148,6 +150,8 @@ inline int Incoming( const unsafe_dword s, word size )
     LOW_STATUSES t = UnderstandTheMessagesError();
     if (t == NO_MESSAGES)
       return 0;
+    if (t == DISCONNECT)
+      return -1;
     dead_space();
   }
   if (res == 0)
