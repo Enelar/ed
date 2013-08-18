@@ -3,8 +3,6 @@
 
 #include "gateway.h"
 #include "../names/translate.h"
-#include "event_result.h"
-#include "../notifications/event_types.h"
 #include "../names/reserved.h"
 #include "event_context.h"
 #include "event_handler_convert.h"

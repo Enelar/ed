@@ -3,6 +3,9 @@
 
 #include "module_base.h"
 
+#include "event_result.h"
+#include "../notifications/event_types.h"
+
 namespace ed
 {
   class module : public module_base
