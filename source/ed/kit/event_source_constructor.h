@@ -8,18 +8,19 @@
 
 namespace ed
 {
+  class module_impl;
   class event_source_constructor
   {
     event_source es;
-    gateway &gw;
+    module_impl &gw;
 
     class event_source_partial_translator
     {
       int &dep;
       NAME_TYPE nt;
-      gateway &gw;
+      module_impl &gw;
     public:
-      event_source_partial_translator( gateway &_gw, int &dependent, NAME_TYPE _nt )
+      event_source_partial_translator( module_impl &_gw, int &dependent, NAME_TYPE _nt )
         : dep(dependent), nt(_nt), gw(_gw)
       {
       }
@@ -31,7 +32,7 @@ namespace ed
     event_source_partial_translator
       instance, module, event;
 
-    event_source_constructor( gateway &gw );
+    event_source_constructor( module_impl &gw );
 
     operator event_source() const;
   };

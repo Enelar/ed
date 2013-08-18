@@ -1,9 +1,9 @@
 #include "event_source_constructor.h"
-#include "gateway.h"
+#include "module.h"
 
 using namespace ed;
 
-event_source_constructor::event_source_constructor( gateway &_gw )
+event_source_constructor::event_source_constructor( module_impl &_gw )
  : 
   gw(_gw),
   instance(_gw, es.instance, INSTANCES),
@@ -33,5 +33,5 @@ void event_source_constructor::event_source_partial_translator::ByGlobal( int id
 
 void event_source_constructor::event_source_partial_translator::ByName( const std::string &name )
 {
-  ByGlobal(gw.RegisterName(nt, name));
+  //ByGlobal(gw.RegisterName(nt, name));
 }
