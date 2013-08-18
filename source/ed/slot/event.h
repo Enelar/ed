@@ -22,7 +22,7 @@ namespace ed
       void AddListener( const slot_data::listener &, bool force = true );
       void RemoveDisconnected( const int instance );
 
-      std::set<int> SubscribedInstances( ) const;
+      std::set<int> Subscribed( int slot_data::listener::* type ) const;
     private:
       bool ListenerExist( const slot_data::listener & ) const;
     };

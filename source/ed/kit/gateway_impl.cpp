@@ -127,6 +127,7 @@ void gateway_impl::DelegateNotification( const message &mes, const event_source 
 void gateway_impl::IncomingNotification( message m )
 {
   event_source es = static_cast<event_notification>(m).source;
+  std::set<int> modules = listeners.SubscribedInstances(es);
   DelegateNotification(m, es);
   es.instance = reserved::instance::BROADCAST;
   DelegateNotification(m, es);
