@@ -29,5 +29,5 @@ abstract_connection *socket_ready::Read()
 {
   unsigned int ret = client;
   client = _TL4_NOT_SOCKET_;
-  return NEW socket_connection(ret);
+  return NEW socket_connection(ret, 0, 0);
 }

@@ -9,14 +9,17 @@ namespace ed
 {
   namespace com
   {
-    class _ED_DLL_EXPORT_ socket_connection : public abstract_connection
+    class socket_connection : public abstract_connection
     {
       unsigned int desc;
       bool connected;
+      const std::string addr;
+      unsigned int ip;
+      const unsigned int port;
 
-      void ConnectAttempt();
-      void ConnectAttempt( unsigned int ip, int port );
-      socket_connection( int icoming_descriptor );
+      bool ConnectAttempt();
+      bool ConnectAttempt( unsigned int ip, int port );
+      socket_connection( int icoming_descriptor, int ip, int port );
 
       void SendMessage( const message &m );
     public:
