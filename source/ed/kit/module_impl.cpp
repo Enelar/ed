@@ -3,12 +3,12 @@
 
 using namespace ed;
 
-module_impl::module_impl( module &_m, int _id, gateway &_gw )
+module_impl::module_impl( module_base &_m, int _id, gateway &_gw )
   : id(_id), gw(_gw), m(_m)
 {
 }
 
-module_impl::module_impl( module &_m, const std::string &name, gateway &_gw )
+module_impl::module_impl( module_base &_m, const std::string &name, gateway &_gw )
   : gw(_gw), m(_m)
 {
   gw.CreateModule(name, *this);

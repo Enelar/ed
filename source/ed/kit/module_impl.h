@@ -11,14 +11,16 @@
 
 namespace ed
 {
+  class module_base;
   class module_impl
   {
-    module &m;
+    module_base &m;
     friend class module;
+    friend class module_base;
     friend class gateway;
     friend class gateway_impl;
     friend class event_result;
-    module_impl( module &, int id, gateway & );
+    module_impl( module_base &, int id, gateway & );
     gateway &gw;
     int id;
     translate adapter;
@@ -30,7 +32,7 @@ namespace ed
     };
     std::vector<event_listeners> pre_listeners;
   public:
-    module_impl( module &, const std::string &, gateway & );
+    module_impl( module_base &, const std::string &, gateway & );
     virtual ~module_impl();
     void RegisterEvent( const std::string &name, int local_id );
     void Listen( int instance, const std::string &module, const std::string &event );

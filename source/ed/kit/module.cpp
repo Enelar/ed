@@ -3,23 +3,16 @@
 
 using namespace ed;
 
-module::module( int _id, gateway &_gw )
-#pragma warning(disable: 4355)
-  : impl(*NEW module_impl(*this, _id, _gw))
-#pragma warning(default: 4355)
+module::module( int _id, gateway &_gw ) : module_base(id, _gw)
 {
 }
 
-module::module( const std::string &name, gateway &_gw )
-#pragma warning(disable: 4355)
-  : impl(*NEW module_impl(*this, name, _gw))
-#pragma warning(default: 4355)
+module::module( const std::string &name, gateway &_gw ) : module_base(name, _gw)
 {
 }
 
 module::~module()
 {
-  delete &impl;
 }
 
 void module::RegisterEvent( const std::string &name, int local_id )

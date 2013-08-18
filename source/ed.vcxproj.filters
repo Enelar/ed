@@ -157,7 +157,10 @@
     <ClInclude Include="ed\slot\slot.h">
       <Filter>slot</Filter>
     </ClInclude>
-    <ClInclude Include="ed\kit\module.hpp">
+    <ClInclude Include="ed\kit\module_base.h">
+      <Filter>kit</Filter>
+    </ClInclude>
+    <ClInclude Include="ed\kit\module_base.hpp">
       <Filter>kit</Filter>
     </ClInclude>
   </ItemGroup>
@@ -242,6 +245,9 @@
     </ClCompile>
     <ClCompile Include="ed\slot\slot_route.cpp">
       <Filter>slot\source</Filter>
+    </ClCompile>
+    <ClCompile Include="ed\kit\module_base.cpp">
+      <Filter>kit</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>
