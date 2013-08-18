@@ -27,7 +27,7 @@ namespace ed
     ~server_controller_impl();
     id_type RegisterName( NAME_TYPE nt, word_type name );
     void AddListener( event_source source, listener destination );
-    void MakeNotification( const message &, const event_source &search_source );
+    void MakeNotification( int i, const message & );
     void Workflow();
     void SysWorkflow( int i, connection &socket );
 

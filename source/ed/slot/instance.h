@@ -23,6 +23,8 @@ namespace ed
 
       void AddListener( const listen_message &, bool force = false );
       void RemoveDisconnected( const int instance );
+
+      std::set<int> SubscribedInstances( const event_source &es );
     };
   };
 };

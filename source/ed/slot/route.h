@@ -22,6 +22,8 @@ namespace ed
 
       int AddInstance( com::abstract_connection * );
       void RemoveDisconnected( const int instance );
+
+      std::set<int> SubscribedInstances( const event_source &es );
     };
   };
 };
