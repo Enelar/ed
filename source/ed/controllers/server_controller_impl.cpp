@@ -75,11 +75,12 @@ void server_controller_impl::NotifyWorkflow( int i, connection &socket, const me
   event_source es = static_cast<event_notification>(a);
 
   std::set<int> instances = clients.SubscribedInstances(es);
-  std::set<int>::const_iterator i = instances.begin(), e = instances.end();
-  while (i != e)
+  std::set<int>::const_iterator it = instances.begin(), e = instances.end();
+  while (it != e)
   {
-    MakeNotification(i, a);
-    i++;
+    if (*it != i)
+      MakeNotification(*it, a);
+    it++;
   }
 }
 
