@@ -45,10 +45,9 @@ namespace ed
     module_impl::callback_entry<typename RET> *SysCreateHandler( RET (MODULE::*f)( const event_context<T> & ), event_source es );
 
     void EventReciever( const message & );
-    bool Query( const message & );
+    bool Query( const message & ); // quering module, needed by gateway
     void Listen( int instance, const std::string &module, const std::string &event );
 
-    friend class gateway;
     friend class gateway_impl;
     friend class event_result;
     friend class module;
