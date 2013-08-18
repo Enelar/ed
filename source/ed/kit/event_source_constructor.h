@@ -27,6 +27,9 @@ namespace ed
       void ByLocal( int id );
       void ByGlobal( int id );
       void ByName( const std::string &name );
+
+      event_source_partial_translator &operator=( int local_id );
+      event_source_partial_translator &operator=( const std::string &name );
     };
   public:
     event_source_partial_translator

@@ -36,3 +36,17 @@ void event_source_constructor::event_source_partial_translator::ByName( const st
 {
   ByGlobal(gw.NameGlobalID(name, nt));
 }
+
+event_source_constructor::event_source_partial_translator &
+  event_source_constructor::event_source_partial_translator::operator=( int local_id )
+{
+  ByLocal(local_id);
+  return *this;
+}
+
+event_source_constructor::event_source_partial_translator &
+  event_source_constructor::event_source_partial_translator::operator=( const std::string &name )
+{
+  ByName(name);
+  return *this;
+}
