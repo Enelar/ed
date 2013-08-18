@@ -44,3 +44,30 @@ void instance::RemoveDisconnected( const int instance )
   for (int i = 0; i < data.size(); i++)
     data[i].RemoveDisconnected(instance);
 }
+
+std::set<int> instance::SubscribedInstances( const event_source &_es )
+{
+  std::set<int> ret, res1, res2;
+  event_source es = _es;
+
+  es.module = reserved::module::BROADCAST;
+  try
+  {
+    module &e = GetModule(_es);
+    res1 = e.SubscribedInstances(_es);
+  } catch (slot_not_found )
+  {
+  }
+
+  try
+  {
+    module &e = GetModule(es);
+    res2 = e.SubscribedInstances(_es);
+  } catch (slot_not_found )
+  {
+  }
+
+  ret.insert(res1.begin(), res1.end());
+  ret.insert(res2.begin(), res2.end());
+  return ret;
+}

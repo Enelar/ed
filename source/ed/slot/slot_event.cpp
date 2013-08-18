@@ -36,3 +36,16 @@ void event::RemoveDisconnected( const int instance )
     else
       i++;
 }
+
+std::set<int> event::SubscribedInstances( ) const
+{
+  std::set<int> ret;
+  std::vector<slot_data::listener>::const_iterator i = data.begin(), e = data.end();
+
+  while (i != e)
+  {
+    ret.insert((*i).instance);
+    i++;
+  }
+  return ret;
+}
