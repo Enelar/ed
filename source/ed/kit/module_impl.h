@@ -63,8 +63,10 @@ namespace ed
         delete callback;
       }
     };
-    void AddPreHandler( callback_entry<bool> *obj );
-    void AddPostHandler( callback_entry<void> *obj );
+    typedef callback_entry<bool> base_pre_callback_entry;
+    typedef callback_entry<void> base_post_callback_entry;
+    void AddPreHandler( base_pre_callback_entry *obj );
+    void AddPostHandler( base_post_callback_entry *obj );
   protected:
     template<typename T, typename MODULE>
     void RegisterPreHandler( bool (MODULE::*f)( const event_context<T> & ), event_source es )
@@ -98,8 +100,6 @@ namespace ed
         delete EventCallbacks[i];
     }
 
-    typedef callback_entry<bool> base_pre_callback_entry;
-    typedef callback_entry<void> base_post_callback_entry;
     std::vector<base_pre_callback_entry *> QueryCallbacks;
     std::vector<base_post_callback_entry *> EventCallbacks;
 

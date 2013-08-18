@@ -14,6 +14,14 @@ namespace ed
 {
   class module
   {
+  public:
+    typedef bool (module::*pre_event_handler_t)( const event_context<> & );
+    typedef void (module::*post_event_handler_t)( const event_context<> & );
+
+    typedef module_impl::base_pre_callback_entry base_pre_callback_entry;
+    typedef module_impl::base_post_callback_entry base_post_callback_entry;
+  private:
+
     module_impl &impl;
     friend class gateway;
     friend class gateway_impl;
@@ -41,8 +49,7 @@ namespace ed
       EVENT_RING query_max_ring = RING0_THREAD,
       EVENT_RING notify_max_ring = RING3_WORLD );
       
-    typedef bool (module::*pre_event_handler_t)( const event_context<> & );
-    typedef void (module::*post_event_handler_t)( const event_context<> & );
+
 
   private:
   protected:
@@ -52,17 +59,14 @@ namespace ed
     template<typename T, typename MODULE>
     void RegisterPostHandler( void (MODULE::*f)( const event_context<T> & ), event_source es );
 
-    void AddPreHandler( module_impl::callback_entry<bool> *obj );
-    void AddPostHandler( module_impl::callback_entry<void> *obj );
+    void AddPreHandler( base_pre_callback_entry *obj );
+    void AddPostHandler( base_post_callback_entry *obj );
 
     template<typename MODULE>
     void UnregisterHandlers( const MODULE *const );
   private:
     template<typename T, typename MODULE, typename RET>
     module_impl::callback_entry<typename RET> *SysCreateHandler( RET (MODULE::*f)( const event_context<T> & ), event_source es );
-
-    typedef module_impl::callback_entry<bool> base_pre_callback_entry;
-    typedef module_impl::callback_entry<void> base_post_callback_entry;
 
     void EventReciever( const message & );
     bool Query( const message & );
