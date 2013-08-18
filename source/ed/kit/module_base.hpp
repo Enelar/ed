@@ -5,14 +5,14 @@
 namespace ed
 {
   template<typename T, typename MODULE>
-  void module_base::RegisterPreHandler( typename event_handler<MODULE, bool, T>::t f, event_source es )
+  void module_base::RegisterPreHandler( bool (MODULE::*f)( const event_context<T> & ), event_source es )
   {
     base_pre_callback_entry *obj = SysCreateHandler<T, MODULE, bool>(f, es);
     impl.AddPreHandler(obj);
   }
 
   template<typename T, typename MODULE>
-  void module_base::RegisterPostHandler( typename event_handler<MODULE, void, T>::t f, event_source es )
+  void module_base::RegisterPostHandler( void (MODULE::*f)( const event_context<T> & ), event_source es )
   {
     base_post_callback_entry *obj = SysCreateHandler<T, MODULE, void>(f, es);
     impl.AddPostHandler(obj);
@@ -34,7 +34,7 @@ namespace ed
   }
 
   template<typename T, typename MODULE, typename RET>
-  module_impl::callback_entry<typename RET> *module_base::SysCreateHandler( typename event_handler<MODULE, RET, T>::t f, event_source es )
+  module_impl::callback_entry<typename RET> *module_base::SysCreateHandler( RET (MODULE::*f)( const event_context<T> & ), event_source es )
   {
     typedef event_handler_convert<MODULE, T, RET> adapterT;
     adapterT *test = NEW adapterT(static_cast<MODULE &>(*this), f);

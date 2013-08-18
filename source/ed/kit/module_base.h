@@ -31,10 +31,10 @@ namespace ed
     ~module_base();
   protected:
     template<typename T, typename MODULE>
-    void RegisterPreHandler( typename event_handler<MODULE, bool, T>::t, event_source es );
+    void RegisterPreHandler( bool (MODULE::*f)( const event_context<T> & ), event_source es );
 
     template<typename T, typename MODULE>
-    void RegisterPostHandler( typename event_handler<MODULE, void, T>::t, event_source es );
+    void RegisterPostHandler( void (MODULE::*f)( const event_context<T> & ), event_source es );
 
     template<typename MODULE>
     void UnregisterHandlers( const MODULE *const );
@@ -42,7 +42,7 @@ namespace ed
     void RegisterEvent( const std::string &name, int local_id );
   private:
     template<typename T, typename MODULE, typename RET>
-    module_impl::callback_entry<typename RET> *SysCreateHandler( typename event_handler<MODULE, RET, T>::t, event_source es );
+    module_impl::callback_entry<typename RET> *SysCreateHandler( RET (MODULE::*f)( const event_context<T> & ), event_source es );
 
     void EventReciever( const message & );
     bool Query( const message & );
