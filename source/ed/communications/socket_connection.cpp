@@ -7,46 +7,47 @@ using namespace ed;
 using namespace ax::tl4;
 typedef ax::tl4::LOW_STATUSES low_status;
 
-socket_connection::socket_connection( const std::string &addr, int port )
- : connected(false), desc(_TL4_NOT_SOCKET_)
+socket_connection::socket_connection( const std::string &_addr, int _port )
+ : connected(false), desc(_TL4_NOT_SOCKET_), addr(_addr), port(_port)
 {
-  unsigned int ip;
   low_status s = low::GetIp(addr.c_str(), ip);
   throw_assert(s != CANT_RESOLVE_IP);
   throw_assert(s == SUCCESS);
   ConnectAttempt(ip, port);
 }
 
-socket_connection::socket_connection( int incoming_descriptor )
-  : connected(true), desc(incoming_descriptor)
+socket_connection::socket_connection( int incoming_descriptor, int _ip, int _port )
+  : connected(true), desc(incoming_descriptor), ip(_ip), port(_port)
 {
 }
 
-void socket_connection::ConnectAttempt()
+bool socket_connection::ConnectAttempt()
 {
-  ConnectAttempt(0, 0); // cause they ignoring after first call
+  return ConnectAttempt(ip, port); // cause they ignoring after first call
 }
 
-void socket_connection::ConnectAttempt( unsigned int ip, int port )
+bool socket_connection::ConnectAttempt( unsigned int ip, int port )
 {
-  if (connected)
-    return;
-  low_status s = low::Connect(desc, ip, (unsafe_word)port);
-  throw_assert(s != LOW_CONNECTION_REFUSED);
-  if (s == SUCCESS)
-    connected = true;
+  if (!connected)
+  {
+    low_status s = low::Connect(desc, ip, (unsafe_word)port);
+    throw_assert(s != LOW_CONNECTION_REFUSED);
+    if (s == SUCCESS)
+      connected = true;
+  }
+  return connected;
 }
 
 void socket_connection::Notify( const ed::event_notification &e )
 {
+  throw_assert(ConnectAttempt());
   message m = e;
   SendMessage(m);
 }
 
 int socket_connection::Incoming( )
 {
-  ConnectAttempt();
-  if (!connected)
+  if (!ConnectAttempt())
     return 0;
   return low::Incoming(desc);
 }
@@ -60,6 +61,7 @@ socket_connection::~socket_connection()
 
 void socket_connection::SendRegister( const register_message &name )
 {
+  throw_assert(ConnectAttempt());
   message m = name;
   SendMessage(m);
 }
@@ -69,7 +71,7 @@ void socket_connection::SendRegister( const register_message &name )
 
 void socket_connection::SendMessage( const message &m )
 {
-  ConnectAttempt();
+  throw_assert(ConnectAttempt());
   low_status s;
   buffer b = m;
   while ((s = ax::tl4::low::Send(desc, b.buf, b.len)) == PLEASE_WAIT)
@@ -90,6 +92,7 @@ void SuccessRecieve( unsigned int socket, type *buffer, int size )
 
 message socket_connection::Get()
 {
+  throw_assert(ConnectAttempt());
   if (Incoming() < message::MinRequiredSize())
     return NULL;
   flag_byte flags;
