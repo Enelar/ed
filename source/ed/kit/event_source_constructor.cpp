@@ -23,7 +23,8 @@ event_source_constructor::operator ed::event_source() const
 
 void event_source_constructor::event_source_partial_translator::ByLocal( int id )
 {
-  todo("by local");
+  const translate &ad = gw.GetAdapter();
+  ByGlobal(ad.ToGlobal(id));
 }
 
 void event_source_constructor::event_source_partial_translator::ByGlobal( int id )
@@ -33,5 +34,5 @@ void event_source_constructor::event_source_partial_translator::ByGlobal( int id
 
 void event_source_constructor::event_source_partial_translator::ByName( const std::string &name )
 {
-  //ByGlobal(gw.RegisterName(nt, name));
+  ByGlobal(gw.NameGlobalID(name, nt));
 }
