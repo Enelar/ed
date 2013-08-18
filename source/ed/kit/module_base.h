@@ -9,6 +9,7 @@
 
 #include "../3party/ax/types.h"
 #include "module_impl.h"
+#include "event_source_constructor.h"
 
 namespace ed
 {
@@ -40,6 +41,7 @@ namespace ed
     void UnregisterHandlers( const MODULE *const );
 
     void RegisterEvent( const std::string &name, int local_id );
+    event_source_constructor GetSourceConstructor() const;
   private:
     template<typename T, typename MODULE, typename RET>
     module_impl::callback_entry<typename RET> *SysCreateHandler( RET (MODULE::*f)( const event_context<T> & ), event_source es );

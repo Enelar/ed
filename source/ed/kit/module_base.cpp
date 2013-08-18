@@ -50,3 +50,8 @@ void module_base::Listen( int instance, const std::string &module, const std::st
 {
   impl.Listen(instance, module, event);
 }
+
+event_source_constructor module_base::GetSourceConstructor() const
+{
+  return event_source_constructor(impl);
+}
