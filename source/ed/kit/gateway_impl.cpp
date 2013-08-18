@@ -105,34 +105,20 @@ void gateway_impl::Listen( int source_instance, int dest_module, int module_glob
 
 void gateway_impl::DelegateNotification( const message &mes, const event_source &es )
 {
-  slot::event *t;
-  try
-  {
-    t = &listeners.GetEvent(es);
-  }  catch (slot_not_found)
-  {
-    return;
-  }
-  throw_assert(t);
-  slot::event &e = *t;
-
-  unsigned int i = 0, s = e.data.size();
-  for (i = 0; i < s; ++i)
-  {
-    module_base *m = local_modules.GetModule(e.data[i].module);
-    m->EventReciever(mes);
-  }
+  throw_message("Deprecated");
 }
 
-void gateway_impl::IncomingNotification( message m )
+void gateway_impl::IncomingNotification( message mes )
 {
-  event_source es = static_cast<event_notification>(m).source;
+  event_source es = static_cast<event_notification>(mes).source;
   std::set<int> modules = listeners.Subscribed(&slot_data::listener::module, es);
-  DelegateNotification(m, es);
-  es.instance = reserved::instance::BROADCAST;
-  DelegateNotification(m, es);
-  es.module = reserved::module::BROADCAST;
-  DelegateNotification(m, es);
+  std::set<int>::const_iterator it = modules.begin(), e = modules.end();
+  while (it != e)
+  {
+    module_base *m = local_modules.GetModule(*it);
+    m->EventReciever(mes);
+    it++;
+  }
 }
 
 void gateway_impl::Workflow()
