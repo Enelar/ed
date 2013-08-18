@@ -6,12 +6,12 @@
 
 namespace ed
 {
-  class module;
-  class _ED_DLL_EXPORT_ event_result
+  class module_base;
+  class event_result
   {
     mutable bool deactivated;
 
-    module &m;
+    module_base &m;
     message e;
     const int local_id;
     bool result;
@@ -19,7 +19,7 @@ namespace ed
 
     friend class module;
     friend class module_impl;
-    event_result( message &, module &, int local_id, bool result, EVENT_RING notify );
+    event_result( message &, module_base &, int local_id, bool result, EVENT_RING notify );
   public:
     event_result( const event_result & );
 

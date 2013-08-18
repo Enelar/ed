@@ -81,7 +81,7 @@ void gateway_impl::PostNotify( const message &e )
 
 bool gateway_impl::QueryModule( int global_id, const message &e )
 {
-  module *m = local_modules.GetModule(global_id);
+  module_base *m = local_modules.GetModule(global_id);
   return m->Query(e);
 }
 
@@ -119,7 +119,7 @@ void gateway_impl::DelegateNotification( const message &mes, const event_source 
   unsigned int i = 0, s = e.data.size();
   for (i = 0; i < s; ++i)
   {
-    module *m = local_modules.GetModule(e.data[i].module);
+    module_base *m = local_modules.GetModule(e.data[i].module);
     m->EventReciever(mes);
   }
 }

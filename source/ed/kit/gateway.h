@@ -9,16 +9,18 @@
 
 namespace ed
 {
-  class module;
+  class module_base;
   struct modules_translate : private translate
   {
-    void AddModule( module *local, translate::id_type global )
+    typedef module_base moduleT;
+    void AddModule( moduleT *local, translate::id_type global )
     {
       translate::AddPair(*reinterpret_cast<translate::id_type *>(&local), global);
     }
-    module *GetModule( id_type global ) const
+
+    moduleT *GetModule( id_type global ) const
     {
-      return (module *)ToLocal(global);
+      return (moduleT *)ToLocal(global);
     }
   };
 };
@@ -34,12 +36,13 @@ namespace ed
 
     friend class gateway_impl;
     friend class module_impl;
-    friend class module;
 
     int RegisterEvent( std::string name );
     bool PreNotify( const message &e );
     void PostNotify( const message &e);
+  public:
     int RegisterName( NAME_TYPE nt, std::string name );
+  private:
     void Listen( int source_instance, int dest_module, std::string module, std::string event );
     void Listen( int source_instance, int dest_module, int module, int event );
 
