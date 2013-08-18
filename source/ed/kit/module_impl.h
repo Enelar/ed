@@ -14,21 +14,6 @@ namespace ed
   class module_base;
   class module_impl
   {
-    module_base &m;
-    friend class module_base;
-    friend class gateway_impl;
-    friend class event_result;
-    module_impl( module_base &, int id, gateway & );
-    gateway &gw;
-    int id;
-    translate adapter;
-    bool SendPreEvent( int local_id, message & );
-    void SendPostEvent( int local_id, message & );
-    struct event_listeners
-    {
-      std::list<int> modules;
-    };
-    std::vector<event_listeners> pre_listeners;
   public:
     module_impl( module_base &, const std::string &, gateway & );
     virtual ~module_impl();
@@ -70,6 +55,22 @@ namespace ed
 
     void EventReciever( const message & );
     bool Query( const message & );
+
+    module_base &m;
+    friend class module_base;
+    friend class gateway_impl;
+    friend class event_result;
+    module_impl( module_base &, int id, gateway & );
+    gateway &gw;
+    int id;
+    translate adapter;
+    bool SendPreEvent( int local_id, message & );
+    void SendPostEvent( int local_id, message & );
+    struct event_listeners
+    {
+      std::list<int> modules;
+    };
+    std::vector<event_listeners> pre_listeners;
   };
 };
 
