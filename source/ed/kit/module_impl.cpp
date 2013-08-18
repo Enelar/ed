@@ -85,8 +85,19 @@ void module_impl::AddPreHandler( base_pre_callback_entry *obj )
   QueryCallbacks.push_back(obj);
   gw.Listen(obj->source.instance, id, obj->source.module, adapter.ToGlobal(obj->source.event));
 }
+
 void module_impl::AddPostHandler( base_post_callback_entry *obj )
 {
   EventCallbacks.push_back(obj);
   gw.Listen(obj->source.instance, id, obj->source.module, adapter.ToGlobal(obj->source.event));
+}
+
+const translate &module_impl::GetAdapter() const
+{
+  return adapter;
+}
+
+int module_impl::NameGlobalID( const std::string &name, NAME_TYPE nt )
+{
+  return gw.RegisterName(nt, name);
 }

@@ -35,11 +35,12 @@ namespace ed
     void RegisterEvent( const std::string &name, int local_id );
     void Listen( int instance, const std::string &module, const std::string &event );
 
+    const translate &GetAdapter() const;
+    int NameGlobalID( const std::string &name, NAME_TYPE nt );
 
-    
     event_result SendEvent( int local_id, buffer payload, EVENT_RING query_max_ring, EVENT_RING notify_max_ring);
     event_result SendEvent( int local_id, EVENT_RING query_max_ring, EVENT_RING notify_max_ring );
-      
+
     typedef bool (module::*pre_event_handler_t)( const event_context<> & );
     typedef void (module::*post_event_handler_t)( const event_context<> & );
 
