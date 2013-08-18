@@ -35,13 +35,13 @@ namespace ed
     template<typename MODULE>
     void UnregisterHandlers( const MODULE *const );
 
+    void RegisterEvent( const std::string &name, int local_id );
   private:
     template<typename T, typename MODULE, typename RET>
     module_impl::callback_entry<typename RET> *SysCreateHandler( RET (MODULE::*f)( const event_context<T> & ), event_source es );
 
     void EventReciever( const message & );
     bool Query( const message & );
-    void RegisterEvent( const std::string &name, int local_id );
     void Listen( int instance, const std::string &module, const std::string &event );
 
     friend class gateway;
