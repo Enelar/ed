@@ -1,12 +1,14 @@
 #include "event_source_constructor.h"
+#include "gateway.h"
 
 using namespace ed;
 
-event_source_constructor::event_source_constructor()
+event_source_constructor::event_source_constructor( gateway &_gw )
  : 
-  instance(es.instance, INSTANCES),
-  module(es.module, MODULES),
-  event(es.event, EVENTS)
+  gw(_gw),
+  instance(_gw, es.instance, INSTANCES),
+  module(_gw, es.module, MODULES),
+  event(_gw, es.event, EVENTS)
 {
 }
 
@@ -31,5 +33,5 @@ void event_source_constructor::event_source_partial_translator::ByGlobal( int id
 
 void event_source_constructor::event_source_partial_translator::ByName( const std::string &name )
 {
-  todo("by name");
+  ByGlobal(gw.RegisterName(nt, name));
 }

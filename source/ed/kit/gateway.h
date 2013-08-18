@@ -36,12 +36,13 @@ namespace ed
 
     friend class gateway_impl;
     friend class module_impl;
-    friend class module;
 
     int RegisterEvent( std::string name );
     bool PreNotify( const message &e );
     void PostNotify( const message &e);
+  public:
     int RegisterName( NAME_TYPE nt, std::string name );
+  private:
     void Listen( int source_instance, int dest_module, std::string module, std::string event );
     void Listen( int source_instance, int dest_module, int module, int event );
 

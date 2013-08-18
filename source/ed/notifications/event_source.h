@@ -4,6 +4,7 @@
 #include "../names/reserved.h"
 namespace ed
 {
+  class gateway;
   struct event_source
   {
     int instance, module, event;
