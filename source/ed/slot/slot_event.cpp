@@ -37,14 +37,14 @@ void event::RemoveDisconnected( const int instance )
       i++;
 }
 
-std::set<int> event::SubscribedInstances( ) const
+std::set<int> event::Subscribed( int slot_data::listener::* type ) const
 {
   std::set<int> ret;
   std::vector<slot_data::listener>::const_iterator i = data.begin(), e = data.end();
 
   while (i != e)
   {
-    ret.insert((*i).instance);
+    ret.insert((*i).*type);
     i++;
   }
   return ret;

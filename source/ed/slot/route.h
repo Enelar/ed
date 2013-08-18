@@ -23,7 +23,7 @@ namespace ed
       int AddInstance( com::abstract_connection * );
       void RemoveDisconnected( const int instance );
 
-      std::set<int> SubscribedInstances( const event_source &es );
+      std::set<int> Subscribed( int slot_data::listener::* type, const event_source &es );
     };
   };
 };

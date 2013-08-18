@@ -37,6 +37,15 @@
     <Filter Include="slot\source">
       <UniqueIdentifier>{5a81c1fb-c75d-47d2-86b1-8403c6a11116}</UniqueIdentifier>
     </Filter>
+    <Filter Include="kit\module">
+      <UniqueIdentifier>{b621cd0b-45e5-4b5d-9bec-bb66914e3d94}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="kit\event_suit">
+      <UniqueIdentifier>{d046f963-ce92-4629-b1aa-714d2cd8d1e2}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="kit\gateway">
+      <UniqueIdentifier>{700c665f-79a4-4a76-954f-6182512b8b4c}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="ed\exceptions\disconnected.h">
@@ -111,31 +120,7 @@
     <ClInclude Include="ed\messages\register.h">
       <Filter>messages</Filter>
     </ClInclude>
-    <ClInclude Include="ed\kit\event_result.h">
-      <Filter>kit</Filter>
-    </ClInclude>
-    <ClInclude Include="ed\kit\gateway.h">
-      <Filter>kit</Filter>
-    </ClInclude>
-    <ClInclude Include="ed\kit\module.h">
-      <Filter>kit</Filter>
-    </ClInclude>
     <ClInclude Include="ed\def.h" />
-    <ClInclude Include="ed\kit\event_data.h">
-      <Filter>kit</Filter>
-    </ClInclude>
-    <ClInclude Include="ed\kit\event_context.h">
-      <Filter>kit</Filter>
-    </ClInclude>
-    <ClInclude Include="ed\kit\event_handler_convert.h">
-      <Filter>kit</Filter>
-    </ClInclude>
-    <ClInclude Include="ed\kit\gateway_impl.h">
-      <Filter>kit</Filter>
-    </ClInclude>
-    <ClInclude Include="ed\kit\module_impl.h">
-      <Filter>kit</Filter>
-    </ClInclude>
     <ClInclude Include="ed\controllers\server_controller_impl.h">
       <Filter>controllers</Filter>
     </ClInclude>
@@ -157,14 +142,38 @@
     <ClInclude Include="ed\slot\slot.h">
       <Filter>slot</Filter>
     </ClInclude>
+    <ClInclude Include="ed\kit\module.h">
+      <Filter>kit\module</Filter>
+    </ClInclude>
     <ClInclude Include="ed\kit\module_base.h">
-      <Filter>kit</Filter>
+      <Filter>kit\module</Filter>
     </ClInclude>
     <ClInclude Include="ed\kit\module_base.hpp">
-      <Filter>kit</Filter>
+      <Filter>kit\module</Filter>
+    </ClInclude>
+    <ClInclude Include="ed\kit\module_impl.h">
+      <Filter>kit\module</Filter>
+    </ClInclude>
+    <ClInclude Include="ed\kit\event_context.h">
+      <Filter>kit\event_suit</Filter>
     </ClInclude>
     <ClInclude Include="ed\kit\event_source_constructor.h">
-      <Filter>kit</Filter>
+      <Filter>kit\event_suit</Filter>
+    </ClInclude>
+    <ClInclude Include="ed\kit\event_data.h">
+      <Filter>kit\event_suit</Filter>
+    </ClInclude>
+    <ClInclude Include="ed\kit\event_handler_convert.h">
+      <Filter>kit\event_suit</Filter>
+    </ClInclude>
+    <ClInclude Include="ed\kit\event_result.h">
+      <Filter>kit\event_suit</Filter>
+    </ClInclude>
+    <ClInclude Include="ed\kit\gateway.h">
+      <Filter>kit\gateway</Filter>
+    </ClInclude>
+    <ClInclude Include="ed\kit\gateway_impl.h">
+      <Filter>kit\gateway</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -210,30 +219,6 @@
     <ClCompile Include="ed\messages\register.cpp">
       <Filter>messages</Filter>
     </ClCompile>
-    <ClCompile Include="ed\kit\event_result.cpp">
-      <Filter>kit</Filter>
-    </ClCompile>
-    <ClCompile Include="ed\kit\gateway.cpp">
-      <Filter>kit</Filter>
-    </ClCompile>
-    <ClCompile Include="ed\kit\module.cpp">
-      <Filter>kit</Filter>
-    </ClCompile>
-    <ClCompile Include="ed\kit\module_callback.cpp">
-      <Filter>kit</Filter>
-    </ClCompile>
-    <ClCompile Include="ed\kit\event_handler_convert.cpp">
-      <Filter>kit</Filter>
-    </ClCompile>
-    <ClCompile Include="ed\kit\gateway_impl.cpp">
-      <Filter>kit</Filter>
-    </ClCompile>
-    <ClCompile Include="ed\kit\module_impl_callback.cpp">
-      <Filter>kit</Filter>
-    </ClCompile>
-    <ClCompile Include="ed\kit\module_impl.cpp">
-      <Filter>kit</Filter>
-    </ClCompile>
     <ClCompile Include="ed\controllers\server_controller_impl.cpp">
       <Filter>controllers</Filter>
     </ClCompile>
@@ -249,11 +234,35 @@
     <ClCompile Include="ed\slot\slot_route.cpp">
       <Filter>slot\source</Filter>
     </ClCompile>
+    <ClCompile Include="ed\kit\module.cpp">
+      <Filter>kit\module</Filter>
+    </ClCompile>
+    <ClCompile Include="ed\kit\module_impl_callback.cpp">
+      <Filter>kit\module</Filter>
+    </ClCompile>
     <ClCompile Include="ed\kit\module_base.cpp">
-      <Filter>kit</Filter>
+      <Filter>kit\module</Filter>
+    </ClCompile>
+    <ClCompile Include="ed\kit\module_callback.cpp">
+      <Filter>kit\module</Filter>
+    </ClCompile>
+    <ClCompile Include="ed\kit\module_impl.cpp">
+      <Filter>kit\module</Filter>
+    </ClCompile>
+    <ClCompile Include="ed\kit\event_handler_convert.cpp">
+      <Filter>kit\event_suit</Filter>
+    </ClCompile>
+    <ClCompile Include="ed\kit\event_result.cpp">
+      <Filter>kit\event_suit</Filter>
     </ClCompile>
     <ClCompile Include="ed\kit\event_source_constructor.cpp">
-      <Filter>kit</Filter>
+      <Filter>kit\event_suit</Filter>
+    </ClCompile>
+    <ClCompile Include="ed\kit\gateway.cpp">
+      <Filter>kit\gateway</Filter>
+    </ClCompile>
+    <ClCompile Include="ed\kit\gateway_impl.cpp">
+      <Filter>kit\gateway</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>
