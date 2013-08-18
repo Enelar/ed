@@ -20,8 +20,9 @@ namespace ed
     {
       typedef RET (MODULE::*t)( const event_context<T> & );
     };
-    typedef bool (module_base::*pre_event_handler_t)( const event_context<> & );
-    typedef void (module_base::*post_event_handler_t)( const event_context<> & );
+
+    typedef event_handler<module_base, bool>::t pre_event_handler_t;
+    typedef event_handler<module_base, void>::t post_event_handler_t;
 
     typedef module_impl::base_pre_callback_entry base_pre_callback_entry;
     typedef module_impl::base_post_callback_entry base_post_callback_entry;
