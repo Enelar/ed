@@ -41,7 +41,7 @@ namespace ed
         MODULE_GLOBAL_ID_REQUEST = 8,
         EVENT_GLOBAL_ID_REQUEST = 9,
         DIRECT_SEND = 10,
-        EXSLUSIVE_SEND = 11,
+        EXCLUSIVE_SEND = 11,
         FIRST_ALLOWED = 16
       };
     };
