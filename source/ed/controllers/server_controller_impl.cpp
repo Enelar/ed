@@ -1,4 +1,5 @@
 #include "server_controller_impl.h"
+#include <algorithm>
 
 using namespace ed;
 
@@ -92,9 +93,9 @@ void server_controller_impl::SysWorkflow( int i, connection &socket )
   const int min_message_length = 1;
   if (socket.Incoming() < min_message_length)
     return;
-
   message *m = NEW message(socket.Get());
-  m->instance = i;
+  decltype(m->instance) instance = i;
+  std::swap(instance, m->instance);
   if (!m)
     return;
 
@@ -116,6 +117,8 @@ void server_controller_impl::SysWorkflow( int i, connection &socket )
   }
   message a = *m;
   delete m;
+  std::swap(instance, a.instance);
+  // because on notify message(client recieve) instance should contain target
   NotifyWorkflow(i, socket, a);
 }
 
