@@ -69,12 +69,14 @@ namespace ed
     unsigned int size_length;
     EVENT_RING ring;
     EVENT_STATE state;
+    bool exclusive;
 
     message_flags( )
     {
       size_length = 0;
       ring = RING3_WORLD;
       state = POST_COMMIT;
+      exclusive = false;
     }
 
     message_flags( const flag_byte &b )
@@ -82,6 +84,7 @@ namespace ed
       size_length = b.size_length;
       ring = (EVENT_RING)b.ring;
       state = (EVENT_STATE)b.state;
+      exclusive = b.exclusive;
     }
 
     operator flag_byte()
@@ -90,6 +93,7 @@ namespace ed
       ret.size_length = size_length;
       ret.ring = ring;
       ret.state = state;
+      ret.exclusive = exclusive;
       return ret;
     }
   };

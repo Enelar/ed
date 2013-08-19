@@ -74,6 +74,9 @@ void server_controller_impl::NotifyWorkflow( int i, connection &socket, const me
   std::cout << "EVENT " << a.event << " APPEARS FROM " << a.instance << ":" << (int)a.module << std::endl;
   event_source es = static_cast<event_notification>(a);
 
+  if (a.flags.exclusive)
+    throw_message("Todo exclusive send");
+
   std::set<int> instances = clients.Subscribed(&slot_data::listener::instance, es);
   std::set<int>::const_iterator it = instances.begin(), e = instances.end();
   while (it != e)
