@@ -40,6 +40,8 @@ namespace ed
         EVENT_NAME_LOOKUP = 7,
         MODULE_GLOBAL_ID_REQUEST = 8,
         EVENT_GLOBAL_ID_REQUEST = 9,
+        DIRECT_SEND = 10,
+        EXSLUSIVE_SEND = 11,
         FIRST_ALLOWED = 16
       };
     };
