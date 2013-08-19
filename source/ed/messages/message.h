@@ -61,7 +61,7 @@ namespace ed
     unsigned : 1;
     unsigned ring : 2;
     unsigned state : 2;
-    unsigned : 1;
+    unsigned exclusive : 1;
   };
 
   struct message_flags
