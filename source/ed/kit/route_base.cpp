@@ -19,8 +19,27 @@ const buffer &route_base::MessageToSend() const
 
 route_base::operator message() const
 {
+  int
+    head_size = COUNT_SIZE + ADDRESS_SIZE * marked.size(),
+    size = head_size +  mes.len;
+  buffer *res = NEW buffer(size);
+  memcpy(res->buf, mes.buf + head_size, mes.len); // copy original message
+
+  int *p = (int *)res->buf;
+  *p++ = marked.size();
+
+  std::set<slot_data::listener>::const_iterator i = marked.begin(), e = marked.end();
+  while (i != e)
+  {
+    const slot_data::listener t = *i;
+    *p++ = t.instance;
+    *p++ = t.module;
+    i++;
+  }
+  // routes succesfully writed
   message ret(mes);
-  todo(route_base message convert);
+  delete ret.payload;
+  ret.payload = res;
   return ret;
 }
 
