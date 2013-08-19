@@ -175,6 +175,9 @@
     <ClInclude Include="ed\kit\gateway_impl.h">
       <Filter>kit\gateway</Filter>
     </ClInclude>
+    <ClInclude Include="ed\kit\route_base.h">
+      <Filter>messages</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="ed\exceptions\exception.cpp">
@@ -263,6 +266,9 @@
     </ClCompile>
     <ClCompile Include="ed\kit\gateway_impl.cpp">
       <Filter>kit\gateway</Filter>
+    </ClCompile>
+    <ClCompile Include="ed\kit\route_base.cpp">
+      <Filter>kit</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>
