@@ -21,6 +21,13 @@ namespace ed
         throw_assert(a.instance && a.module);
         return instance == a.instance && module == a.module;
       }
+
+      bool operator<( const listener &a ) const
+      {
+        if (instance != a.instance)
+          return instance < a.instance;
+        return module < a.module;
+      }
     };
   };
 };
