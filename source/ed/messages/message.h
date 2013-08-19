@@ -64,7 +64,7 @@ namespace ed
     unsigned : 1;
   };
 
-  struct _ED_DLL_EXPORT_ message_flags
+  struct message_flags
   {
     unsigned int size_length;
     EVENT_RING ring;
@@ -94,7 +94,7 @@ namespace ed
     }
   };
 
-  struct _ED_DLL_EXPORT_ message
+  struct message
   {
     typedef unsigned char byte;
     typedef unsigned short word;
