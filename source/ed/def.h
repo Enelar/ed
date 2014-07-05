@@ -67,6 +67,6 @@ B convert( const A &a )
 }
 
 template<typename B, typename A, typename A1>
-B convert<>( const A &, const A1 & );
+B convert( const A &, const A1 & );
 
 #endif
