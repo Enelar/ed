@@ -91,6 +91,7 @@
     <ClCompile Include="ctrler.cpp" />
     <ClCompile Include="dispatched.cpp" />
     <ClCompile Include="main.cpp" />
+    <ClCompile Include="message.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="connection.h" />
