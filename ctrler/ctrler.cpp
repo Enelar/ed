@@ -30,6 +30,14 @@ void ctrler::AcceptThread(int port)
   }
 }
 
+void ctrler::Send(raw_message &gift, int id)
+{
+  auto customer = connections.find(id);
+  if (customer == connections.end())
+    throw "Support disconnected and wrong adressed messages";
+  customer->second.Send(gift);
+}
+
 void ctrler::MessageThread()
 {
   while (!exit_flag)

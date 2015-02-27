@@ -13,6 +13,9 @@
       <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
       <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
     </Filter>
+    <Filter Include="Header Files\messages">
+      <UniqueIdentifier>{4de3a7d0-391b-4b41-816b-eef9199dcc1a}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp">
@@ -29,6 +32,9 @@
     </ClCompile>
     <ClCompile Include="message.cpp">
       <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="messages\translate.cpp">
+      <Filter>Header Files\messages</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -52,6 +58,9 @@
     </ClInclude>
     <ClInclude Include="connection.h">
       <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="messages\translate.h">
+      <Filter>Header Files\messages</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

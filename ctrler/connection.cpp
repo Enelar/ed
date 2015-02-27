@@ -48,3 +48,9 @@ void connection::ReceiveThread()
     raw->mutex_received.unlock();
   }
 }
+
+void connection::Send(raw_message &)
+{
+  raw->mutex_send.lock();
+  raw->mutex_send.unlock();
+}

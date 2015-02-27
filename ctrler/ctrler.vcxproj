@@ -92,6 +92,7 @@
     <ClCompile Include="dispatched.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="message.cpp" />
+    <ClCompile Include="messages\translate.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="connection.h" />
@@ -101,6 +102,7 @@
     <ClInclude Include="dispatcher.h" />
     <ClInclude Include="library.h" />
     <ClInclude Include="message.h" />
+    <ClInclude Include="messages\translate.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

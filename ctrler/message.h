@@ -54,4 +54,9 @@ struct message : message_header
     ret.insert(ret.end(), res.begin(), res.end());
     return ret;
   }
+
+  message(raw_message &that)
+    : message_header(that), payload(that)
+  {
+  }
 };
