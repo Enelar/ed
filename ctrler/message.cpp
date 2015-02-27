@@ -26,6 +26,17 @@ message_header::operator vector<byte>() const
   return ret;
 }
 
+void message_header::Reverse()
+{
+  swap(to.instance, to.instance);
+  swap(to.module, to.module);
+}
+
+void message_header::Fill(const message_header &that)
+{
+  memcpy(this, &that, sizeof(*this));
+}
+
 raw_message::raw_message()
 {
 }

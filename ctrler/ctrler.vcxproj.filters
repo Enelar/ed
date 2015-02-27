@@ -33,7 +33,7 @@
     <ClCompile Include="message.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="messages\translate.cpp">
+    <ClCompile Include="messages\simple_messages.cpp">
       <Filter>Header Files\messages</Filter>
     </ClCompile>
   </ItemGroup>
@@ -59,7 +59,7 @@
     <ClInclude Include="connection.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="messages\translate.h">
+    <ClInclude Include="messages\simple_messages.h">
       <Filter>Header Files\messages</Filter>
     </ClInclude>
   </ItemGroup>

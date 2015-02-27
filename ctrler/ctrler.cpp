@@ -30,7 +30,12 @@ void ctrler::AcceptThread(int port)
   }
 }
 
-void ctrler::Send(raw_message &gift, int id)
+void ctrler::Send(raw_message gift)
+{
+  Send(gift, gift.to.instance);
+}
+
+void ctrler::Send(raw_message gift, int id)
 {
   auto customer = connections.find(id);
   if (customer == connections.end())
@@ -62,7 +67,7 @@ void ctrler::MessageThread()
   }
 }
 
-void ctrler::OnMessage(int id, raw_message &message)
+void ctrler::OnMessage(int id, raw_message message)
 {
   message.from.instance = id;
 

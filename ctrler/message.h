@@ -22,6 +22,9 @@ struct message_header
 
   int event;
 
+  void Reverse();
+  void Fill(const message_header &);
+
   message_header();
   message_header(byte *);
 
@@ -30,6 +33,7 @@ struct message_header
   static const int raw_byte_size = 5 * 4;
 };
 
+template<typename T> struct message;
 struct raw_message : message_header
 {
   vector<byte> payload;
@@ -40,12 +44,17 @@ struct raw_message : message_header
   raw_message(byte *);
 
   operator vector<byte>() const;
+
+  template<typename T>
+  raw_message(message<T> &that);
 };
 
 template<typename T>
 struct message : message_header
 {
   T payload;
+
+  message() {}
 
   operator vector<byte>() const
   {
@@ -60,3 +69,9 @@ struct message : message_header
   {
   }
 };
+
+template<typename T>
+raw_message::raw_message(message<T> &that)
+: message_header(that), payload(that.payload)
+{}
+

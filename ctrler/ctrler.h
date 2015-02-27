@@ -19,14 +19,15 @@ class ctrler
   unordered_map<int, connection> connections;
 
   dispatcher core;
+  friend class dispatcher;
 public:
   ctrler(int port);
   ~ctrler();
 
-  void Send(raw_message &, 
-    int instance = ed::reserved::instance::BROADCAST);
+  void Send(raw_message);
+  void Send(raw_message, int instance);
 
-  void OnMessage(int, raw_message &);
+  void OnMessage(int, raw_message);
 
 private:
   bool exit_flag = false;
