@@ -26,5 +26,20 @@
     <ClInclude Include="ctrler.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="dictonary.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="library.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="dispatcher.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="message.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="constants.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>

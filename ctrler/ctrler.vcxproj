@@ -42,17 +42,17 @@
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <LinkIncremental>true</LinkIncremental>
     <IncludePath>C:/boost;$(VC_IncludePath);$(WindowsSDK_IncludePath);</IncludePath>
-    <LibraryPath>C:/boost/libs;$(VC_LibraryPath_x86);$(WindowsSDK_LibraryPath_x86);</LibraryPath>
+    <LibraryPath>C:/boost/stage/lib;$(VC_LibraryPath_x86);$(WindowsSDK_LibraryPath_x86);</LibraryPath>
     <OutDir>$(SolutionDir)..\build\$(SolutionName)\$(Configuration)\</OutDir>
-    <IntDir>$(SolutionDir)..\int\$(SolutionName)\$(Configuration)\</IntDir>
+    <IntDir>$(SolutionDir)..\int\$(SolutionName)\$(ProjectName)\$(Configuration)\</IntDir>
     <TargetName>$(ProjectName)</TargetName>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
     <LinkIncremental>false</LinkIncremental>
     <IncludePath>C:/boost;$(VC_IncludePath);$(WindowsSDK_IncludePath);</IncludePath>
-    <LibraryPath>C:/boost/libs;$(VC_LibraryPath_x86);$(WindowsSDK_LibraryPath_x86);</LibraryPath>
+    <LibraryPath>C:/boost/stage/lib;$(VC_LibraryPath_x86);$(WindowsSDK_LibraryPath_x86);</LibraryPath>
     <OutDir>$(SolutionDir)..\build\$(SolutionName)\$(Configuration)\</OutDir>
-    <IntDir>$(SolutionDir)..\int\$(SolutionName)\$(Configuration)\</IntDir>
+    <IntDir>$(SolutionDir)..\int\$(SolutionName)\$(ProjectName)\$(Configuration)\</IntDir>
     <TargetName>$(ProjectName)</TargetName>
   </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
@@ -91,7 +91,12 @@
     <ClCompile Include="main.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="constants.h" />
     <ClInclude Include="ctrler.h" />
+    <ClInclude Include="dictonary.h" />
+    <ClInclude Include="dispatcher.h" />
+    <ClInclude Include="library.h" />
+    <ClInclude Include="message.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
