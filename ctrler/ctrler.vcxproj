@@ -91,6 +91,7 @@
     <ClCompile Include="main.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="connection.h" />
     <ClInclude Include="constants.h" />
     <ClInclude Include="ctrler.h" />
     <ClInclude Include="dictonary.h" />
