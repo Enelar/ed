@@ -1,0 +1,24 @@
+#include <vector>
+#include <string>
+using namespace std;
+
+#include "ctrler.h"
+
+#include <boost/lexical_cast.hpp>
+
+int func(vector<string> &args)
+{
+  if (args.size() == 0)
+    return -1;
+  int port = boost::lexical_cast<int>(args[0]);
+  ctrler a(port);
+  return 0;
+}
+
+int main(int argc, char *argv[])
+{
+  vector<string> arguments;
+  for (auto i = 0; i < argc; i++)
+    arguments.push_back(argv[i]);
+  return func(arguments);
+}
