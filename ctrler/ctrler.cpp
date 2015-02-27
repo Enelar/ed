@@ -1,8 +1,9 @@
 #include "ctrler.h"
 
 ctrler::ctrler(int port)
+  : core(*this)
 {
-  accept_future = async(ctrler::AcceptThread, this, port);
+  accept_future = async(&ctrler::AcceptThread, this, port);
   accept_future.wait_for(1ms);
 }
 
@@ -19,7 +20,7 @@ void ctrler::AcceptThread(int port)
     if (exit_flag)
       break;
 
-    auto new_connection = connection();
+    auto new_connection = connection(true);
     if (!new_connection)
       continue;
 
