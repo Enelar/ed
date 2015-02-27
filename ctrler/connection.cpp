@@ -33,7 +33,18 @@ void connection::ReceiveThread()
     if (exit_flag)
       break;
 
-    vector<byte> message;
+    raw->mutex_handler.lock();
+    vector<byte> gift;
+    raw->mutex_handler.unlock();
+
     bool new_message;
+    if (!new_message)
+      continue;
+
+    raw_message sure(&gift[0]);
+
+    raw->mutex_received.lock();
+    raw->received.push_back(sure);
+    raw->mutex_received.unlock();
   }
 }

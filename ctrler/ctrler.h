@@ -23,15 +23,15 @@ public:
   ctrler(int port);
   ~ctrler();
 
-  void SendMessage(raw_message &, 
-    int instance = ed::reserved::instance::BROADCAST, 
-    int module = ed::reserved::module::BROADCAST);
+  void Send(raw_message &, 
+    int instance = ed::reserved::instance::BROADCAST);
 
   void OnMessage(int, raw_message &);
 
 private:
   bool exit_flag = false;
   mutex mutex_connections;
-  future<void> accept_future;
+  future<void> accept_future, message_future;
   void AcceptThread(int port);
+  void MessageThread();
 };

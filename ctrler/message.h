@@ -15,7 +15,9 @@ struct message_header
   } to;
   struct
   {
-    int instance, module;
+    int 
+      instance = ed::reserved::instance::BROADCAST, 
+      module;
   } from;
 
   int event;
