@@ -42,6 +42,9 @@
     <ClCompile Include="messages\listen_message.cpp">
       <Filter>Header Files\messages</Filter>
     </ClCompile>
+    <ClCompile Include="messages\up_message.cpp">
+      <Filter>Header Files\messages</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="ctrler.h">

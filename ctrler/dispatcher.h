@@ -13,4 +13,5 @@ public:
   void Translate(raw_message &);
   void Listen(raw_message &);
   void Up(raw_message &);
+  void Transmit(raw_message &);
 };

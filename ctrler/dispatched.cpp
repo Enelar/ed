@@ -41,9 +41,9 @@ void dispatcher::Listen(raw_message &gift)
 {
   messages::listen message = gift;
 
-  bool exceptional_fetch = message.from.instance < ed::reserved::instance::FIRST_ALLOWED;
+  bool exceptional_fetch = message.payload.from.instance < ed::reserved::instance::FIRST_ALLOWED;
   
-  if (exceptional_fetch && message.from.instance != ed::reserved::instance::BROADCAST)
+  if (exceptional_fetch && message.payload.from.instance != ed::reserved::instance::BROADCAST)
     throw "todo other";
 
   auto connection = target.connections.find(message.payload.from.instance);
@@ -52,13 +52,45 @@ void dispatcher::Listen(raw_message &gift)
 
   auto &module_container =
     exceptional_fetch
-        ? target.exceptional_listen[message.payload.from.instance]
-        : connection->second.raw->listeners;
+    ? target.exceptional_listen[message.payload.from.instance]
+    : connection->second.raw->listeners;
 
-  auto &modules = module_container;
-  auto &events = modules[message.from.module];
- // auto &listeners = events[message.payload.what];
-  //auto listeners = [message.payload.what];
+  auto &listeners = module_container(message.payload.from.module)(message.payload.what);
+  auto &listen_instance = listeners(message.from.instance);
+  listen_instance.push_back(message.from.module);
+}
+
+void dispatcher::Transmit(raw_message &message)
+{
+  /*
+  bool exceptional_fetch = message.from.instance < ed::reserved::instance::FIRST_ALLOWED;
+
+  auto connection = target.connections.find(message.payload.from.instance);
+  if (!exceptional_fetch && connection == target.connections.end())
+    throw "connection not found";
+
+  auto &module_container =
+    exceptional_fetch
+    ? target.exceptional_listen[message.from.instance]
+    : connection->second.raw->listeners;
+
+  auto &modules_holder = module_container;
+  auto &events_holder = modules_holder[message.from.module];
+  auto &listeners_holder = events_holder[message.event];
+  if (!listeners_holder)
+    return;
+
+  auto &listeners = *listeners_holder;
+  for (auto &listener_instance : listeners)
+  {
+    for (auto listener_module : *listener_instance.second)
+    {
+
+      //target.Send()
+    }
+  }
+  ///auto listeners = [message.payload.what];
+  */
 }
 
 void dispatcher::Up(raw_message &)

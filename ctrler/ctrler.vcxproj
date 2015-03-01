@@ -94,6 +94,7 @@
     <ClCompile Include="message.cpp" />
     <ClCompile Include="messages\listen_message.cpp" />
     <ClCompile Include="messages\simple_messages.cpp" />
+    <ClCompile Include="messages\up_message.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="connection.h" />

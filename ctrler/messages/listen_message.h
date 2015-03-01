@@ -15,5 +15,4 @@ namespace messages
     operator vector<byte>();
   };
 
-  typedef message<listen_message> listen;
-}
+  typedef message<listen_message> listen;}
