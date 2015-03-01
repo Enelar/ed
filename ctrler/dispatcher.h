@@ -1,6 +1,6 @@
 #pragma once
 
-#include "message.h"             
+#include <ed\structs\message.h>          
 #include "containers.h"
 
 class ctrler;

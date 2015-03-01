@@ -7,6 +7,8 @@ Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "ed", "ed\ed.vcxproj", "{F5C
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "ctrler", "ctrler\ctrler.vcxproj", "{3BCD5B91-FBF1-4253-A0D0-EB2E35D1F2F3}"
 EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "client", "client\client.vcxproj", "{066A778D-2CCF-4B7A-8B80-54EE049AA814}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Win32 = Debug|Win32
@@ -21,6 +23,10 @@ Global
 		{3BCD5B91-FBF1-4253-A0D0-EB2E35D1F2F3}.Debug|Win32.Build.0 = Debug|Win32
 		{3BCD5B91-FBF1-4253-A0D0-EB2E35D1F2F3}.Release|Win32.ActiveCfg = Release|Win32
 		{3BCD5B91-FBF1-4253-A0D0-EB2E35D1F2F3}.Release|Win32.Build.0 = Release|Win32
+		{066A778D-2CCF-4B7A-8B80-54EE049AA814}.Debug|Win32.ActiveCfg = Debug|Win32
+		{066A778D-2CCF-4B7A-8B80-54EE049AA814}.Debug|Win32.Build.0 = Debug|Win32
+		{066A778D-2CCF-4B7A-8B80-54EE049AA814}.Release|Win32.ActiveCfg = Release|Win32
+		{066A778D-2CCF-4B7A-8B80-54EE049AA814}.Release|Win32.Build.0 = Release|Win32
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

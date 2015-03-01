@@ -10,6 +10,19 @@
       <Platform>Win32</Platform>
     </ProjectConfiguration>
   </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="structs\constants.h" />
+    <ClInclude Include="structs\message.h" />
+    <ClInclude Include="structs\messages\listen_message.h" />
+    <ClInclude Include="structs\messages\simple_messages.h" />
+    <ClInclude Include="structs\messages\translate.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="structs\message.cpp" />
+    <ClCompile Include="structs\messages\listen_message.cpp" />
+    <ClCompile Include="structs\messages\simple_messages.cpp" />
+    <ClCompile Include="structs\messages\up_message.cpp" />
+  </ItemGroup>
   <PropertyGroup Label="Globals">
     <ProjectGuid>{F5C3461B-4886-4721-9ACF-8F84B915C347}</ProjectGuid>
     <Keyword>Win32Proj</Keyword>

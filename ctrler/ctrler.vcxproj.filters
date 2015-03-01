@@ -13,9 +13,6 @@
       <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
       <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
     </Filter>
-    <Filter Include="Header Files\messages">
-      <UniqueIdentifier>{4de3a7d0-391b-4b41-816b-eef9199dcc1a}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Header Files\listen">
       <UniqueIdentifier>{97cb51c9-817f-437b-95ec-945d4acaf462}</UniqueIdentifier>
     </Filter>
@@ -32,18 +29,6 @@
     </ClCompile>
     <ClCompile Include="dispatched.cpp">
       <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="message.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="messages\simple_messages.cpp">
-      <Filter>Header Files\messages</Filter>
-    </ClCompile>
-    <ClCompile Include="messages\listen_message.cpp">
-      <Filter>Header Files\messages</Filter>
-    </ClCompile>
-    <ClCompile Include="messages\up_message.cpp">
-      <Filter>Header Files\messages</Filter>
     </ClCompile>
     <ClCompile Include="dictonary.cpp">
       <Filter>Source Files</Filter>
@@ -62,23 +47,11 @@
     <ClInclude Include="dispatcher.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="message.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="constants.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="connection.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="messages\simple_messages.h">
-      <Filter>Header Files\messages</Filter>
-    </ClInclude>
     <ClInclude Include="containers.h">
       <Filter>Header Files\listen</Filter>
-    </ClInclude>
-    <ClInclude Include="messages\listen_message.h">
-      <Filter>Header Files\messages</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

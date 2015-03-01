@@ -72,7 +72,7 @@ struct container
   }
 };
 
-#include "message.h"
+#include <ed\structs\message.h>
 
 // Array of listening modules
 typedef vector<decltype(message_destination::module)> listener_instance;

@@ -6,7 +6,7 @@
 #include <list>
 using namespace std;
 
-#include "message.h"
+#include <ed\structs\message.h>
 #include "containers.h"
 
 struct raw_connection

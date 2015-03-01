@@ -1,6 +1,6 @@
 #include "dispatcher.h"
 #include "ctrler.h"
-#include "messages\simple_messages.h"
+#include <ed\structs\messages\simple_messages.h>
 
 dispatcher::dispatcher(ctrler &that)
   : target(that)
@@ -36,7 +36,7 @@ void dispatcher::Translate(raw_message &gift)
   target.Send(ret);
 }
 
-#include "messages\listen_message.h"
+#include <ed\structs\messages\listen_message.h>
 void dispatcher::Listen(raw_message &gift)
 {
   messages::listen message = gift;
