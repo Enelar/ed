@@ -30,18 +30,9 @@
     <ClCompile Include="dispatched.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="dictonary.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="ctrler.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="dictonary.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="library.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="dispatcher.h">

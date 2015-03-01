@@ -12,12 +12,16 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="structs\constants.h" />
+    <ClInclude Include="structs\dictonary.h" />
+    <ClInclude Include="structs\dictonary.hpp" />
+    <ClInclude Include="structs\library.h" />
     <ClInclude Include="structs\message.h" />
     <ClInclude Include="structs\messages\listen_message.h" />
     <ClInclude Include="structs\messages\simple_messages.h" />
     <ClInclude Include="structs\messages\translate.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="structs\dictonary.cpp" />
     <ClCompile Include="structs\message.cpp" />
     <ClCompile Include="structs\messages\listen_message.cpp" />
     <ClCompile Include="structs\messages\simple_messages.cpp" />
