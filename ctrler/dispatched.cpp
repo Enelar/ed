@@ -63,21 +63,29 @@ void dispatcher::Listen(raw_message &gift)
 void dispatcher::Transmit(raw_message &message)
 {
   bool exceptional_fetch = message.from.instance < ed::reserved::instance::FIRST_ALLOWED;
-
+  
+  if (exceptional_fetch)
+  {
+    auto &exceptional_container = target.exceptional_listen[message.from.instance];
+    TransmitHelper(exceptional_container, message);
+  }
+    
   auto connection = target.connections.find(message.from.instance);
-  if (!exceptional_fetch && connection == target.connections.end())
-    throw "connection not found";
+  if (connection == target.connections.end())
+    throw "connection not found"; // WTF???
 
-  auto &module_container =
-    exceptional_fetch
-    ? target.exceptional_listen[message.from.instance]
-    : connection->second.raw->listeners;
+  auto &module_container = connection->second.raw->listeners;
+  TransmitHelper(module_container, message);
+}
 
+void dispatcher::TransmitHelper(modules_container &module_container, raw_message &message)
+{
   auto &modules_holder = module_container;
   auto &events_holder = modules_holder[message.from.module];
   auto &listeners_holder = events_holder[message.event];
   if (!listeners_holder)
     return;
+
 
   auto &listeners = *listeners_holder;
   for (auto &listener_instance : listeners)
@@ -91,7 +99,7 @@ void dispatcher::Transmit(raw_message &message)
   }
 }
 
-void dispatcher::Up(raw_message &)
+void dispatcher::Up(raw_message &gift)
 {
-
+  Transmit(gift);
 }
