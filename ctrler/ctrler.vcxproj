@@ -89,6 +89,7 @@
   <ItemGroup>
     <ClCompile Include="connection.cpp" />
     <ClCompile Include="ctrler.cpp" />
+    <ClCompile Include="dictonary.cpp" />
     <ClCompile Include="dispatched.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="message.cpp" />

@@ -14,4 +14,6 @@ struct dictonary
   int Add(string);
   int operator[](string) const;
   string operator[](int) const;
+
+  struct unknown {};
 };
