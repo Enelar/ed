@@ -4,6 +4,16 @@
 
 namespace messages
 {
+  struct void_message
+  {
+    void_message() {}
+    void_message(raw_message &);
+
+    operator vector<byte>();
+  };
+
+  typedef message<void_message> _void;
+
   struct string_message
   {
     string str;

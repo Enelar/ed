@@ -1,18 +1,31 @@
 #include "simple_messages.h"
 
-messages::string_message::string_message(raw_message &that)
+using namespace messages;
+
+void_message::void_message(raw_message &)
+{
+
+}
+
+void_message::operator vector<byte>()
+{
+  return{};
+}
+
+
+string_message::string_message(raw_message &that)
 {
   auto *buf = &that.payload[0];
   copy((char *)buf, (char *)buf + that.payload.size(), str.begin());
 }
 
-messages::int_message::int_message(raw_message &that)
+int_message::int_message(raw_message &that)
 {
   auto *buf = &that.payload[0];
   num = *(int *)buf;
 }
 
-messages::int_message::operator vector<byte>()
+int_message::operator vector<byte>()
 {
   vector<byte> ret;
   ret.push_back(num);
