@@ -7,6 +7,7 @@
 using namespace std;
 
 #include "message.h"
+#include "containers.h"
 
 struct raw_connection
 {
@@ -16,7 +17,9 @@ struct raw_connection
     mutex_handler,
     mutex_received,
     mutex_send;
+
   list<raw_message> received;
+  modules_container listeners;
 
   raw_connection(bool a)
     : handler(a) {}

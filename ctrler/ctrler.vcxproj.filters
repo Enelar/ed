@@ -16,6 +16,9 @@
     <Filter Include="Header Files\messages">
       <UniqueIdentifier>{4de3a7d0-391b-4b41-816b-eef9199dcc1a}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Header Files\listen">
+      <UniqueIdentifier>{97cb51c9-817f-437b-95ec-945d4acaf462}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp">
@@ -34,6 +37,9 @@
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="messages\simple_messages.cpp">
+      <Filter>Header Files\messages</Filter>
+    </ClCompile>
+    <ClCompile Include="messages\listen_message.cpp">
       <Filter>Header Files\messages</Filter>
     </ClCompile>
   </ItemGroup>
@@ -60,6 +66,12 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="messages\simple_messages.h">
+      <Filter>Header Files\messages</Filter>
+    </ClInclude>
+    <ClInclude Include="containers.h">
+      <Filter>Header Files\listen</Filter>
+    </ClInclude>
+    <ClInclude Include="messages\listen_message.h">
       <Filter>Header Files\messages</Filter>
     </ClInclude>
   </ItemGroup>

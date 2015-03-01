@@ -2,6 +2,7 @@
 
 message_header::message_header()
 {
+  from.instance = ed::reserved::instance::BROADCAST;
 }
 
 message_header::message_header(byte *arr)

@@ -12,7 +12,7 @@ void dispatcher::Translate(raw_message &gift)
 {
   bool is_event_lookup = gift.event == ed::reserved::event::EVENT_NAME_LOOKUP;
 
-  messages::_string message(gift);
+  messages::_string message = gift;
 
   auto &book =
     is_event_lookup
@@ -36,9 +36,29 @@ void dispatcher::Translate(raw_message &gift)
   target.Send(ret);
 }
 
-void dispatcher::Listen(raw_message &)
+#include "messages\listen_message.h"
+void dispatcher::Listen(raw_message &gift)
 {
+  messages::listen message = gift;
 
+  bool exceptional_fetch = message.from.instance < ed::reserved::instance::FIRST_ALLOWED;
+  
+  if (exceptional_fetch && message.from.instance != ed::reserved::instance::BROADCAST)
+    throw "todo other";
+
+  auto connection = target.connections.find(message.payload.from.instance);
+  if (!exceptional_fetch && connection == target.connections.end())
+    throw "connection not found";
+
+  auto &module_container =
+    exceptional_fetch
+        ? target.exceptional_listen[message.payload.from.instance]
+        : connection->second.raw->listeners;
+
+  auto &modules = module_container;
+  auto &events = modules[message.from.module];
+ // auto &listeners = events[message.payload.what];
+  //auto listeners = [message.payload.what];
 }
 
 void dispatcher::Up(raw_message &)

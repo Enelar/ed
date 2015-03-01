@@ -17,7 +17,8 @@ class ctrler
 
   int free_connection_id = ed::reserved::instance::FIRST_ALLOWED;
   unordered_map<int, connection> connections;
-
+  unordered_map<int, modules_container> exceptional_listen;
+           
   dispatcher core;
   friend class dispatcher;
 public:

@@ -7,18 +7,15 @@ using namespace std;
 
 #include "constants.h"
 
+struct message_destination
+{
+  int instance, module;
+};
+
 struct message_header
 {
-  struct
-  {
-    int instance, module;
-  } to;
-  struct
-  {
-    int 
-      instance = ed::reserved::instance::BROADCAST, 
-      module;
-  } from;
+  message_destination to;
+  message_destination from;
 
   int event;
 
