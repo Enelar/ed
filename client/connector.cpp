@@ -3,9 +3,20 @@
 
 static connector singletone_connector;
 
-void connector::SendMessage(const raw_message &)
+void connector::SendMessage(raw_message gift)
 {
+  gift.from.instance = global_instance_id;
+  // TODO: Boost send messages
+}
 
+raw_message connector::WaitForMessage()
+{
+  // TODO: Boost recieve message
+  raw_message gift;
+  if (gift.from.instance == ed::reserved::instance::CONTROLLER)
+    if (gift.to.instance != ed::reserved::instance::BROADCAST)
+      global_instance_id = gift.to.instance;
+  return gift;
 }
 
 int connector::RegisterName(bool is_event, string name)

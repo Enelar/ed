@@ -5,7 +5,7 @@
 
 class module
 {
-  int global_module_id;
+  int global_module_id = ed::reserved::module::BROADCAST;
   vocabulary<int> modules, events; // per interface translation
 
 public:

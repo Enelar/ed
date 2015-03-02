@@ -2,15 +2,14 @@
 
 #include <ed/structs/message.h>
 #include <ed/structs/library.h>
-#include <ed/structs/message.h>
 
 class connector
 {
-  int instance_id = 0;
+  int global_instance_id = ed::reserved::instance::BROADCAST;
   library names; // strings to global ids
 
 public:
-  void SendMessage(const raw_message &);
+  void SendMessage(raw_message);
   raw_message WaitForMessage();
 
   int RegisterName(bool is_event, string name);
