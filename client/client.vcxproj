@@ -93,6 +93,7 @@
     <ClInclude Include="connector.h" />
     <ClInclude Include="example_module.h" />
     <ClInclude Include="module.h" />
+    <ClInclude Include="module.hpp" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\ed\ed.vcxproj">
