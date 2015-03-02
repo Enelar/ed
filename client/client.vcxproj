@@ -84,11 +84,15 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="connector.cpp" />
     <ClCompile Include="example_module.cpp" />
+    <ClCompile Include="module.cpp" />
     <ClCompile Include="main.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="connector.h" />
     <ClInclude Include="example_module.h" />
+    <ClInclude Include="module.h" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\ed\ed.vcxproj">
