@@ -1,3 +1,4 @@
+#define _ED_INTERNAL_CONNECTOR_NOCHECK_
 #include "module.h"
 #include "connector.h"
 

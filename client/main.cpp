@@ -4,6 +4,11 @@ using namespace std;
 
 #include <boost/lexical_cast.hpp>
 
+#define _ED_CONNECTOR_DEFINED_
+#include "connector.h"
+static boost::asio::io_service io;
+connector singletone_connector(io);
+
 int func(vector<string> &args)
 {
   if (args.size() == 0)

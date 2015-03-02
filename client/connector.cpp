@@ -1,7 +1,17 @@
+#define _ED_INTERNAL_CONNECTOR_NOCHECK_
 #include "connector.h"
 #include <ed/structs/messages/simple_messages.h>
 
-static connector singletone_connector;
+connector::connector(boost::asio::io_service &_io)
+  : io(_io), con(io)
+{
+
+}
+
+void connector::Connect(string addr, int port)
+{
+
+}
 
 void connector::SendMessage(raw_message gift)
 {
