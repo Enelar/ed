@@ -12,6 +12,8 @@ class connector
 public:
   void SendMessage(const raw_message &);
   raw_message WaitForMessage();
+
+  int RegisterName(bool is_event, string name);
 };
 
-extern connector sigletone_connector;
+extern connector singletone_connector;

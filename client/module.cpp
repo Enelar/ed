@@ -9,7 +9,7 @@ module::module(string module_name)
 void module::Emit(raw_message gift)
 {
   gift.from.module = global_module_id;
-  sigletone_connector.SendMessage(gift);
+  singletone_connector.SendMessage(gift);
 }
 
 void module::Emit(int event, vector<byte> payload)
@@ -30,4 +30,18 @@ void module::Emit(int event, int module, int instance, vector<byte> payload)
   gift.event = event;
   gift.payload = payload;
   Emit(gift);
+}
+
+int module::RegisterEventName(string name, int local_id)
+{
+  int global_id = singletone_connector.RegisterName(true, name);
+  events.Insert(local_id, global_id);
+  return global_id;
+}
+
+int module::RegisterModuleName(string name, int local_id)
+{
+  int global_id = singletone_connector.RegisterName(false, name);
+  modules.Insert(local_id, global_id);
+  return global_id;
 }

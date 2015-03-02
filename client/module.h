@@ -18,4 +18,5 @@ public:
 
   int RegisterEventName(string name, int local_id = 0);
   int RegisterModuleName(string name, int local_id = 0);
+private:
 };
