@@ -14,9 +14,26 @@ void_message::operator vector<byte>()
 
 
 string_message::string_message(raw_message &that)
-{
+{ // BUG: UTF strings, not ASCII !!!
   auto *buf = &that.payload[0];
-  copy((char *)buf, (char *)buf + that.payload.size(), str.begin());
+  int size = *reinterpret_cast<int *>(buf);
+  if (size > that.payload.size() - 4)
+    throw "string too big";
+  copy((char *)buf, (char *)buf + 4 + size, str.begin());
+}
+
+string_message::operator vector<byte>()
+{ // BUG: UTF strings, not ASCII !!!
+  int size = str.size();
+  char *bytes = &str[0];
+  vector<byte> ret;
+  ret.reserve(size + 4);
+  *(int *)&ret[0] = size;
+
+  for (auto i = 0; i < size; i++)
+    ret[i + 4] = str[i];
+
+  return ret;
 }
 
 int_message::int_message(raw_message &that)
