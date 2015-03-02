@@ -1,24 +1,16 @@
 #pragma once
 
-#include <unordered_map>
-#include <string>
+#include "vocabulary.h"
 
-using namespace std;
-
-struct dictonary
+struct dictonary : vocabulary<string, int>
 {
-  typedef int K;
-  typedef string T; 
+  auto operator[](int a) const
+  {
+    return Local2Global(a);
+  }
 
-  int next_free = 1;
-  unordered_map<T, K> a;
-  unordered_map<K, T> b;
-
-  void Insert(K, T);
-  K Add(T);
-  K operator[](T) const;
-  T operator[](K) const;
-
-  struct unknown {};
-  struct already_known {};
+  auto operator[](string a) const
+  {
+    return Global2Local(a);
+  }
 };

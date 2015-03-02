@@ -33,11 +33,14 @@ int example_module::GetNameID(bool is_event, string name)
   }
 
   messages::_int response = WaitForMessage();
+  auto global_id = response.payload.num;
 
   if (is_event)
-    names.events.Insert(response.payload.num, name);
-
-  
+    events.Insert(names.events[name], global_id);
+  else
+    modules.Insert(names.modules[name], global_id);
+ 
+  return global_id;
 }
 
 void example_module::Send(const raw_message &)

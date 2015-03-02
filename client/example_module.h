@@ -6,6 +6,7 @@
 class example_module
 {
   library names;
+  vocabulary<int> modules, events;
 
   int GetNameID(bool is_event, string name);
   void Send(const raw_message &);
