@@ -45,3 +45,15 @@ int module::RegisterModuleName(string name, int local_id)
   modules.Insert(local_id, global_id);
   return global_id;
 }
+
+string module::EventNameLookup(int local_id)
+{
+  int global_id = events.Local2Global(local_id);
+  return singletone_connector.names.events.Local2Global(global_id);
+}
+
+string module::ModuleNameLookup(int local_id)
+{
+  int global_id = modules.Local2Global(local_id);
+  return singletone_connector.names.modules.Local2Global(global_id);
+}

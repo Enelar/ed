@@ -14,6 +14,8 @@ public:
   raw_message WaitForMessage();
 
   int RegisterName(bool is_event, string name);
+
+  friend class module;
 };
 
 extern connector singletone_connector;
