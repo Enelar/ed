@@ -11,7 +11,8 @@ int func(vector<string> &args)
   if (args.size() == 0)
     return -1;
   int port = boost::lexical_cast<int>(args[0]);
-  ctrler a(port);
+  boost::asio::io_service io;
+  ctrler a(io, port);
   return 0;
 }
 

@@ -8,10 +8,12 @@ using namespace std;
 
 #include <ed\structs\message.h>
 #include "containers.h"
+#include <boost\asio.hpp>
 
 struct raw_connection
 {
-  bool handler;
+  typedef boost::asio::ip::tcp::socket handlerT;
+  unique_ptr<handlerT> handler;
   bool disconnected = false;
   mutex
     mutex_handler,
@@ -21,7 +23,7 @@ struct raw_connection
   list<raw_message> received;
   modules_container listeners;
 
-  raw_connection(bool a)
+  raw_connection(handlerT *a)
     : handler(a) {}
 };
 
@@ -32,7 +34,7 @@ struct connection
 
   operator bool() const;
 
-  connection(bool);
+  connection(raw_connection::handlerT *);
   connection(const connection &);
   ~connection();
 

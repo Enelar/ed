@@ -1,7 +1,8 @@
 #include "ctrler.h"
 
-ctrler::ctrler(int port)
-  : core(*this)
+using namespace boost::asio::ip;
+ctrler::ctrler(boost::asio::io_service &_io, int port)
+  : core(*this), io(_io), accept_socket(io, tcp::endpoint(address::from_string("127.0.0.1"), port))
 {
   accept_future = async(&ctrler::AcceptThread, this, port);
   accept_future.wait_for(1ms);
@@ -14,20 +15,40 @@ ctrler::~ctrler()
 
 void ctrler::AcceptThread(int port)
 {
+  mutex ready;
+  unique_ptr<tcp::socket> socket;
+
+  auto AcceptCallback = [&ready, this, &socket](const boost::system::error_code& error)
+  {
+    if (error)
+    {
+      ready.unlock();
+      return;
+    }
+    mutex_connections.lock();
+    connection new_connection(socket.release());
+    connections.insert({ free_connection_id++, new_connection });
+    mutex_connections.unlock();
+
+    ready.unlock();
+  };
+
   while (!exit_flag)
   {
     this_thread::sleep_for(100ms);
     if (exit_flag)
       break;
-
-    auto new_connection = connection(true);
-    if (!new_connection)
+    if (!ready.try_lock())
       continue;
 
-    mutex_connections.lock();
-    connections.insert({free_connection_id++, new_connection});
-    mutex_connections.unlock();
+    if (socket)
+      throw "weird stuff here";
+
+    socket = make_unique<tcp::socket>(io);
+    accept_socket.async_accept(*socket, AcceptCallback);
   }
+  accept_socket.close();
+  ready.lock();
 }
 
 void ctrler::Send(raw_message gift)

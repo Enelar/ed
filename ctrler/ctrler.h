@@ -21,8 +21,11 @@ class ctrler
            
   dispatcher core;
   friend class dispatcher;
+
+  boost::asio::io_service &io;
+  boost::asio::ip::tcp::acceptor accept_socket;
 public:
-  ctrler(int port);
+  ctrler(boost::asio::io_service &, int port);
   ~ctrler();
 
   void Send(raw_message);

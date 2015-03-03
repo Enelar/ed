@@ -7,7 +7,7 @@ connection::operator bool() const
   return !raw->disconnected;
 }
 
-connection::connection(bool _handler)
+connection::connection(raw_connection::handlerT *_handler)
   : raw(make_shared<raw_connection>(_handler))
 {
   receive_thread = async(&connection::ReceiveThread, this);
