@@ -13,5 +13,5 @@ auto module::Listen(
   typedef handle_adapter<MODULE, T> my_adapter;
   //my_adapter test((MODULE &)*this, cb);
   shared_ptr<my_adapter> adapter = make_shared<my_adapter>((MODULE &)*this, cb);
-  callbacks.Insert(event, adapter);
+  callbacks.Insert(adapter, event);
 }

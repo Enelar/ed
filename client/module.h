@@ -31,8 +31,10 @@ public:
     int module = ed::reserved::module::BROADCAST,
     int instance = ed::reserved::instance::BROADCAST
     );
+
+  void OnMessage(raw_message);
 private:
-  vocabulary<shared_ptr<base_handle_adapter>> callbacks;
+  vocabulary<int, shared_ptr<base_handle_adapter>> callbacks;
 };
 
 #include "module.hpp"

@@ -58,3 +58,27 @@ string module::ModuleNameLookup(int local_id)
   int global_id = modules.Local2Global(local_id);
   return singletone_connector.names.modules.Local2Global(global_id);
 }
+
+void module::OnMessage(raw_message origin)
+{
+  if (origin.to.module >= ed::reserved::module::FIRST_ALLOWED)
+    if (origin.to.module != global_module_id)
+      throw "wow. some connector issue";
+    else
+      origin.to.module = modules.Global2Local(origin.to.module);
+  
+  if (origin.event >= ed::reserved::event::FIRST_ALLOWED)
+    origin.event = events.Global2Local(origin.event);
+
+  handler_stored handler;
+  try
+  {
+    handler = callbacks.Global2Local(origin.event);
+  }
+  catch (vocabulary_exceptions::unknown &)
+  { // Hm. Another weird connector issue
+    throw "wow. module not declared handler for this event.";
+  }
+  
+  (*handler)(origin);
+}

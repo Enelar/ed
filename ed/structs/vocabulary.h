@@ -5,8 +5,14 @@
 
 using namespace std;
 
+struct vocabulary_exceptions
+{
+  struct unknown {};
+  struct already_known {};
+};
+
 template<typename T, typename K = int>
-struct vocabulary
+struct vocabulary : vocabulary_exceptions
 {
 
   int next_free = 1;
@@ -17,9 +23,6 @@ struct vocabulary
   K Add(T global);
   T Local2Global(K) const;
   K Global2Local(T) const;
-
-  struct unknown {};
-  struct already_known {};
 };
 
 #include "vocabulary.hpp"
