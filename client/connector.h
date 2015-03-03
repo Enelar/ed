@@ -37,6 +37,10 @@ private:
   // event -> sorted vector of modules
   unordered_map<int, boost::container::flat_set<int>> listeners;
   friend class module;
+
+  unordered_map<int, module *> modules;
+  void RegisterModule(int global_id, module *);
+  void UnregisterModule(int global_id);
 };
 
 extern connector singletone_connector;

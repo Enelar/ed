@@ -28,17 +28,20 @@ namespace ed
       enum EVENT
       {
         BROADCAST = 0,
-        INSTANCE_UP,
-        MODULE_UP,
-        EVENT_REGISTER,
-        LISTEN = 4,
-        RESERVED_5 = 5,
+        INSTANCE_UP = 1,
+        MODULE_UP = 2,
+        LISTEN = 3,
+        DIRECT_SEND = 4,
+        EXCLUSIVE_SEND = 5,
+
         MODULE_NAME_LOOKUP = 6,
         EVENT_NAME_LOOKUP = 7,
         MODULE_GLOBAL_ID_REQUEST = 8,
         EVENT_GLOBAL_ID_REQUEST = 9,
-        DIRECT_SEND = 10,
-        EXCLUSIVE_SEND = 11,
+        
+        INSTANCE_DOWN = 11,
+        MODULE_DOWN = 12,
+
         FIRST_ALLOWED = 16
       };
     };

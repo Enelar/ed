@@ -12,6 +12,7 @@ class module
 
 public:
   module(string module_name);
+  virtual ~module();
 
   void Emit(raw_message);
   void Emit(int event, vector<byte> payload = {});
