@@ -12,6 +12,9 @@ connector::connector(boost::asio::io_service &_io)
 void connector::Connect(string addr, int port)
 {
   using namespace boost::asio::ip;
+  target.determined = true;
+  target.addr = addr;
+  target.port = port;
 
   tcp::resolver resolver(io);
   tcp::resolver::query query(addr, boost::lexical_cast<string>(port));
@@ -50,6 +53,8 @@ void connector::Connect(string addr, int port)
 
 void connector::Send(raw_message gift)
 {
+  if (!target.determined)
+    throw "connect to controller first!";
   gift.from.instance = global_instance_id;
   vector<byte> buf = gift;
   con.send(boost::asio::buffer(buf));

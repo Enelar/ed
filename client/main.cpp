@@ -17,6 +17,7 @@ int func(vector<string> &args)
     return -1;
   int port = 30000; // boost::lexical_cast<int>(args[1]);
 
+  singletone_connector.Connect("localhost", port);
   example_module a;
   
   return 0;
