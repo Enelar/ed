@@ -26,6 +26,26 @@ void connector::Connect(string addr, int port)
   }
   if (error)
     throw boost::system::system_error(error);
+
+  {
+    ::messages::_int gift;
+    gift.event = ed::reserved::event::INSTANCE_UP;
+    gift.to.instance = ed::reserved::instance::BROADCAST;
+    gift.to.module = ed::reserved::module::HEART_BEAT;
+    gift.from.instance = ed::reserved::instance::BROADCAST;
+    gift.from.module = ed::reserved::module::HEART_BEAT;
+    gift.payload.num = ed::reserved::protocol_version;
+
+    Send(gift);
+  }
+
+  {
+    ::messages::_int gift = WaitForMessage();
+    int server_protocol_version = gift.payload.num;
+    if (server_protocol_version != ed::reserved::protocol_version)
+      throw "Protocols should be equal. Sorry, im still in development.";
+    global_instance_id = gift.to.instance;
+  }
 }
 
 void connector::Send(raw_message gift)
@@ -51,11 +71,7 @@ raw_message connector::WaitForMessage()
     boost::asio::read(con, boost::asio::buffer(&buf[0] + to_read, payload_size));
   }
 
-  raw_message gift = &buf[0];
-  if (gift.from.instance == ed::reserved::instance::CONTROLLER)
-    if (gift.to.instance != ed::reserved::instance::BROADCAST)
-      global_instance_id = gift.to.instance;
-  return gift;
+  return{ &buf[0] };
 }
 
 int connector::RegisterName(bool is_event, string name)

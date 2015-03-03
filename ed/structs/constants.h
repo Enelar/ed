@@ -4,6 +4,8 @@ namespace ed
 {
   namespace reserved
   {
+    static const int protocol_version = 1;
+
     namespace instance
     {
       enum INSTANCE
