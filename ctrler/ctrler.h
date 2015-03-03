@@ -6,8 +6,8 @@
 
 using namespace std;
 
-#include "library.h"
-#include "message.h"
+#include <ed\structs\library.h>
+#include <ed\structs\message.h>
 #include "connection.h"
 #include "dispatcher.h"
 
