@@ -13,6 +13,11 @@ int func(vector<string> &args)
   int port = 30000; // boost::lexical_cast<int>(args[1]);
   boost::asio::io_service io;
   ctrler a(io, port);
+  while (true) // debug
+  {
+    this_thread::sleep_for(1ms);
+    io.run();
+  }
   return 0;
 }
 

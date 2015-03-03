@@ -42,14 +42,16 @@ void module::Emit(int event, int module, int instance, vector<byte> payload)
 int module::RegisterEventName(string name, int local_id)
 {
   int global_id = singletone_connector.RegisterName(true, name);
-  events.Insert(local_id, global_id);
+  if (local_id != ed::reserved::event::BROADCAST)
+    events.Insert(local_id, global_id);
   return global_id;
 }
 
 int module::RegisterModuleName(string name, int local_id)
 {
   int global_id = singletone_connector.RegisterName(false, name);
-  modules.Insert(local_id, global_id);
+  if (local_id != ed::reserved::module::BROADCAST)
+    modules.Insert(local_id, global_id);
   return global_id;
 }
 

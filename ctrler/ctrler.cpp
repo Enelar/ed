@@ -2,7 +2,7 @@
 
 using namespace boost::asio::ip;
 ctrler::ctrler(boost::asio::io_service &_io, int port)
-  : core(*this), io(_io), accept_socket(io, tcp::endpoint(address::from_string("127.0.0.1"), port))
+  : core(*this), io(_io), accept_socket(io, tcp::endpoint(address::from_string("0.0.0.0"), port))
 {
   accept_future = async(&ctrler::AcceptThread, this, port);
   accept_future.wait_for(1ms);

@@ -19,8 +19,8 @@ public:
   void Emit(int event, int module, vector<byte> payload = {});
   void Emit(int event, int module, int instance, vector<byte> payload = {});
 
-  int RegisterEventName(string name, int local_id = 0);
-  int RegisterModuleName(string name, int local_id = 0);
+  int RegisterEventName(string name, int local_id = ed::reserved::event::BROADCAST);
+  int RegisterModuleName(string name, int local_id = ed::reserved::module::BROADCAST);
 
   string EventNameLookup(int local_id);
   string ModuleNameLookup(int local_id);

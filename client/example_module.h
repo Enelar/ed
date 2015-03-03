@@ -2,7 +2,7 @@
 
 #include "module.h"
 
-class example_module : public module
+struct example_module : public module
 {
   example_module();
   

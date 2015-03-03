@@ -27,7 +27,7 @@ string_message::operator vector<byte>()
   int size = str.size();
   char *bytes = &str[0];
   vector<byte> ret;
-  ret.reserve(size + 4);
+  ret.resize(size + 4);
   *(int *)&ret[0] = size;
 
   for (auto i = 0; i < size; i++)
