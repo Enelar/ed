@@ -10,7 +10,7 @@ module::module(string module_name)
 void module::Emit(raw_message gift)
 {
   gift.from.module = global_module_id;
-  singletone_connector.SendMessage(gift);
+  singletone_connector.Send(gift);
 }
 
 void module::Emit(int event, vector<byte> payload)
@@ -57,6 +57,11 @@ string module::ModuleNameLookup(int local_id)
 {
   int global_id = modules.Local2Global(local_id);
   return singletone_connector.names.modules.Local2Global(global_id);
+}
+
+void module::Listen(int event, int module, int instance)
+{
+  singletone_connector.Listen(event, global_module_id, { instance, module });
 }
 
 void module::OnMessage(raw_message origin)

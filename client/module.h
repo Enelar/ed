@@ -34,7 +34,9 @@ public:
 
   void OnMessage(raw_message);
 private:
-  vocabulary<int, shared_ptr<base_handle_adapter>> callbacks;
+  void Listen(int event, int module, int intance);
+  typedef shared_ptr<base_handle_adapter> handler_stored;
+  vocabulary<int, handler_stored> callbacks;
 };
 
 #include "module.hpp"

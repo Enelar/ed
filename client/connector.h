@@ -4,6 +4,7 @@
 #include <ed/structs/library.h>
 
 #include <boost/asio.hpp>
+#include <boost/container/flat_set.hpp>
 
 class connector
 {
@@ -23,11 +24,18 @@ public:
   connector(boost::asio::io_service &);
   void Connect(string addr, int port);
 
-  void SendMessage(raw_message);
+  void Send(raw_message);
   raw_message WaitForMessage();
 
   int RegisterName(bool is_event, string name);
+  void Listen(
+    int which_event,
+    int handle_module,
+    message_destination from = { ed::reserved::instance::BROADCAST, ed::reserved::module::BROADCAST });
 
+private:
+  // event -> sorted vector of modules
+  unordered_map<int, boost::container::flat_set<int>> listeners;
   friend class module;
 };
 

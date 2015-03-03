@@ -28,7 +28,7 @@ void connector::Connect(string addr, int port)
     throw boost::system::system_error(error);
 }
 
-void connector::SendMessage(raw_message gift)
+void connector::Send(raw_message gift)
 {
   gift.from.instance = global_instance_id;
   vector<byte> buf = gift;
@@ -71,7 +71,7 @@ int connector::RegisterName(bool is_event, string name)
       request.event = ed::reserved::event::MODULE_NAME_LOOKUP;
 
     request.payload.str = name;
-    SendMessage(request);
+    Send(request);
   }
 
   ::messages::_int response = WaitForMessage();
@@ -83,4 +83,31 @@ int connector::RegisterName(bool is_event, string name)
     names.modules.Insert(global_id, name);
 
   return global_id;
+}
+
+#include <ed/structs/messages/listen_message.h>
+void connector::Listen(int event, int module, message_destination from)
+{
+  auto it = listeners.find(event);
+  if (it == listeners.end())
+  {
+    listeners.insert({ event, boost::container::flat_set<int>() });
+    it = listeners.find(event);
+    if (it == listeners.end())
+      throw "WTF";
+  }
+  auto &set = it->second;
+  if (set.find(module) == set.end())
+    return; // already registered
+  set.insert(module);
+
+  ::messages::listen gift;
+  gift.payload.what = event;
+  gift.payload.from = from;
+  gift.from.module = module;
+  gift.event = ed::reserved::event::LISTEN;
+  gift.to.instance = ed::reserved::instance::CONTROLLER;
+  gift.to.module = ed::reserved::module::BROADCAST;
+
+  Send(gift);
 }
