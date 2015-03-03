@@ -49,6 +49,7 @@ void ctrler::AcceptThread(int port)
   }
   accept_socket.close();
   ready.lock();
+  ready.unlock();
 }
 
 void ctrler::Send(raw_message gift)
