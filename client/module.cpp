@@ -5,6 +5,12 @@
 module::module(string module_name)
 {
   global_module_id = RegisterModuleName(module_name);
+  singletone_connector.RegisterModule(global_module_id, this);
+}
+
+module::~module()
+{
+  singletone_connector.UnregisterModule(global_module_id);
 }
 
 void module::Emit(raw_message gift)
