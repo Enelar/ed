@@ -11,5 +11,7 @@ class example_module : public module
 
   raw_message WaitForMessage();
 
+  void ExampleHandler(raw_message);
+
 
 };

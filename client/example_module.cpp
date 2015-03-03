@@ -25,4 +25,11 @@ void example_module::Subscribe()
 {
   RegisterEventName("EVENT_AAA", EVENT_AAA);
   RegisterEventName("EVENT_BBB", EVENT_BBB);
+
+  Listen(&example_module::ExampleHandler, EVENT_AAA);
+}
+
+void example_module::ExampleHandler(raw_message)
+{
+
 }

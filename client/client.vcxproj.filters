@@ -41,5 +41,8 @@
     <ClInclude Include="module.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="handle_adapter.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>

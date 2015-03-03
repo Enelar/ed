@@ -58,8 +58,3 @@ string module::ModuleNameLookup(int local_id)
   int global_id = modules.Local2Global(local_id);
   return singletone_connector.names.modules.Local2Global(global_id);
 }
-
-void module::Listen(event_handler cb, int event, int module, int instance)
-{
-  callbacks.Insert(event, &cb);
-}

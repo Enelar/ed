@@ -92,6 +92,7 @@
   <ItemGroup>
     <ClInclude Include="connector.h" />
     <ClInclude Include="example_module.h" />
+    <ClInclude Include="handle_adapter.h" />
     <ClInclude Include="module.h" />
     <ClInclude Include="module.hpp" />
   </ItemGroup>

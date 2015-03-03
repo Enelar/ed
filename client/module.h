@@ -2,6 +2,8 @@
 
 #include <ed/structs/message.h>
 #include <ed/structs/vocabulary.h>
+#include "handle_adapter.h"
+#include <memory>
 
 class module
 {
@@ -22,24 +24,15 @@ public:
   string EventNameLookup(int local_id);
   string ModuleNameLookup(int local_id);
 
-  typedef void (module::*event_handler)(raw_message &);
-
+  template<typename T, typename MODULE>
   void Listen(
-      event_handler,
-      int event,
-      int module = ed::reserved::module::BROADCAST,
-      int instance = ed::reserved::instance::BROADCAST
-      );
-
-  template<typename T>
-  void Listen(
-    void (module::*)(message<T>),
+    void (MODULE::*)(T),
     int event,
     int module = ed::reserved::module::BROADCAST,
     int instance = ed::reserved::instance::BROADCAST
     );
 private:
-  vocabulary<event_handler *> callbacks;
+  vocabulary<shared_ptr<base_handle_adapter>> callbacks;
 };
 
 #include "module.hpp"
