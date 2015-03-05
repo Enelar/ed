@@ -39,6 +39,9 @@
     <ClInclude Include="structs\messages\handshake.h">
       <Filter>structs\messages</Filter>
     </ClInclude>
+    <ClInclude Include="structs\semaphore.h">
+      <Filter>structs</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="structs\message.cpp">
@@ -55,6 +58,9 @@
     </ClCompile>
     <ClCompile Include="structs\messages\handshake.cpp">
       <Filter>structs\messages</Filter>
+    </ClCompile>
+    <ClCompile Include="structs\semaphore.cpp">
+      <Filter>structs</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>
