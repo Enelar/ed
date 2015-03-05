@@ -11,6 +11,11 @@ using namespace std;
 #include "connection.h"
 #include "dispatcher.h"
 
+namespace messages
+{
+  struct handshake;
+}
+
 class ctrler
 {
   library names;
@@ -32,6 +37,7 @@ public:
   void Send(raw_message, int instance);
 
   void OnMessage(int, raw_message);
+  void OnHandshake(int, ::messages::handshake);
 
 private:
   bool exit_flag = false;

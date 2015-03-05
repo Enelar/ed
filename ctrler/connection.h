@@ -14,7 +14,9 @@ struct raw_connection
 {
   typedef boost::asio::ip::tcp::socket handlerT;
   unique_ptr<handlerT> handler;
-  bool disconnected = false;
+  bool
+    disconnected = false,
+    handshake_required = true;
   mutex
     mutex_handler,
     mutex_received,

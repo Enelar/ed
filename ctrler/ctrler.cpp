@@ -1,5 +1,6 @@
 #include "ctrler.h"
 #include <iostream>
+#include <ed/structs/messages/handshake.h>
 
 using namespace boost::asio::ip;
 ctrler::ctrler(boost::asio::io_service &_io, int port)
@@ -78,17 +79,37 @@ void ctrler::MessageThread()
     mutex_connections.lock();
     for (auto &customer : connections)
     {
-      auto &messages = customer.second.raw->received;
       auto id = customer.first;
-      while (messages.size())
-      {
-        auto gift = messages.front();
-        messages.pop_front();
-        OnMessage(id, gift);
+      auto &raw = customer.second.raw;
+      auto &messages = raw->received;
+
+      raw->mutex_received.lock();
+      { // exception unsafe lock
+        // i dont care of performance
+        while (messages.size())
+        {
+          auto gift = messages.front();
+          messages.pop_front();
+          if (customer.second.raw->handshake_required)
+          {
+            OnHandshake(id, gift);
+            customer.second.raw->handshake_required = false;
+          }
+          else
+            OnMessage(id, gift);
+        }
       }
     }
     mutex_connections.unlock();
   }
+}
+
+void ctrler::OnHandshake(int id, messages::handshake gift)
+{
+  Send(messages::handshake(), id);
+
+  if (gift.payload.version != ed::reserved::protocol_version)
+    throw "sad by we should kick you...";
 }
 
 void ctrler::OnMessage(int id, raw_message message)
