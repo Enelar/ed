@@ -67,7 +67,7 @@ raw_message connector::WaitForMessage()
   {
     const int sizeof_payload_size = 4;
     const int to_read = message_header::raw_byte_size + 4;
-    buf.reserve(to_read); // size of payload
+    buf.resize(to_read); // size of payload
     boost::asio::read(con, boost::asio::buffer(buf, to_read));
     int payload_size = *(int *)(&buf[0] + message_header::raw_byte_size);
     if (payload_size > raw_message::max_message_size)
