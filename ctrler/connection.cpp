@@ -11,22 +11,31 @@ connection::operator bool() const
 connection::connection(raw_connection::handlerT *_handler)
   : raw(make_shared<raw_connection>(_handler))
 {
-  receive_thread = async(&connection::ReceiveThread, this);
-  receive_thread.wait_for(1ms);
 }
 
 connection::connection(const connection &that)
+  : raw(that.raw)
 {
-  memcpy(this, &that, sizeof(*this));
-  new(&raw) decltype(raw)(that.raw);
 }
 
 connection::~connection()
 {
+}
+
+raw_connection::raw_connection(handlerT *a)
+  : handler(a)
+{
+  receive_thread = async(&raw_connection::ReceiveThread, this);
+  receive_thread.wait_for(1ms);
+}
+
+raw_connection::~raw_connection()
+{
   exit_flag = true;
 }
 
-void connection::ReceiveThread()
+
+void raw_connection::ReceiveThread()
 {
   const auto first_part_size = message_header::raw_byte_size + 4;
   vector<byte> header;
@@ -48,43 +57,43 @@ void connection::ReceiveThread()
     if (exit_flag)
       break;
 
-    raw->mutex_handler.lock();
-    auto ready = raw->handler->available();
+    mutex_handler.lock();
+    auto ready = handler->available();
     if (read_header_state)
     {
       if (ready < first_part_size)
       {
-        raw->mutex_handler.unlock();
+        mutex_handler.unlock();
         continue; // we ignore not complete messages
       }
 
       cout << "Get message header!!!" << endl;
 
-      read(*raw->handler, boost::asio::buffer(header, first_part_size));
+      read(*handler, boost::asio::buffer(header, first_part_size));
       read_header_state = false;
-      ready = raw->handler->available();
+      ready = handler->available();
     }
 
     if (ready < PayloadSize())
     {
-      raw->mutex_handler.unlock();
+      mutex_handler.unlock();
       continue;
     }
 
     raw_message sure;
     sure.Fill(message_header(&header[0]));
     sure.payload.resize(PayloadSize());
-    read(*raw->handler, boost::asio::buffer(sure.payload));
+    read(*handler, boost::asio::buffer(sure.payload));
 
-    raw->mutex_handler.unlock();
+    mutex_handler.unlock();
     read_header_state = true;
 
     cout << "Get full message!!! " << sure.event << endl;
 
     {
-      raw->mutex_received.lock();
-      raw->received.push_back(sure);
-      raw->mutex_received.unlock();
+      mutex_received.lock();
+      received.push_back(sure);
+      mutex_received.unlock();
     }
   }
 }

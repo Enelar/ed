@@ -25,8 +25,12 @@ struct raw_connection
   list<raw_message> received;
   modules_container listeners;
 
-  raw_connection(handlerT *a)
-    : handler(a) {}
+  raw_connection(handlerT *a);
+  ~raw_connection();
+
+  bool exit_flag = false;
+  future<void> receive_thread;
+  void ReceiveThread();
 };
 
 struct connection
@@ -39,10 +43,6 @@ struct connection
   connection(raw_connection::handlerT *);
   connection(const connection &);
   ~connection();
-
-  bool exit_flag = false;
-  future<void> receive_thread;
-  void ReceiveThread();
 
   void Send(raw_message &);
 };
