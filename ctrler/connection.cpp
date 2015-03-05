@@ -1,4 +1,5 @@
 #include "connection.h"
+#include <iostream>
 
 bool handler;
 
@@ -57,6 +58,8 @@ void connection::ReceiveThread()
         continue; // we ignore not complete messages
       }
 
+      cout << "Get message header!!!" << endl;
+
       read(*raw->handler, boost::asio::buffer(header, first_part_size));
       read_header_state = false;
       ready = raw->handler->available();
@@ -75,6 +78,8 @@ void connection::ReceiveThread()
 
     raw->mutex_handler.unlock();
     read_header_state = true;
+
+    cout << "Get full message!!! " << sure.event << endl;
 
     {
       raw->mutex_received.lock();

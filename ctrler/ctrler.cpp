@@ -1,4 +1,5 @@
 #include "ctrler.h"
+#include <iostream>
 
 using namespace boost::asio::ip;
 ctrler::ctrler(boost::asio::io_service &_io, int port)
@@ -27,6 +28,7 @@ void ctrler::AcceptThread(int port)
     }
     mutex_connections.lock();
     connection new_connection(socket.release());
+    cout << "NEW CONNECTION" << free_connection_id << endl;
     connections.insert({ free_connection_id++, new_connection });
     mutex_connections.unlock();
 

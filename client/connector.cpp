@@ -2,6 +2,7 @@
 #include "connector.h"
 #include <ed/structs/messages/simple_messages.h>
 #include <boost/lexical_cast.hpp>
+#include <iostream>
 
 connector::connector(boost::asio::io_service &_io)
   : io(_io), con(io)
@@ -64,6 +65,7 @@ raw_message connector::WaitForMessage()
 {
   vector<byte> buf;
 
+  cout << "Wait for message..." << endl;
   {
     const int sizeof_payload_size = 4;
     const int to_read = message_header::raw_byte_size + 4;
@@ -75,6 +77,7 @@ raw_message connector::WaitForMessage()
     buf.reserve(buf.size() + payload_size);
     boost::asio::read(con, boost::asio::buffer(&buf[0] + to_read, payload_size));
   }
+  cout << "Get message..." << endl;
 
   return{ &buf[0] };
 }
