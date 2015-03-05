@@ -36,6 +36,9 @@
     <ClInclude Include="structs\vocabulary.hpp">
       <Filter>structs</Filter>
     </ClInclude>
+    <ClInclude Include="structs\messages\handshake.h">
+      <Filter>structs\messages</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="structs\message.cpp">
@@ -48,6 +51,9 @@
       <Filter>structs\messages</Filter>
     </ClCompile>
     <ClCompile Include="structs\messages\up_message.cpp">
+      <Filter>structs\messages</Filter>
+    </ClCompile>
+    <ClCompile Include="structs\messages\handshake.cpp">
       <Filter>structs\messages</Filter>
     </ClCompile>
   </ItemGroup>

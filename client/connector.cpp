@@ -1,6 +1,7 @@
 #define _ED_INTERNAL_CONNECTOR_NOCHECK_
 #include "connector.h"
 #include <ed/structs/messages/simple_messages.h>
+#include <ed/structs/messages/handshake.h>
 #include <boost/lexical_cast.hpp>
 #include <iostream>
 
@@ -32,20 +33,13 @@ void connector::Connect(string addr, int port)
     throw boost::system::system_error(error);
 
   {
-    ::messages::_int gift;
-    gift.event = ed::reserved::event::INSTANCE_UP;
-    gift.to.instance = ed::reserved::instance::BROADCAST;
-    gift.to.module = ed::reserved::module::HEART_BEAT;
-    gift.from.instance = ed::reserved::instance::BROADCAST;
-    gift.from.module = ed::reserved::module::HEART_BEAT;
-    gift.payload.num = ed::reserved::protocol_version;
-
+    ::messages::handshake gift;
     Send(gift);
   }
 
   {
-    ::messages::_int gift = WaitForMessage();
-    int server_protocol_version = gift.payload.num;
+    ::messages::handshake gift = WaitForMessage();
+    int server_protocol_version = gift.payload.version;
     if (server_protocol_version != ed::reserved::protocol_version)
       throw "Protocols should be equal. Sorry, im still in development.";
     global_instance_id = gift.to.instance;

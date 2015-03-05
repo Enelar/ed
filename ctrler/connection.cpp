@@ -30,7 +30,7 @@ void connection::ReceiveThread()
 {
   const auto first_part_size = message_header::raw_byte_size + 4;
   vector<byte> header;
-  header.reserve(first_part_size);
+  header.resize(first_part_size);
 
   auto PayloadSize = [&header]()
   {
@@ -73,7 +73,7 @@ void connection::ReceiveThread()
 
     raw_message sure;
     sure.Fill(message_header(&header[0]));
-    sure.payload.reserve(PayloadSize());
+    sure.payload.resize(PayloadSize());
     read(*raw->handler, boost::asio::buffer(sure.payload));
 
     raw->mutex_handler.unlock();

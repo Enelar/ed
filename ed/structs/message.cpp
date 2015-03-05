@@ -1,4 +1,5 @@
 #include "message.h"
+#include <algorithm>
 
 message_header::message_header()
 {
@@ -17,14 +18,16 @@ message_header::message_header(byte *arr)
 
 message_header::operator vector<byte>() const
 {
-  vector<byte> ret;
+  vector<int> ret;
   ret.push_back(event);
   ret.push_back(to.instance);
   ret.push_back(to.module);
   ret.push_back(from.instance);
   ret.push_back(from.module);
 
-  return ret;
+
+
+  return{ (char *)&ret[0], (char *)&ret[0] + ret.size() * 4 }; // i dont care. prototyping.
 }
 
 void message_header::Reverse()
@@ -59,7 +62,8 @@ raw_message::raw_message(byte *arr)
 raw_message::operator vector<byte>() const
 {
   vector<byte> ret = *(message_header *)this;
-  ret.push_back(payload.size());
+  auto size = payload.size();
+  ret.insert(ret.end(), (char *)&size, (char *)&size + 4);
 
   for (auto b : payload)
     ret.push_back(b);
