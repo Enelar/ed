@@ -8,6 +8,9 @@ ctrler::ctrler(boost::asio::io_service &_io, int port)
 {
   accept_future = async(&ctrler::AcceptThread, this, port);
   accept_future.wait_for(1ms);
+
+  message_future = async(&ctrler::MessageThread, this);
+  message_future.wait_for(1ms);
 }
 
 ctrler::~ctrler()
@@ -27,11 +30,11 @@ void ctrler::AcceptThread(int port)
       ready.unlock();
       return;
     }
-    mutex_connections.lock();
+
+    lock_guard<mutex> raii(mutex_connections);
     connection new_connection(socket.release());
     cout << "NEW CONNECTION" << free_connection_id << endl;
     connections.insert({ free_connection_id++, new_connection });
-    mutex_connections.unlock();
 
     ready.unlock();
   };
@@ -76,16 +79,18 @@ void ctrler::MessageThread()
     if (exit_flag)
       break;
 
-    mutex_connections.lock();
+    lock_guard<mutex> connection_guard(mutex_connections);
+    vector<int> to_remove;
     for (auto &customer : connections)
     {
       auto id = customer.first;
       auto &raw = customer.second.raw;
       auto &messages = raw->received;
 
-      raw->mutex_received.lock();
-      { // exception unsafe lock
+      try
+      {
         // i dont care of performance
+        lock_guard<mutex> raii(raw->mutex_received);
         while (messages.size())
         {
           auto gift = messages.front();
@@ -99,8 +104,17 @@ void ctrler::MessageThread()
             OnMessage(id, gift);
         }
       }
+      catch (...)
+      {
+        to_remove.push_back(id);
+#ifdef _DEBUG
+        throw; // rethrow, we in debug.
+#endif
+      }
     }
-    mutex_connections.unlock();
+
+    for (auto id : to_remove)
+      connections.erase(id);
   }
 }
 
