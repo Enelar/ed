@@ -44,6 +44,8 @@ void connector::Connect(string addr, int port)
       throw "Protocols should be equal. Sorry, im still in development.";
     global_instance_id = gift.to.instance;
   }
+
+  cout << "Handshake succeed! My id is " << global_instance_id << endl;
 }
 
 void connector::Send(raw_message gift)

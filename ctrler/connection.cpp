@@ -92,8 +92,10 @@ void raw_connection::ReceiveThread()
   }
 }
 
-void connection::Send(raw_message &)
+void connection::Send(raw_message &message)
 {
-  raw->mutex_send.lock();
-  raw->mutex_send.unlock();
+  auto lock_handler = raw->mutex_handler.Lock();
+  auto lock_send = raw->mutex_send.Lock();
+  vector<byte> buf = message;
+  raw->handler->send(boost::asio::buffer(buf));
 }

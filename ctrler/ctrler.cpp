@@ -74,6 +74,7 @@ void ctrler::MessageThread()
   while (!exit_flag)
   {
     this_thread::sleep_for(100ms);
+    message_io.run();
     if (exit_flag)
       break;
 
@@ -127,7 +128,11 @@ void ctrler::MessageThread()
 
 void ctrler::OnHandshake(int id, messages::handshake gift)
 {
-  Send(messages::handshake(), id);
+  {
+    messages::handshake graceful_answer;
+    graceful_answer.to.instance = id;
+    Send(graceful_answer, id);
+  }
 
   if (gift.payload.version != ed::reserved::protocol_version)
     throw "sad by we should kick you...";

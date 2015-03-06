@@ -22,7 +22,7 @@ struct raw_connection
     mutex_received,
     mutex_send;
 
-  list<raw_message> received;
+  list<raw_message> received, to_send;
   modules_container listeners;
 
   raw_connection(handlerT *a);
