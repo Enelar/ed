@@ -41,7 +41,7 @@ public:
 
 private:
   bool exit_flag = false;
-  semaphore mutex_connections;
+  semaphore_strict mutex_connections;
   future<void> accept_future, message_future;
   void AcceptThread(int port);
   void MessageThread();

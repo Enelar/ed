@@ -25,10 +25,6 @@ int func(vector<string> &args)
 
 int main(int argc, char *argv[])
 {
-  {
-    semaphore_strict test(true);
-  }
-
   vector<string> arguments;
   for (auto i = 0; i < argc; i++)
     arguments.push_back(argv[i]);

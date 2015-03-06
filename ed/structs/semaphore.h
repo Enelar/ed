@@ -43,6 +43,6 @@ public:
 class semaphore : public semaphore_strict
 {
 public:
-  semaphore(bool init = true);
+  semaphore(bool init = false);
   ~semaphore() override;
 };

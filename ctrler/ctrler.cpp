@@ -20,7 +20,7 @@ ctrler::~ctrler()
 
 void ctrler::AcceptThread(int port)
 {
-  semaphore ready;
+  semaphore_strict ready;
   unique_ptr<tcp::socket> socket;
 
   auto AcceptCallback = [&ready, this, &socket](const boost::system::error_code& error)
@@ -54,8 +54,6 @@ void ctrler::AcceptThread(int port)
     accept_socket.async_accept(*socket, AcceptCallback);
   }
   accept_socket.close();
-  ready.lock();
-  ready.unlock();
 }
 
 void ctrler::Send(raw_message gift)

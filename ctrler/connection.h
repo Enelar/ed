@@ -17,7 +17,7 @@ struct raw_connection
   bool
     disconnected = false,
     handshake_required = true;
-  semaphore
+  semaphore_strict
     mutex_handler,
     mutex_received,
     mutex_send;
