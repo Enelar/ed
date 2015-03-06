@@ -23,15 +23,15 @@ void dispatcher::Translate(raw_message &gift)
 
   messages::_int ret;
   ret.Fill(gift);
-  
+  ret.Reverse();
+
   ret.payload.num = id;
 
   ret.event =
     is_event_lookup
     ? ed::reserved::event::EVENT_GLOBAL_ID_REQUEST
     : ed::reserved::event::MODULE_GLOBAL_ID_REQUEST;
-  
-  ret.Reverse();
+
 
   target.Send(ret);
 }

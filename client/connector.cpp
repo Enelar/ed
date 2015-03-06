@@ -4,6 +4,7 @@
 #include <ed/structs/messages/handshake.h>
 #include <boost/lexical_cast.hpp>
 #include <iostream>
+#include <thread>
 
 connector::connector(boost::asio::io_service &_io)
   : io(_io), con(io)
@@ -66,10 +67,14 @@ raw_message connector::WaitForMessage()
     const int sizeof_payload_size = 4;
     const int to_read = message_header::raw_byte_size + 4;
     buf.resize(to_read); // size of payload
+    while (con.available() < to_read)
+      this_thread::sleep_for(10ms);
     boost::asio::read(con, boost::asio::buffer(buf, to_read));
     int payload_size = *(int *)(&buf[0] + message_header::raw_byte_size);
     if (payload_size > raw_message::max_message_size)
       throw "reading message is too big";
+    while (con.available() < payload_size)
+      this_thread::sleep_for(10ms);
     buf.reserve(buf.size() + payload_size);
     boost::asio::read(con, boost::asio::buffer(&buf[0] + to_read, payload_size));
   }

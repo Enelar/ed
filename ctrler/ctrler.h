@@ -20,7 +20,7 @@ class ctrler
 {
   library names;
 
-  int free_connection_id = ed::reserved::instance::FIRST_ALLOWED;
+  int free_connection_id;
   unordered_map<int, connection> connections;
   unordered_map<int, modules_container> exceptional_listen;
 

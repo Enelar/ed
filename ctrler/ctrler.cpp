@@ -6,6 +6,11 @@ using namespace boost::asio::ip;
 ctrler::ctrler(boost::asio::io_service &_io, int port)
   : core(*this), accept_io(_io), accept_socket(accept_io, tcp::endpoint(address::from_string("0.0.0.0"), port))
 {
+  names.events.next_free = ed::reserved::event::FIRST_ALLOWED;
+  names.modules.next_free = ed::reserved::module::FIRST_ALLOWED;
+  free_connection_id = ed::reserved::instance::FIRST_ALLOWED;
+
+
   accept_future = async(&ctrler::AcceptThread, this, port);
   accept_future.wait_for(1ms);
 
