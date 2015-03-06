@@ -20,7 +20,7 @@ ctrler::~ctrler()
 
 void ctrler::AcceptThread(int port)
 {
-  mutex ready;
+  semaphore ready;
   unique_ptr<tcp::socket> socket;
 
   auto AcceptCallback = [&ready, this, &socket](const boost::system::error_code& error)
@@ -31,7 +31,7 @@ void ctrler::AcceptThread(int port)
       return;
     }
 
-    lock_guard<mutex> raii(mutex_connections);
+    auto raii = mutex_connections.Lock();
     connection new_connection(socket.release());
     cout << "NEW CONNECTION" << free_connection_id << endl;
     connections.insert({ free_connection_id++, new_connection });
@@ -79,7 +79,7 @@ void ctrler::MessageThread()
     if (exit_flag)
       break;
 
-    lock_guard<mutex> connection_guard(mutex_connections);
+    auto connection_guard = mutex_connections.Lock();
     vector<int> to_remove;
     for (auto &customer : connections)
     {
@@ -90,7 +90,7 @@ void ctrler::MessageThread()
       try
       {
         // i dont care of performance
-        lock_guard<mutex> raii(raw->mutex_received);
+        auto raii = raw->mutex_received.Lock();
         while (messages.size())
         {
           auto gift = messages.front();

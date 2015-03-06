@@ -2,7 +2,7 @@
 
 #include <future>
 #include <memory>
-#include <mutex>
+#include <ed\structs\semaphore.h>
 #include <list>
 using namespace std;
 
@@ -17,7 +17,7 @@ struct raw_connection
   bool
     disconnected = false,
     handshake_required = true;
-  mutex
+  semaphore
     mutex_handler,
     mutex_received,
     mutex_send;

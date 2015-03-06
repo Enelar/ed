@@ -2,35 +2,34 @@
 #include <thread>
 using namespace std;
 
-semaphore::semaphore(bool strict) : is_strict(strict)
+semaphore_strict::semaphore_strict(bool init)
 {
-  TurnOn();
+  if (init)
+    TurnOn();
 }
 
-semaphore::~semaphore()
+semaphore_strict::~semaphore_strict()
 {
-  if (is_strict)
-    return;
-  Move();
-  TurnOff();
+  // Deadlock if semaphore is turned on. Wait.
+  Lock();
 }
 
-void semaphore::TurnOn()
+void semaphore_strict::TurnOn()
 {
   spinlock.test_and_set();
 }
 
-void semaphore::TurnOff()
+void semaphore_strict::TurnOff()
 {
   spinlock.clear();
 }
 
-bool semaphore::Move()
+bool semaphore_strict::Move()
 {
   return !spinlock.test_and_set();
 }
 
-bool semaphore::Status()
+bool semaphore_strict::Status()
 {
   auto ret = Move();
   if (ret)
@@ -38,10 +37,38 @@ bool semaphore::Status()
   return !ret;
 }
 
-auto semaphore::Lock()->lock_guard
+auto semaphore_strict::Lock()->lock_guard
 {
   while (spinlock.test_and_set())
     std::this_thread::sleep_for(10us);
 
   return{ *this };
+}
+
+void semaphore_strict::lock()
+{
+  return TurnOn();
+}
+
+void semaphore_strict::unlock()
+{
+  return TurnOff();
+}
+
+bool semaphore_strict::try_lock()
+{
+  return Move();
+}
+
+
+semaphore::semaphore(bool init)
+  : semaphore_strict(init)
+{
+
+}
+
+semaphore::~semaphore()
+{
+  Move();
+  TurnOff();
 }

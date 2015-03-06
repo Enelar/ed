@@ -21,8 +21,14 @@ int func(vector<string> &args)
   return 0;
 }
 
+#include <ed\structs\semaphore.h>
+
 int main(int argc, char *argv[])
 {
+  {
+    semaphore_strict test(true);
+  }
+
   vector<string> arguments;
   for (auto i = 0; i < argc; i++)
     arguments.push_back(argv[i]);

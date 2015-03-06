@@ -2,7 +2,7 @@
 
 #include <boost/asio.hpp>
 #include <future>
-#include <mutex>
+#include <ed\structs\semaphore.h>
 
 using namespace std;
 
@@ -23,7 +23,7 @@ class ctrler
   int free_connection_id = ed::reserved::instance::FIRST_ALLOWED;
   unordered_map<int, connection> connections;
   unordered_map<int, modules_container> exceptional_listen;
-           
+
   dispatcher core;
   friend class dispatcher;
 
@@ -41,7 +41,7 @@ public:
 
 private:
   bool exit_flag = false;
-  mutex mutex_connections;
+  semaphore mutex_connections;
   future<void> accept_future, message_future;
   void AcceptThread(int port);
   void MessageThread();
