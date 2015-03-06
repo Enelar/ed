@@ -32,8 +32,8 @@ message_header::operator vector<byte>() const
 
 void message_header::Reverse()
 {
-  swap(to.instance, to.instance);
-  swap(to.module, to.module);
+  swap(to.instance, from.instance);
+  swap(to.module, from.module);
 }
 
 void message_header::Fill(const message_header &that)

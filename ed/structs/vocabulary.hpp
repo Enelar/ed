@@ -9,7 +9,7 @@ auto vocabulary<T, K>::Add(T k) -> K
   if (it != _a.end())
     return it->second;
 
-  while (_b.find(next_free) == _b.end())
+  while (_b.find(next_free) != _b.end())
     next_free++;
 
   auto id = next_free++;
