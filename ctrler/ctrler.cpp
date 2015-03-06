@@ -4,7 +4,7 @@
 
 using namespace boost::asio::ip;
 ctrler::ctrler(boost::asio::io_service &_io, int port)
-  : core(*this), io(_io), accept_socket(io, tcp::endpoint(address::from_string("0.0.0.0"), port))
+  : core(*this), accept_io(_io), accept_socket(accept_io, tcp::endpoint(address::from_string("0.0.0.0"), port))
 {
   accept_future = async(&ctrler::AcceptThread, this, port);
   accept_future.wait_for(1ms);
@@ -50,7 +50,7 @@ void ctrler::AcceptThread(int port)
     if (socket)
       throw "weird stuff here";
 
-    socket = make_unique<tcp::socket>(io);
+    socket = make_unique<tcp::socket>(message_io);
     accept_socket.async_accept(*socket, AcceptCallback);
   }
   accept_socket.close();

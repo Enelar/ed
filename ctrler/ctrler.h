@@ -27,7 +27,9 @@ class ctrler
   dispatcher core;
   friend class dispatcher;
 
-  boost::asio::io_service &io;
+  boost::asio::io_service 
+    &accept_io, // async
+    message_io; // sync
   boost::asio::ip::tcp::acceptor accept_socket;
 public:
   ctrler(boost::asio::io_service &, int port);

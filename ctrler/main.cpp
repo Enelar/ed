@@ -11,12 +11,12 @@ int func(vector<string> &args)
   if (args.size() == 0)
     return -1;
   int port = 30000; // boost::lexical_cast<int>(args[1]);
-  boost::asio::io_service io;
-  ctrler a(io, port);
+  boost::asio::io_service accept_io;
+  ctrler a(accept_io, port);
   while (true) // debug
   {
     this_thread::sleep_for(1ms);
-    io.run();
+    accept_io.run();
   }
   return 0;
 }
