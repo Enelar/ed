@@ -97,10 +97,16 @@ void ctrler::MessageThread()
           {
             OnHandshake(id, gift);
             customer.second.raw->handshake_required = false;
+            cout << "HEY! " << id << " JUST HANDSHAKED!!" << endl;
           }
           else
             OnMessage(id, gift);
         }
+      }
+      catch (const char *debug_message)
+      {
+        cout << debug_message << endl;
+        to_remove.push_back(id);
       }
       catch (...)
       {
@@ -112,7 +118,10 @@ void ctrler::MessageThread()
     }
 
     for (auto id : to_remove)
+    {
       connections.erase(id);
+      cout << "FORCE DISCONNECT " << id << endl;
+    }
   }
 }
 

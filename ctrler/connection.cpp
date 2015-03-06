@@ -46,7 +46,8 @@ void raw_connection::ReceiveThread()
     if (header.size() < 4)
       throw "something wrong with header buffer";
     auto offset = header.size() - 4;
-    return *(int *)&header[0];
+    auto calculated_size = *(int *)&header[offset];
+    return calculated_size;
   };
 
   bool read_header_state = true;
@@ -71,12 +72,13 @@ void raw_connection::ReceiveThread()
       ready = handler->available();
     }
 
-    if (ready < PayloadSize())
+    auto required_payload_size = PayloadSize();
+    if (ready < required_payload_size)
       continue;
 
     raw_message sure;
     sure.Fill(message_header(&header[0]));
-    sure.payload.resize(PayloadSize());
+    sure.payload.resize(required_payload_size);
     read(*handler, boost::asio::buffer(sure.payload));
 
     read_header_state = true;
