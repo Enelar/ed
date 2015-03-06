@@ -22,6 +22,8 @@ namespace ed
       {
         BROADCAST = 0,
         HEART_BEAT = 1,
+        NAMES = 2,
+        LISTEN = 3,
         FIRST_ALLOWED = 16
       };
     }
@@ -40,7 +42,7 @@ namespace ed
         EVENT_NAME_LOOKUP = 7,
         MODULE_GLOBAL_ID_REQUEST = 8,
         EVENT_GLOBAL_ID_REQUEST = 9,
-        
+
         INSTANCE_DOWN = 11,
         MODULE_DOWN = 12,
 
