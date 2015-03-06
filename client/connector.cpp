@@ -88,8 +88,8 @@ int connector::RegisterName(bool is_event, string name)
   {
     ::messages::_string request;
     request.to.instance = ed::reserved::instance::CONTROLLER;
-    request.to.module = ed::reserved::module::BROADCAST;
-    request.from.module = ed::reserved::module::BROADCAST;
+    request.to.module = ed::reserved::module::NAMES;
+    request.from.module = ed::reserved::module::NAMES;
     if (is_event)
       request.event = ed::reserved::event::EVENT_NAME_LOOKUP;
     else
@@ -132,7 +132,7 @@ void connector::Listen(int event, int module, message_destination from)
   gift.from.module = module;
   gift.event = ed::reserved::event::LISTEN;
   gift.to.instance = ed::reserved::instance::CONTROLLER;
-  gift.to.module = ed::reserved::module::BROADCAST;
+  gift.to.module = ed::reserved::module::LISTEN;
 
   Send(gift);
 }
