@@ -10,6 +10,7 @@ boost::asio::io_service io;
 connector singletone_connector(io);
 
 #include "example_module.h"
+#include <thread>
 
 int func(vector<string> &args)
 {
@@ -22,6 +23,12 @@ int func(vector<string> &args)
 
   a.Subscribe();
   a.Emit();
+
+  while (_DEBUG)
+  {
+    io.run();
+    std::this_thread::sleep_for(10ms);
+  }
 
   return 0;
 }

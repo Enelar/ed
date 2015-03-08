@@ -50,6 +50,7 @@ void dispatcher::Listen(raw_message &gift)
     << message.payload.from.module
     << ")"
     << " to " << message.from.module;
+  cout << "\tOK";
 
     bool exceptional_fetch = message.payload.from.instance < ed::reserved::instance::FIRST_ALLOWED;
 
@@ -117,9 +118,10 @@ void dispatcher::TransmitHelper(modules_container &module_container, raw_message
 void dispatcher::Up(raw_message &gift)
 {
   if (gift.event == ed::reserved::event::MODULE_UP)
-    cout << "MODULE " << gift.from.module << " UP";
+    cout << "MODULE " << gift.from.module << " UP" << endl;
   if (gift.event == ed::reserved::event::MODULE_DOWN)
-    cout << "MODULE " << gift.from.module << " DOWN";
+    cout << "MODULE " << gift.from.module << " DOWN" << endl;
+  cout << "\tOK";
 
   Transmit(gift);
 }

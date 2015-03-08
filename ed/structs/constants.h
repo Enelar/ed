@@ -1,5 +1,7 @@
 #pragma once
 
+#include "../contants_debug_strings.h"
+
 namespace ed
 {
   namespace reserved

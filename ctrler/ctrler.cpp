@@ -155,14 +155,19 @@ void ctrler::OnMessage(int id, raw_message message)
 
   if (message.to.instance != ed::reserved::instance::CONTROLLER)
   { // Just proxy message
+    cout << id << ":E\t("
+      << ed::reserved::module::DebugStrings(names.modules)[message.from.module] << ":"
+      << ed::reserved::event::DebugStrings(names.events)[message.event] << ")" << endl;
     switch (message.to.instance)
     {
     case ed::reserved::instance::BROADCAST:
+      cout << "\tBROADCAST" << endl;
       core.Transmit(message);
       break;
     case ed::reserved::instance::MASTER:
       throw "TODO;";
     default:
+      cout << "\tOK" << endl;
       Send(message, message.to.instance);
     }
     return;
