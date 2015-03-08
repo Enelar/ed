@@ -17,7 +17,7 @@ struct holder
   template<typename K>
   auto operator[](K a) const
   {
-    if (!*this)
+    if (*this)
       return (*payload)[a];
     T tmp;
     return tmp[a];
@@ -26,7 +26,7 @@ struct holder
   template<typename K, typename C>
   auto &operator()(K a) const
   {
-    if (!*this)
+    if (*this)
       return (*payload)(a);
     T tmp;
     return t(a);

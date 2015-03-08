@@ -42,7 +42,7 @@ void module::Emit(int event, int module, int instance, vector<byte> payload)
 int module::RegisterEventName(string name, int local_id)
 {
   int global_id = singletone_connector.RegisterName(true, name);
-  if (local_id != ed::reserved::event::BROADCAST)
+  if (local_id != -1)
     events.Insert(local_id, global_id);
   return global_id;
 }
@@ -50,7 +50,7 @@ int module::RegisterEventName(string name, int local_id)
 int module::RegisterModuleName(string name, int local_id)
 {
   int global_id = singletone_connector.RegisterName(false, name);
-  if (local_id != ed::reserved::module::BROADCAST)
+  if (local_id != -1)
     modules.Insert(local_id, global_id);
   return global_id;
 }
@@ -69,7 +69,8 @@ string module::ModuleNameLookup(int local_id)
 
 void module::Listen(int event, int module, int instance)
 {
-  singletone_connector.Listen(event, global_module_id, { instance, module });
+  auto global_event_id = events.Local2Global(event);
+  singletone_connector.Listen(global_event_id, global_module_id, { instance, module });
 }
 
 void module::OnMessage(raw_message origin)

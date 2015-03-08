@@ -122,7 +122,7 @@ void connector::Listen(int event, int module, message_destination from)
       throw "WTF";
   }
   auto &set = it->second;
-  if (set.find(module) == set.end())
+  if (set.find(module) != set.end())
     return; // already registered
   set.insert(module);
 

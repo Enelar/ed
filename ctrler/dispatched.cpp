@@ -73,14 +73,15 @@ void dispatcher::Listen(raw_message &gift)
 void dispatcher::Transmit(raw_message &message)
 {
   bool exceptional_fetch = message.to.instance < ed::reserved::instance::FIRST_ALLOWED;
-  
+
   if (exceptional_fetch)
   {
     auto &exceptional_container = target.exceptional_listen[message.from.instance];
     TransmitHelper(exceptional_container, message);
+    return;
   }
-    
-  auto connection = target.connections.find(message.from.instance);
+
+  auto connection = target.connections.find(message.to.instance);
   if (connection == target.connections.end())
     throw "connection not found"; // WTF???
 
@@ -101,6 +102,10 @@ void dispatcher::TransmitHelper(modules_container &module_container, raw_message
   for (auto &listener_instance : listeners)
   {
     message.to.instance = listener_instance.first;
+#ifndef _DEBUG
+    if (message.to.instance == message.from.instance)
+      continue; // you cant emit to yourself through ctrler. do it localy.
+#endif
     for (auto listener_module : *listener_instance.second)
     {
       message.to.module = listener_module;
