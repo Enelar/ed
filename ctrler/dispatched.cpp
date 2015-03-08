@@ -1,6 +1,7 @@
 #include "dispatcher.h"
 #include "ctrler.h"
 #include <ed\structs\messages\simple_messages.h>
+#include <iostream>
 
 dispatcher::dispatcher(ctrler &that)
   : target(that)
@@ -18,7 +19,8 @@ void dispatcher::Translate(raw_message &gift)
     is_event_lookup
     ? target.names.events
     : target.names.modules;
-  
+
+  cout << "translate " << is_event_lookup << " " << message.payload.str << endl;
   auto id = book.Add(message.payload.str);
 
   messages::_int ret;
@@ -32,7 +34,7 @@ void dispatcher::Translate(raw_message &gift)
     ? ed::reserved::event::EVENT_GLOBAL_ID_REQUEST
     : ed::reserved::event::MODULE_GLOBAL_ID_REQUEST;
 
-
+  cout << "\tANSWER: " << id;
   target.Send(ret);
 }
 
@@ -41,8 +43,16 @@ void dispatcher::Listen(raw_message &gift)
 {
   messages::listen message = gift;
 
-  bool exceptional_fetch = message.payload.from.instance < ed::reserved::instance::FIRST_ALLOWED;
-  
+  cout << "listen: " 
+    << message.payload.what << " from "
+    << "("
+    << message.payload.from.instance << ", "
+    << message.payload.from.module
+    << ")"
+    << " to " << message.from.module;
+
+    bool exceptional_fetch = message.payload.from.instance < ed::reserved::instance::FIRST_ALLOWED;
+
   if (exceptional_fetch && message.payload.from.instance != ed::reserved::instance::BROADCAST)
     throw "todo other";
 
@@ -101,5 +111,10 @@ void dispatcher::TransmitHelper(modules_container &module_container, raw_message
 
 void dispatcher::Up(raw_message &gift)
 {
+  if (gift.event == ed::reserved::event::MODULE_UP)
+    cout << "MODULE " << gift.from.module << " UP";
+  if (gift.event == ed::reserved::event::MODULE_DOWN)
+    cout << "MODULE " << gift.from.module << " DOWN";
+
   Transmit(gift);
 }

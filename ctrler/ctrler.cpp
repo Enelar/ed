@@ -114,8 +114,14 @@ void ctrler::MessageThread()
         cout << debug_message << endl;
         to_remove.push_back(id);
       }
+      catch (const boost::system::system_error &e)
+      {
+        cout << "boost: " << e.what() << endl;
+        to_remove.push_back(id);
+      }
       catch (...)
       {
+        cout << "UNDEFINED EXCEPTION!" << endl;
         to_remove.push_back(id);
 #ifdef _DEBUG
         throw; // rethrow, we in debug.
@@ -163,6 +169,7 @@ void ctrler::OnMessage(int id, raw_message message)
     return;
   }
 
+  cout << id << ":\t";
   // Additional action required
   switch (message.event)
   {
