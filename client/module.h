@@ -21,8 +21,8 @@ public:
   void Emit(ed::translator_hook_event event, ed::translator_hook_module module, vector<byte> payload = {});
   void Emit(ed::translator_hook_event event, ed::translator_hook_module module, ed::translator_hook_instance instance, vector<byte> payload = {});
 
-  int RegisterEventName(string name, int local_id = -1);
-  int RegisterModuleName(string name, int local_id = -1);
+  int RegisterEventName(string name, int local_id);
+  int RegisterModuleName(string name, int local_id);
 
   message_destination MyLocation() const;
 

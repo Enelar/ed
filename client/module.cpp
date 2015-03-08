@@ -44,17 +44,21 @@ void module::Emit(ed::translator_hook_event event, ed::translator_hook_module mo
 
 int module::RegisterEventName(string name, int local_id)
 {
+  if (local_id < ed::reserved::event::FIRST_ALLOWED)
+    throw "local_id should equal or bigger than FIRST_ALLOWED. otherwise its ambigious";
+
   int global_id = singletone_connector.RegisterName(true, name);
-  if (local_id != -1)
-    events.Insert(local_id, global_id);
+  events.Insert(local_id, global_id);
   return global_id;
 }
 
 int module::RegisterModuleName(string name, int local_id)
 {
+  if (local_id < ed::reserved::module::FIRST_ALLOWED)
+    throw "local_id should equal or bigger than FIRST_ALLOWED. otherwise its ambigious";
+
   int global_id = singletone_connector.RegisterName(false, name);
-  if (local_id != -1)
-    modules.Insert(local_id, global_id);
+  modules.Insert(local_id, global_id);
   return global_id;
 }
 
