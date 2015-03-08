@@ -33,8 +33,8 @@ void module::Emit(int event, int module, int instance, vector<byte> payload)
 {
   raw_message gift;
   gift.to.instance = instance;
-  gift.to.module = module;
-  gift.event = event;
+  gift.to.module = modules.Local2Global(module);
+  gift.event = events.Local2Global(event);
   gift.payload = payload;
   Emit(gift);
 }
@@ -95,4 +95,13 @@ void module::OnMessage(raw_message origin)
   }
   
   (*handler)(origin);
+}
+
+message_destination module::MyLocation() const
+{
+  return
+  {
+    singletone_connector.global_instance_id,
+    global_module_id
+  };
 }
