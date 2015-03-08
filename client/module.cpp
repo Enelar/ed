@@ -68,9 +68,8 @@ string module::ModuleNameLookup(int local_id)
 }
 
 void module::Listen(int event, int module, int instance)
-{
-  auto global_event_id = events.Local2Global(event);
-  singletone_connector.Listen(global_event_id, global_module_id, { instance, module });
+{ // Everything already global, no need to use names
+  singletone_connector.Listen(event, global_module_id, { instance, module });
 }
 
 void module::OnMessage(raw_message origin)

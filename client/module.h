@@ -30,23 +30,32 @@ public:
 
   // Step One: Translate local module ID to global
   template<typename T, typename MODULE, typename eventT = int>
-  void Listen(void (MODULE::*)(T), eventT event,
-    int module, int instance = ed::reserved::instance::BROADCAST);
+  void Listen(
+      void (MODULE::*)(T),
+      eventT event,
+      int local_module_id,
+      int instance = ed::reserved::instance::BROADCAST);
 
   // Step Two: Translate local event ID to global
   template<typename T, typename MODULE>
-  void Listen(void (MODULE::*)(T), int event, 
-    ed::reserved::module::MODULE module = ed::reserved::module::BROADCAST, int instance = ed::reserved::instance::BROADCAST);
+  void Listen(
+      void (MODULE::*)(T),
+      int local_event_id,
+      ed::reserved::module::MODULE module = ed::reserved::module::BROADCAST,
+      int instance = ed::reserved::instance::BROADCAST);
 
-  // Step Three: Store and tell connector
+  // Step Three: Adapt and store
   template<typename T, typename MODULE>
-  void Listen(void (MODULE::*)(T), ed::reserved::event::EVENT event, ed::reserved::module::MODULE module, int instance = ed::reserved::instance::BROADCAST);
-
-
+  void Listen(
+      void (MODULE::*)(T),
+      ed::reserved::event::EVENT event,
+      ed::reserved::module::MODULE module = ed::reserved::module::BROADCAST,
+      int instance = ed::reserved::instance::BROADCAST);
 
 
   void OnMessage(raw_message);
 private:
+  // Step Four: Tell connector and ctrler
   void Listen(int event, int module, int intance);
   typedef shared_ptr<base_handle_adapter> handler_stored;
   vocabulary<int, handler_stored> callbacks;

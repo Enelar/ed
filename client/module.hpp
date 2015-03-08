@@ -4,31 +4,33 @@
 
 // Step One: Translate local module ID to global
 template<typename T, typename MODULE, typename eventT>
-void module::Listen(void (MODULE::*cb)(T), eventT event, int module, int instance)
+void module::Listen(void (MODULE::*cb)(T), eventT event, int local_module_id, int instance)
 {
-  module = modules.Local2Global(module);
-  Listen(cb, event, (ed::reserved::module::MODULE)module, instance);
+  const auto module = (ed::reserved::module::MODULE) modules.Local2Global(local_module_id);
+  Listen(cb, event, module, instance);
 }
 
 // Step Two: Translate local event ID to global
 template<typename T, typename MODULE>
 void module::Listen(void (MODULE::*cb)(T), 
-   int event, 
+   int local_event_id, 
    ed::reserved::module::MODULE module, int instance)
 {
-  event = events.Local2Global(event);
-  Listen(cb, (ed::reserved::event::EVENT)event, module, instance);
+  const auto event = (ed::reserved::event::EVENT)events.Local2Global(local_event_id);
+  Listen(cb, event, module, instance);
 }
 
 // Step Three: Store and tell connector
 template<typename T, typename MODULE>
 void module::Listen(void (MODULE::*cb)(T),
   ed::reserved::event::EVENT event,
-  ed::reserved::module::MODULE module, int instance)
+  ed::reserved::module::MODULE module,
+  int instance)
 {
   typedef handle_adapter<MODULE, T> my_adapter;
 
   shared_ptr<my_adapter> adapter = make_shared<my_adapter>((MODULE &)*this, cb);
   callbacks.Insert(adapter, event);
+
   Listen(event, module, instance);
 }
