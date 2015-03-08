@@ -4,7 +4,7 @@
 
 module::module(string module_name)
 {
-  global_module_id = RegisterModuleName(module_name);
+  global_module_id = RegisterModuleName(module_name, ed::reserved::module::ME);
   singletone_connector.RegisterModule(global_module_id, this);
 }
 
@@ -55,7 +55,8 @@ int module::RegisterEventName(string name, int local_id)
 int module::RegisterModuleName(string name, int local_id)
 {
   if (local_id < ed::reserved::module::FIRST_ALLOWED)
-    throw "local_id should equal or bigger than FIRST_ALLOWED. otherwise its ambigious";
+    if (local_id != ed::reserved::module::ME) // exception
+      throw "local_id should equal or bigger than FIRST_ALLOWED. otherwise its ambigious";
 
   int global_id = singletone_connector.RegisterName(false, name);
   modules.Insert(local_id, global_id);
@@ -85,7 +86,14 @@ void module::OnMessage(raw_message origin)
     if (origin.to.module != global_module_id)
       throw "wow. some connector issue";
     else
-      origin.to.module = modules.Global2Local(origin.to.module);
+      try
+      {
+        origin.to.module = modules.Global2Local(origin.to.module);
+      }
+      catch (dictonary::unknown &)
+      {
+        origin.to.module = ed::reserved::module::ME;
+      }
 
   if (origin.event >= ed::reserved::event::FIRST_ALLOWED)
     origin.event = events.Global2Local(origin.event);

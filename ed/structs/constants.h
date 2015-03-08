@@ -26,6 +26,7 @@ namespace ed
         HEART_BEAT = 1,
         NAMES = 2,
         LISTEN = 3,
+        ME = 4, 
         FIRST_ALLOWED = 16
       };
     }

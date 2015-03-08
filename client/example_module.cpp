@@ -4,7 +4,7 @@
 
 enum EVENTS
 {
-  EVENT_AAA,
+  EVENT_AAA = ed::reserved::event::FIRST_ALLOWED,
   EVENT_BBB
 };
 

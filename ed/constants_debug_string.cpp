@@ -29,6 +29,7 @@ namespace
         _strings.insert(ENUM_TO_PAIR(BROADCAST));
         _strings.insert(ENUM_TO_PAIR(HEART_BEAT));
         _strings.insert(ENUM_TO_PAIR(NAMES));
+        _strings.insert(ENUM_TO_PAIR(ME));
         _strings.insert(ENUM_TO_PAIR(LISTEN));
       }
 
