@@ -1,5 +1,6 @@
 #pragma once
 #include "structs\constants.h"
+#include "structs\dictonary.h"
 
 namespace ed
 {
@@ -27,6 +28,24 @@ namespace ed
 
     operator int &()
     {
+      return local_id;
+    }
+
+    T ToGlobal(vocabulary<int, int>  &d)
+    {
+      if (!is_local)
+        return global_id;
+      global_id = (T)d.Local2Global(local_id);
+      is_local = false;
+      return global_id;
+    }
+
+    int ToLocal(vocabulary<int, int> &d)
+    {
+      if (is_local)
+        return local_id;
+      local_id = d.Global2Local(global_id);
+      is_local = true;
       return local_id;
     }
   };

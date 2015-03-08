@@ -32,7 +32,7 @@ void example_module::Subscribe()
 
 void example_module::Emit()
 {
-  module::Emit(EVENT_AAA, MyLocation().module);
+  module::Emit(EVENT_AAA, (ed::reserved::module::MODULE)MyLocation().module);
 }
 
 void example_module::ExampleHandler(raw_message rm)

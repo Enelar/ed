@@ -19,22 +19,25 @@ void module::Emit(raw_message gift)
   singletone_connector.Send(gift);
 }
 
-void module::Emit(int event, vector<byte> payload)
+void module::Emit(ed::translator_hook_event event, vector<byte> payload)
 {
   Emit(event, ed::reserved::module::BROADCAST, payload);
 }
 
-void module::Emit(int event, int module, vector<byte> payload)
+void module::Emit(ed::translator_hook_event event, ed::translator_hook_module module, vector<byte> payload)
 {
   Emit(event, module, ed::reserved::instance::BROADCAST, payload);
 }
 
-void module::Emit(int event, int module, int instance, vector<byte> payload)
+void module::Emit(ed::translator_hook_event event, ed::translator_hook_module module, ed::translator_hook_instance instance, vector<byte> payload)
 {
+  event.ToGlobal(events);
+  module.ToGlobal(modules);
+
   raw_message gift;
   gift.to.instance = instance;
-  gift.to.module = modules.Local2Global(module);
-  gift.event = events.Local2Global(event);
+  gift.to.module = module;
+  gift.event = event;
   gift.payload = payload;
   Emit(gift);
 }

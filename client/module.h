@@ -17,9 +17,9 @@ public:
   virtual ~module();
 
   void Emit(raw_message);
-  void Emit(int event, vector<byte> payload = {});
-  void Emit(int event, int module, vector<byte> payload = {});
-  void Emit(int event, int module, int instance, vector<byte> payload = {});
+  void Emit(ed::translator_hook_event event, vector<byte> payload = {});
+  void Emit(ed::translator_hook_event event, ed::translator_hook_module module, vector<byte> payload = {});
+  void Emit(ed::translator_hook_event event, ed::translator_hook_module module, ed::translator_hook_instance instance, vector<byte> payload = {});
 
   int RegisterEventName(string name, int local_id = -1);
   int RegisterModuleName(string name, int local_id = -1);

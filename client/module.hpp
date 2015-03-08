@@ -9,17 +9,8 @@ void module::Listen(void (MODULE::*cb)(T),
   ed::translator_hook_module module,
   ed::translator_hook_instance instance)
 {
-  if (event.is_local)
-  {
-    event = events.Local2Global(event.local_id);
-    event.is_local = false;
-  }
-
-  if (module.is_local)
-  {
-    module = modules.Local2Global(event.local_id);
-    module.is_local = false;
-  }
+  event.ToGlobal(events);
+  module.ToGlobal(modules);
 
   typedef handle_adapter<MODULE, T> my_adapter;
 
