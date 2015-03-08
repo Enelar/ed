@@ -38,7 +38,7 @@ void ctrler::AcceptThread(int port)
 
     auto raii = mutex_connections.Lock();
     connection new_connection(socket.release());
-    cout << "NEW CONNECTION" << free_connection_id << endl;
+    cout << "NEW CONNECTION: " << free_connection_id << endl;
     connections.insert({ free_connection_id++, new_connection });
 
     ready.unlock();

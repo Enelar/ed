@@ -17,7 +17,7 @@ string event_names[] =
 int module_id = -1;
 
 example_module::example_module()
-  : module("MODULE")
+  : module("TEST_MODULE")
 {
 
 }

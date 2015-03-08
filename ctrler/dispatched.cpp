@@ -20,7 +20,9 @@ void dispatcher::Translate(raw_message &gift)
     ? target.names.events
     : target.names.modules;
 
-  cout << "translate " << is_event_lookup << " " << message.payload.str << endl;
+  cout << "translate " 
+    << (is_event_lookup ? "event" : "module")
+    << " " << message.payload.str << endl;
   auto id = book.Add(message.payload.str);
 
   messages::_int ret;
@@ -39,17 +41,27 @@ void dispatcher::Translate(raw_message &gift)
 }
 
 #include <ed\structs\messages\listen_message.h>
+#include <boost/lexical_cast.hpp>
 void dispatcher::Listen(raw_message &gift)
 {
-  messages::listen message = gift;
+  ::messages::listen message = gift;
 
-  cout << "listen: " 
-    << message.payload.what << " from "
-    << "("
-    << message.payload.from.instance << ", "
-    << message.payload.from.module
-    << ")"
-    << " to " << message.from.module;
+  string instance;
+  {
+    using namespace ed::reserved::instance;
+    auto it = _strings.find(message.payload.from.instance);
+    if (it != _strings.end())
+      instance = it->second;
+    else
+      instance == boost::lexical_cast<string>(message.payload.from.instance);
+  }
+
+  cout << "listen: "
+    << ed::reserved::event::DebugStrings(target.names.events)[message.payload.what] << " from "
+    << instance << "->"
+    << ed::reserved::event::DebugStrings(target.names.modules)[message.payload.from.module]
+    << " to " << ed::reserved::event::DebugStrings(target.names.modules)[message.from.module]
+    << endl;
   cout << "\tOK";
 
     bool exceptional_fetch = message.payload.from.instance < ed::reserved::instance::FIRST_ALLOWED;
@@ -118,9 +130,9 @@ void dispatcher::TransmitHelper(modules_container &module_container, raw_message
 void dispatcher::Up(raw_message &gift)
 {
   if (gift.event == ed::reserved::event::MODULE_UP)
-    cout << "MODULE " << gift.from.module << " UP" << endl;
+    cout << ed::reserved::module::DebugStrings(target.names.modules)[gift.from.module] << " UP" << endl;
   if (gift.event == ed::reserved::event::MODULE_DOWN)
-    cout << "MODULE " << gift.from.module << " DOWN" << endl;
+    cout << ed::reserved::module::DebugStrings(target.names.modules)[gift.from.module] << " DOWN" << endl;
   cout << "\tOK";
 
   Transmit(gift);
