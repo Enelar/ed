@@ -60,10 +60,11 @@ void connector::Send(raw_message gift)
 
 raw_message connector::WaitForMessage()
 {
-  vector<byte> buf;
-
   cout << "Wait for message..." << endl;
+
+  while (true)
   {
+    vector<byte> buf;
     const int sizeof_payload_size = 4;
     const int to_read = message_header::raw_byte_size + 4;
     buf.resize(to_read); // size of payload
@@ -77,10 +78,16 @@ raw_message connector::WaitForMessage()
       this_thread::sleep_for(10ms);
     buf.reserve(buf.size() + payload_size);
     boost::asio::read(con, boost::asio::buffer(&buf[0] + to_read, payload_size));
-  }
-  cout << "Get message..." << endl;
 
-  return{ &buf[0] };
+    raw_message ret = &buf[0];
+    if (OnMessage(ret))
+      continue;
+
+    cout << "Get message..." << endl;
+    return ret;
+  };
+  
+
 }
 
 int connector::RegisterName(bool is_event, string name)
@@ -135,4 +142,46 @@ void connector::Listen(int event, int module, message_destination from)
   gift.to.module = ed::reserved::module::LISTEN;
 
   Send(gift);
+}
+
+#include "module.h"
+bool connector::OnMessage(raw_message gift)
+{
+  if (gift.event < ed::reserved::event::FIRST_ALLOWED)
+    return false; // We cant handle system event yet.
+
+  auto event_listeners_container = listeners.find(gift.event);
+  if (event_listeners_container == listeners.end())
+  {
+    cout << "We get event " 
+      << ed::reserved::event::DebugStrings(names.events)[gift.event]
+      << "but nobody listen to it" << endl;
+    return false;
+  }
+
+
+  cout << ed::reserved::event::DebugStrings(names.events)[gift.event]
+    << ":\t" << endl;
+  for (auto module_id : event_listeners_container->second)
+  {
+    cout << "NOTIFY " << module_id << " ";
+    auto module_ref = modules.find(module_id);
+    if (module_ref == modules.end())
+    {
+      cout << "FATAL: UNREGISTERED" << endl;
+      continue;
+    }
+
+    auto *object = module_ref->second;
+    if (object == nullptr)
+    {
+      cout << "FATAL: NULLPTR" << endl;
+      continue;
+    }
+
+    cout << "OK" << endl;
+    object->OnMessage(gift);
+  }
+
+  return true;
 }

@@ -33,6 +33,8 @@ public:
     int handle_module,
     message_destination from = { ed::reserved::instance::BROADCAST, ed::reserved::module::BROADCAST });
 
+  bool OnMessage(raw_message);
+
 private:
   // event -> sorted vector of modules
   unordered_map<int, boost::container::flat_set<int>> listeners;

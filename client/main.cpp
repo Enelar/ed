@@ -11,6 +11,7 @@ connector singletone_connector(io);
 
 #include "example_module.h"
 #include <thread>
+#include <iostream>
 
 int func(vector<string> &args)
 {
@@ -24,10 +25,10 @@ int func(vector<string> &args)
   a.Subscribe();
   a.Emit();
 
-  while (_DEBUG)
+  while (true)
   {
-    io.run();
-    std::this_thread::sleep_for(10ms);
+    auto gift = singletone_connector.WaitForMessage();
+    std::cout << "We get gift too!!" << std::endl;
   }
 
   return 0;

@@ -37,36 +37,39 @@ struct holder
     return *payload;
   }
 };
-template<typename K
-, typename T>
+
+template<typename K, typename T>
 struct container
 {
   typedef holder<T> my_holder;
   unordered_map<K, my_holder> storage;
+  my_holder fictive;
 
-  auto operator[](K a) const
+  const auto &operator[](K a) const
   {
     auto &it = storage.find(a);
     if (it != storage.end())
       return it->second;
-    return holder<T>();
+    return fictive;
   }
 
-  auto operator()(K a)
+  auto &operator()(K a)
   {
     auto &holder = storage[a];
     auto &holdee = holder.payload;
-    holdee = make_shared<T>();
+
+    if (!holdee)
+      holdee = make_shared<T>();
 
     return *holdee;
   }
 
-  auto &begin() const
+  auto begin() const
   {
     return storage.begin();
   }
 
-  auto &end() const
+  auto end() const
   {
     return storage.end();
   }

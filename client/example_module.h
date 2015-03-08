@@ -10,6 +10,4 @@ struct example_module : protected module
   void Emit();
 
   void ExampleHandler(raw_message);
-
-
 };

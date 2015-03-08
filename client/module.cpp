@@ -82,7 +82,7 @@ void module::OnMessage(raw_message origin)
       throw "wow. some connector issue";
     else
       origin.to.module = modules.Global2Local(origin.to.module);
-  
+
   if (origin.event >= ed::reserved::event::FIRST_ALLOWED)
     origin.event = events.Global2Local(origin.event);
 

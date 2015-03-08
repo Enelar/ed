@@ -64,7 +64,7 @@ void dispatcher::Listen(raw_message &gift)
     << endl;
   cout << "\tOK";
 
-    bool exceptional_fetch = message.payload.from.instance < ed::reserved::instance::FIRST_ALLOWED;
+  bool exceptional_fetch = message.payload.from.instance < ed::reserved::instance::FIRST_ALLOWED;
 
   if (exceptional_fetch && message.payload.from.instance != ed::reserved::instance::BROADCAST)
     throw "todo other";
@@ -89,7 +89,8 @@ void dispatcher::Transmit(raw_message &message)
 
   if (exceptional_fetch)
   {
-    auto &exceptional_container = target.exceptional_listen[message.from.instance];
+    auto &exceptional_container = target.exceptional_listen[message.to.instance];
+    TransmitHelper(exceptional_container, message, true);
     TransmitHelper(exceptional_container, message);
     return;
   }
@@ -99,20 +100,21 @@ void dispatcher::Transmit(raw_message &message)
     throw "connection not found"; // WTF???
 
   auto &module_container = connection->second.raw->listeners;
+  TransmitHelper(module_container, message, true);
   TransmitHelper(module_container, message);
 }
 
-void dispatcher::TransmitHelper(modules_container &module_container, raw_message &message)
+void dispatcher::TransmitHelper(modules_container &module_container, raw_message &message, bool broadcast)
 {
   auto &modules_holder = module_container;
-  auto &events_holder = modules_holder[message.from.module];
+  auto &events_holder = modules_holder[!broadcast ? message.from.module : ed::reserved::module::BROADCAST];
   auto &listeners_holder = events_holder[message.event];
   if (!listeners_holder)
     return;
 
 
   auto &listeners = *listeners_holder;
-  for (auto &listener_instance : listeners)
+  for (auto listener_instance : listeners)
   {
     message.to.instance = listener_instance.first;
 #ifndef _DEBUG

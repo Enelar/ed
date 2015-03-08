@@ -15,5 +15,5 @@ public:
   void Listen(raw_message &);
   void Up(raw_message &);
   void Transmit(raw_message &);
-  void TransmitHelper(modules_container &, raw_message &);
+  void TransmitHelper(modules_container &, raw_message &, bool broadcast = false);
 };
