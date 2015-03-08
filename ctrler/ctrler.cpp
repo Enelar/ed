@@ -158,8 +158,7 @@ void ctrler::OnMessage(int id, raw_message message)
     switch (message.to.instance)
     {
     case ed::reserved::instance::BROADCAST:
-      for (auto &customer : connections)
-        Send(message, customer.first);
+      core.Transmit(message);
       break;
     case ed::reserved::instance::MASTER:
       throw "TODO;";
@@ -185,4 +184,5 @@ void ctrler::OnMessage(int id, raw_message message)
     core.Up(message);
     break;
   }
+  cout << endl;
 }

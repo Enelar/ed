@@ -44,6 +44,8 @@ string_message::operator vector<byte>()
 
 int_message::int_message(raw_message &that)
 {
+  if (that.payload.size() < 4)
+    throw "int payload should be at least 4 bytes long";
   auto *buf = &that.payload[0];
   num = *(int *)buf;
 }

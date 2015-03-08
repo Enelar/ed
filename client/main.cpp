@@ -19,7 +19,10 @@ int func(vector<string> &args)
 
   singletone_connector.Connect("localhost", port);
   example_module a;
-  
+
+  a.Subscribe();
+  a.Emit();
+
   return 0;
 }
 

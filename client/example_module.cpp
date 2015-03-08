@@ -1,5 +1,6 @@
 #include "example_module.h"
 #include <ed/structs/messages/simple_messages.h>
+#include <iostream>
 
 enum EVENTS
 {
@@ -29,7 +30,12 @@ void example_module::Subscribe()
   Listen(&example_module::ExampleHandler, EVENT_AAA);
 }
 
-void example_module::ExampleHandler(raw_message)
+void example_module::Emit()
 {
+  module::Emit(EVENT_AAA);
+}
 
+void example_module::ExampleHandler(raw_message rm)
+{
+  std::cout << "Message appeared" << rm.event;
 }

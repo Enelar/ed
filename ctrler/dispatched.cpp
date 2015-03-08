@@ -72,7 +72,7 @@ void dispatcher::Listen(raw_message &gift)
 
 void dispatcher::Transmit(raw_message &message)
 {
-  bool exceptional_fetch = message.from.instance < ed::reserved::instance::FIRST_ALLOWED;
+  bool exceptional_fetch = message.to.instance < ed::reserved::instance::FIRST_ALLOWED;
   
   if (exceptional_fetch)
   {

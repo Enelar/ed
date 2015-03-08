@@ -65,7 +65,7 @@ void raw_connection::ReceiveThread()
       if (ready < first_part_size)
         continue; // we ignore not complete messages
 
-      cout << "Get message header!!!" << endl;
+      //cout << "Get message header!!!" << endl;
 
       read(*handler, boost::asio::buffer(header, first_part_size));
       read_header_state = false;
@@ -83,7 +83,7 @@ void raw_connection::ReceiveThread()
 
     read_header_state = true;
 
-    cout << "Get full message!!! " << sure.event << endl;
+    //cout << "Get full message!!! " << sure.event << endl;
 
     {
       auto raiilock = mutex_received.Lock();
