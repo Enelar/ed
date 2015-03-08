@@ -2,6 +2,7 @@
 
 #include <ed/structs/message.h>
 #include <ed/structs/vocabulary.h>
+#include <ed/translation_hook.h>
 #include "handle_adapter.h"
 #include <memory>
 
@@ -28,29 +29,12 @@ public:
   string EventNameLookup(int local_id);
   string ModuleNameLookup(int local_id);
 
-  // Step One: Translate local module ID to global
-  template<typename T, typename MODULE, typename eventT = int>
-  void Listen(
-      void (MODULE::*)(T),
-      eventT event,
-      int local_module_id,
-      int instance = ed::reserved::instance::BROADCAST);
-
-  // Step Two: Translate local event ID to global
   template<typename T, typename MODULE>
   void Listen(
       void (MODULE::*)(T),
-      int local_event_id,
-      ed::reserved::module::MODULE module = ed::reserved::module::BROADCAST,
-      int instance = ed::reserved::instance::BROADCAST);
-
-  // Step Three: Adapt and store
-  template<typename T, typename MODULE>
-  void Listen(
-      void (MODULE::*)(T),
-      ed::reserved::event::EVENT event,
-      ed::reserved::module::MODULE module = ed::reserved::module::BROADCAST,
-      int instance = ed::reserved::instance::BROADCAST);
+      ed::translator_hook_event event,
+      ed::translator_hook_module module = ed::reserved::module::BROADCAST,
+      ed::translator_hook_instance instance = ed::reserved::instance::BROADCAST);
 
 
   void OnMessage(raw_message);

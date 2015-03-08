@@ -23,6 +23,7 @@
     <ClInclude Include="structs\semaphore.h" />
     <ClInclude Include="structs\vocabulary.h" />
     <ClInclude Include="structs\vocabulary.hpp" />
+    <ClInclude Include="translation_hook.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="constants_debug_string.cpp" />
