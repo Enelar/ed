@@ -4,7 +4,7 @@
 
 module::module(string module_name)
 {
-  global_module_id = RegisterModuleName(module_name);
+  global_module_id = RegisterModuleName(module_name, ed::reserved::module::ME);
   singletone_connector.RegisterModule(global_module_id, this);
 }
 
@@ -19,18 +19,21 @@ void module::Emit(raw_message gift)
   singletone_connector.Send(gift);
 }
 
-void module::Emit(int event, vector<byte> payload)
+void module::Emit(ed::translator_hook_event event, vector<byte> payload)
 {
   Emit(event, ed::reserved::module::BROADCAST, payload);
 }
 
-void module::Emit(int event, int module, vector<byte> payload)
+void module::Emit(ed::translator_hook_event event, ed::translator_hook_module module, vector<byte> payload)
 {
   Emit(event, module, ed::reserved::instance::BROADCAST, payload);
 }
 
-void module::Emit(int event, int module, int instance, vector<byte> payload)
+void module::Emit(ed::translator_hook_event event, ed::translator_hook_module module, ed::translator_hook_instance instance, vector<byte> payload)
 {
+  event.ToGlobal(events);
+  module.ToGlobal(modules);
+
   raw_message gift;
   gift.to.instance = instance;
   gift.to.module = module;
@@ -41,6 +44,9 @@ void module::Emit(int event, int module, int instance, vector<byte> payload)
 
 int module::RegisterEventName(string name, int local_id)
 {
+  if (local_id < ed::reserved::event::FIRST_ALLOWED)
+    throw "local_id should equal or bigger than FIRST_ALLOWED. otherwise its ambigious";
+
   int global_id = singletone_connector.RegisterName(true, name);
   events.Insert(local_id, global_id);
   return global_id;
@@ -48,6 +54,10 @@ int module::RegisterEventName(string name, int local_id)
 
 int module::RegisterModuleName(string name, int local_id)
 {
+  if (local_id < ed::reserved::module::FIRST_ALLOWED)
+    if (local_id != ed::reserved::module::ME) // exception
+      throw "local_id should equal or bigger than FIRST_ALLOWED. otherwise its ambigious";
+
   int global_id = singletone_connector.RegisterName(false, name);
   modules.Insert(local_id, global_id);
   return global_id;
@@ -66,7 +76,7 @@ string module::ModuleNameLookup(int local_id)
 }
 
 void module::Listen(int event, int module, int instance)
-{
+{ // Everything already global, no need to use names
   singletone_connector.Listen(event, global_module_id, { instance, module });
 }
 
@@ -76,8 +86,15 @@ void module::OnMessage(raw_message origin)
     if (origin.to.module != global_module_id)
       throw "wow. some connector issue";
     else
-      origin.to.module = modules.Global2Local(origin.to.module);
-  
+      try
+      {
+        origin.to.module = modules.Global2Local(origin.to.module);
+      }
+      catch (dictonary::unknown &)
+      {
+        origin.to.module = ed::reserved::module::ME;
+      }
+
   if (origin.event >= ed::reserved::event::FIRST_ALLOWED)
     origin.event = events.Global2Local(origin.event);
 
@@ -92,4 +109,13 @@ void module::OnMessage(raw_message origin)
   }
   
   (*handler)(origin);
+}
+
+message_destination module::MyLocation() const
+{
+  return
+  {
+    singletone_connector.global_instance_id,
+    global_module_id
+  };
 }

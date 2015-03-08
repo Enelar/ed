@@ -7,6 +7,9 @@
     <Filter Include="structs\messages">
       <UniqueIdentifier>{79103f28-0109-4f01-9772-e431903b6b0c}</UniqueIdentifier>
     </Filter>
+    <Filter Include="helper">
+      <UniqueIdentifier>{9a55cdc3-5e96-4d08-b64b-87ce6f1e948b}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="structs\constants.h">
@@ -36,6 +39,18 @@
     <ClInclude Include="structs\vocabulary.hpp">
       <Filter>structs</Filter>
     </ClInclude>
+    <ClInclude Include="structs\messages\handshake.h">
+      <Filter>structs\messages</Filter>
+    </ClInclude>
+    <ClInclude Include="structs\semaphore.h">
+      <Filter>structs</Filter>
+    </ClInclude>
+    <ClInclude Include="contants_debug_strings.h">
+      <Filter>structs</Filter>
+    </ClInclude>
+    <ClInclude Include="translation_hook.h">
+      <Filter>helper</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="structs\message.cpp">
@@ -49,6 +64,15 @@
     </ClCompile>
     <ClCompile Include="structs\messages\up_message.cpp">
       <Filter>structs\messages</Filter>
+    </ClCompile>
+    <ClCompile Include="structs\messages\handshake.cpp">
+      <Filter>structs\messages</Filter>
+    </ClCompile>
+    <ClCompile Include="structs\semaphore.cpp">
+      <Filter>structs</Filter>
+    </ClCompile>
+    <ClCompile Include="constants_debug_string.cpp">
+      <Filter>structs</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

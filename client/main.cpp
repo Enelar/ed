@@ -6,14 +6,31 @@ using namespace std;
 
 #define _ED_CONNECTOR_DEFINED_
 #include "connector.h"
-static boost::asio::io_service io;
+boost::asio::io_service io;
 connector singletone_connector(io);
+
+#include "example_module.h"
+#include <thread>
+#include <iostream>
 
 int func(vector<string> &args)
 {
   if (args.size() == 0)
     return -1;
-  int port = boost::lexical_cast<int>(args[0]);
+  int port = 30000; // boost::lexical_cast<int>(args[1]);
+
+  singletone_connector.Connect("localhost", port);
+  example_module a;
+
+  a.Subscribe();
+  a.Emit();
+
+  while (true)
+  {
+    auto gift = singletone_connector.WaitForMessage();
+    std::cout << "We get gift too!!" << std::endl;
+  }
+
   return 0;
 }
 

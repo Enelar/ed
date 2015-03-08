@@ -18,8 +18,8 @@ class connector
     int port;
   } target;
 
-  boost::asio::ip::tcp::socket con;
   boost::asio::io_service &io;
+  boost::asio::ip::tcp::socket con;
 public:
   connector(boost::asio::io_service &);
   void Connect(string addr, int port);
@@ -32,6 +32,8 @@ public:
     int which_event,
     int handle_module,
     message_destination from = { ed::reserved::instance::BROADCAST, ed::reserved::module::BROADCAST });
+
+  bool OnMessage(raw_message);
 
 private:
   // event -> sorted vector of modules

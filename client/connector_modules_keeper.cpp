@@ -8,7 +8,7 @@ void connector::RegisterModule(int global_module_id, module *that)
 
   messages::_void gift;
   gift.event = ed::reserved::event::MODULE_UP;
-  gift.to.instance = ed::reserved::instance::BROADCAST;
+  gift.to.instance = ed::reserved::instance::CONTROLLER;
   gift.to.module = ed::reserved::module::HEART_BEAT;
   gift.from.instance = global_instance_id;
   gift.from.module = global_module_id;
@@ -20,7 +20,7 @@ void connector::UnregisterModule(int global_module_id)
 {
   messages::_void gift;
   gift.event = ed::reserved::event::MODULE_DOWN;
-  gift.to.instance = ed::reserved::instance::BROADCAST;
+  gift.to.instance = ed::reserved::instance::CONTROLLER;
   gift.to.module = ed::reserved::module::HEART_BEAT;
   gift.from.instance = global_instance_id;
   gift.from.module = global_module_id;

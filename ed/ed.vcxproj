@@ -11,21 +11,28 @@
     </ProjectConfiguration>
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="contants_debug_strings.h" />
     <ClInclude Include="structs\constants.h" />
     <ClInclude Include="structs\dictonary.h" />
     <ClInclude Include="structs\library.h" />
     <ClInclude Include="structs\message.h" />
+    <ClInclude Include="structs\messages\handshake.h" />
     <ClInclude Include="structs\messages\listen_message.h" />
     <ClInclude Include="structs\messages\simple_messages.h" />
     <ClInclude Include="structs\messages\translate.h" />
+    <ClInclude Include="structs\semaphore.h" />
     <ClInclude Include="structs\vocabulary.h" />
     <ClInclude Include="structs\vocabulary.hpp" />
+    <ClInclude Include="translation_hook.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="constants_debug_string.cpp" />
     <ClCompile Include="structs\message.cpp" />
+    <ClCompile Include="structs\messages\handshake.cpp" />
     <ClCompile Include="structs\messages\listen_message.cpp" />
     <ClCompile Include="structs\messages\simple_messages.cpp" />
     <ClCompile Include="structs\messages\up_message.cpp" />
+    <ClCompile Include="structs\semaphore.cpp" />
   </ItemGroup>
   <PropertyGroup Label="Globals">
     <ProjectGuid>{F5C3461B-4886-4721-9ACF-8F84B915C347}</ProjectGuid>

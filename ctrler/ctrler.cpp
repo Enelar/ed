@@ -1,10 +1,21 @@
 #include "ctrler.h"
+#include <iostream>
+#include <ed/structs/messages/handshake.h>
 
-ctrler::ctrler(int port)
-  : core(*this)
+using namespace boost::asio::ip;
+ctrler::ctrler(boost::asio::io_service &_io, int port)
+  : core(*this), accept_io(_io), accept_socket(accept_io, tcp::endpoint(address::from_string("0.0.0.0"), port))
 {
+  names.events.next_free = ed::reserved::event::FIRST_ALLOWED;
+  names.modules.next_free = ed::reserved::module::FIRST_ALLOWED;
+  free_connection_id = ed::reserved::instance::FIRST_ALLOWED;
+
+
   accept_future = async(&ctrler::AcceptThread, this, port);
   accept_future.wait_for(1ms);
+
+  message_future = async(&ctrler::MessageThread, this);
+  message_future.wait_for(1ms);
 }
 
 ctrler::~ctrler()
@@ -14,20 +25,40 @@ ctrler::~ctrler()
 
 void ctrler::AcceptThread(int port)
 {
+  semaphore_strict ready;
+  unique_ptr<tcp::socket> socket;
+
+  auto AcceptCallback = [&ready, this, &socket](const boost::system::error_code& error)
+  {
+    if (error)
+    {
+      ready.unlock();
+      return;
+    }
+
+    auto raii = mutex_connections.Lock();
+    connection new_connection(socket.release());
+    cout << "NEW CONNECTION: " << free_connection_id << endl;
+    connections.insert({ free_connection_id++, new_connection });
+
+    ready.unlock();
+  };
+
   while (!exit_flag)
   {
     this_thread::sleep_for(100ms);
     if (exit_flag)
       break;
-
-    auto new_connection = connection(true);
-    if (!new_connection)
+    if (!ready.try_lock())
       continue;
 
-    mutex_connections.lock();
-    connections.insert({free_connection_id++, new_connection});
-    mutex_connections.unlock();
+    if (socket)
+      throw "weird stuff here";
+
+    socket = make_unique<tcp::socket>(message_io);
+    accept_socket.async_accept(*socket, AcceptCallback);
   }
+  accept_socket.close();
 }
 
 void ctrler::Send(raw_message gift)
@@ -48,23 +79,74 @@ void ctrler::MessageThread()
   while (!exit_flag)
   {
     this_thread::sleep_for(100ms);
+    message_io.run();
     if (exit_flag)
       break;
 
-    mutex_connections.lock();
+    auto connection_guard = mutex_connections.Lock();
+    vector<int> to_remove;
     for (auto &customer : connections)
     {
-      auto &messages = customer.second.raw->received;
       auto id = customer.first;
-      while (messages.size())
+      auto &raw = customer.second.raw;
+      auto &messages = raw->received;
+
+      try
       {
-        auto gift = messages.front();
-        messages.pop_front();
-        OnMessage(id, gift);
+        // i dont care of performance
+        auto raii = raw->mutex_received.Lock();
+        while (messages.size())
+        {
+          auto gift = messages.front();
+          messages.pop_front();
+          if (customer.second.raw->handshake_required)
+          {
+            OnHandshake(id, gift);
+            customer.second.raw->handshake_required = false;
+            cout << "HEY! " << id << " JUST HANDSHAKED!!" << endl;
+          }
+          else
+            OnMessage(id, gift);
+        }
+      }
+      catch (const char *debug_message)
+      {
+        cout << debug_message << endl;
+        to_remove.push_back(id);
+      }
+      catch (const boost::system::system_error &e)
+      {
+        cout << "boost: " << e.what() << endl;
+        to_remove.push_back(id);
+      }
+      catch (...)
+      {
+        cout << "UNDEFINED EXCEPTION!" << endl;
+        to_remove.push_back(id);
+#ifdef _DEBUG
+        throw; // rethrow, we in debug.
+#endif
       }
     }
-    mutex_connections.unlock();
+
+    for (auto id : to_remove)
+    {
+      connections.erase(id);
+      cout << "FORCE DISCONNECT " << id << endl;
+    }
   }
+}
+
+void ctrler::OnHandshake(int id, messages::handshake gift)
+{
+  {
+    messages::handshake graceful_answer;
+    graceful_answer.to.instance = id;
+    Send(graceful_answer, id);
+  }
+
+  if (gift.payload.version != ed::reserved::protocol_version)
+    throw "sad by we should kick you...";
 }
 
 void ctrler::OnMessage(int id, raw_message message)
@@ -73,20 +155,25 @@ void ctrler::OnMessage(int id, raw_message message)
 
   if (message.to.instance != ed::reserved::instance::CONTROLLER)
   { // Just proxy message
+    cout << id << ":E\t("
+      << ed::reserved::module::DebugStrings(names.modules)[message.from.module] << ":"
+      << ed::reserved::event::DebugStrings(names.events)[message.event] << ")" << endl;
     switch (message.to.instance)
     {
     case ed::reserved::instance::BROADCAST:
-      for (auto &customer : connections)
-        Send(message, customer.first);
+      cout << "\tBROADCAST" << endl;
+      core.Transmit(message);
       break;
     case ed::reserved::instance::MASTER:
       throw "TODO;";
     default:
+      cout << "\tOK" << endl;
       Send(message, message.to.instance);
     }
     return;
   }
 
+  cout << id << ":\t";
   // Additional action required
   switch (message.event)
   {
@@ -102,4 +189,5 @@ void ctrler::OnMessage(int id, raw_message message)
     core.Up(message);
     break;
   }
+  cout << endl;
 }

@@ -2,7 +2,7 @@
 
 #include <boost/asio.hpp>
 #include <future>
-#include <mutex>
+#include <ed\structs\semaphore.h>
 
 using namespace std;
 
@@ -11,28 +11,39 @@ using namespace std;
 #include "connection.h"
 #include "dispatcher.h"
 
+namespace messages
+{
+  struct handshake;
+}
+
 class ctrler
 {
   library names;
 
-  int free_connection_id = ed::reserved::instance::FIRST_ALLOWED;
+  int free_connection_id;
   unordered_map<int, connection> connections;
   unordered_map<int, modules_container> exceptional_listen;
-           
+
   dispatcher core;
   friend class dispatcher;
+
+  boost::asio::io_service 
+    &accept_io, // async
+    message_io; // sync
+  boost::asio::ip::tcp::acceptor accept_socket;
 public:
-  ctrler(int port);
+  ctrler(boost::asio::io_service &, int port);
   ~ctrler();
 
   void Send(raw_message);
   void Send(raw_message, int instance);
 
   void OnMessage(int, raw_message);
+  void OnHandshake(int, ::messages::handshake);
 
 private:
   bool exit_flag = false;
-  mutex mutex_connections;
+  semaphore_strict mutex_connections;
   future<void> accept_future, message_future;
   void AcceptThread(int port);
   void MessageThread();
